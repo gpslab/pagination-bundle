@@ -96,5 +96,5 @@ public function listAction($page)
 
 {# display navigation #}
 <div class="navigation">
-    {{ pagination(pagination) }}
+    {{ pagination_render(pagination) }}
 </div>
