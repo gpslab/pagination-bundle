@@ -28,7 +28,7 @@ class Configuration implements ConfigurationInterface
                 ->scalarNode('max_navigate')
                     ->defaultValue(5)
                 ->end()
-                ->scalarNode('pagination')
+                ->scalarNode('template')
                     ->defaultValue('AnimeDbPaginationBundle::pagination.html.twig')
                 ->end()
             ->end()
