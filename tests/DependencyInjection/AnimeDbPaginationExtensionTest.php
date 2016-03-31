@@ -23,7 +23,6 @@ class AnimeDbPaginationExtensionTest extends \PHPUnit_Framework_TestCase
 {
     public function testLoad()
     {
-
         /* @var $container \PHPUnit_Framework_MockObject_MockObject|ContainerBuilder */
         $container = $this->getMock('\Symfony\Component\DependencyInjection\ContainerBuilder');
 

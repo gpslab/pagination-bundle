@@ -1,0 +1,23 @@
+<div class="pagination">
+    <nav>
+        {%- if pagination.first -%}
+            <a href="{{ pagination.first.link }}" title="{{ 'first.page'|trans }}">‹‹</a>
+        {%- endif -%}
+        {%- if pagination.prev -%}
+            <a href="{{ pagination.prev.link }}" title="{{ 'previous.page'|trans }}">←</a>
+        {%- endif -%}
+        {%- for item in pagination -%}
+            {%- if item.current -%}
+                <span title="{{ 'current.page'|trans }}">{{ item.page }}</span>
+            {%- else -%}
+                <a href="{{ item.link }}" title="{{ 'page.number'|trans({'%page%': item.page}) }}">{{ item.page }}</a>
+            {%- endif -%}
+        {%- endfor -%}
+        {%- if pagination.next -%}
+            <a href="{{ pagination.next.link }}" title="{{ 'next.page'|trans }}">→</a>
+        {%- endif -%}
+        {%- if pagination.last -%}
+            <a href="{{ pagination.last.link }}" title="{{ 'last.page'|trans }}">››</a>
+        {%- endif -%}
+    </nav>
+</div>
