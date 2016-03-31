@@ -1,0 +1,4 @@
+services:
+    pagination:
+        class: AnimeDb\Bundle\PaginationBundle\Service\Builder
+        arguments: [ '%pagination.max_navigate%' ]

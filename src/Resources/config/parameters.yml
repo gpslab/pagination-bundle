@@ -1,0 +1,2 @@
+parameters:
+    pagination.max_navigate: 5
