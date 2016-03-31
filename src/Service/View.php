@@ -26,12 +26,12 @@ class View implements \IteratorAggregate
     /**
      * @var Node|null
      */
-    protected $first = null;
+    protected $first;
 
     /**
      * @var Node|null
      */
-    protected $prev = null;
+    protected $prev;
 
     /**
      * @var Node
@@ -41,17 +41,17 @@ class View implements \IteratorAggregate
     /**
      * @var Node|null
      */
-    protected $next = null;
+    protected $next;
 
     /**
      * @var Node|null
      */
-    protected $last = null;
+    protected $last;
 
     /**
      * @var ArrayCollection|null
      */
-    protected $list = null;
+    protected $list;
 
     /**
      * @param Configuration $config
@@ -134,25 +134,23 @@ class View implements \IteratorAggregate
     }
 
     /**
-     * @return ArrayCollection|null
+     * @return ArrayCollection
      */
     public function getIterator()
     {
         if (!($this->list instanceof ArrayCollection)) {
             $this->list = new ArrayCollection();
 
-            if ($this->getTotal() <= 1) {
-                return $this->list;
-            }
+            if ($this->getTotal() > 1) {
+                list($page_from, $page_to) = $this->getNavigateRange();
 
-            list($page_from, $page_to) = $this->getNavigateRange();
-
-            // build list
-            for ($page = $page_from; $page <= $page_to; $page++) {
-                if ($page == $this->config->getCurrentPage()) {
-                    $this->list->add($this->getCurrent());
-                } else {
-                    $this->list->add(new Node($page, $this->buildLink($page)));
+                // build list
+                for ($page = $page_from; $page <= $page_to; $page++) {
+                    if ($page == $this->config->getCurrentPage()) {
+                        $this->list->add($this->getCurrent());
+                    } else {
+                        $this->list->add(new Node($page, $this->buildLink($page)));
+                    }
                 }
             }
         }
@@ -186,26 +184,27 @@ class View implements \IteratorAggregate
         // definition of offset to the left and to the right of the selected page
         $left_offset = floor(($this->config->getMaxNavigate() - 1) / 2);
         $right_offset = ceil(($this->config->getMaxNavigate() - 1) / 2);
+
         // adjustment, if the offset is too large left
         if ($this->config->getCurrentPage() - $left_offset < 1) {
             $offset = abs($this->config->getCurrentPage() - 1 - $left_offset);
             $left_offset = $left_offset - $offset;
             $right_offset = $right_offset + $offset;
         }
+
         // adjustment, if the offset is too large right
         if ($this->config->getCurrentPage() + $right_offset > $this->getTotal()) {
             $offset = abs($this->getTotal() - $this->config->getCurrentPage() - $right_offset);
             $left_offset = $left_offset + $offset;
             $right_offset = $right_offset - $offset;
         }
+
         // determining the first and last pages in paging based on the current page and offset
         $page_from = $this->config->getCurrentPage() - $left_offset;
-        $page_to = $this->config->getCurrentPage() + $right_offset;
-        $page_from = $page_from > 1 ? $page_from : 1;
 
         return [
-            $page_from,
-            $page_to
+            $page_from > 1 ? $page_from : 1,
+            $this->config->getCurrentPage() + $right_offset
         ];
     }
 }
