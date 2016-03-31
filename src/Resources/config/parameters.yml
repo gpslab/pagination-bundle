@@ -1,2 +1,3 @@
 parameters:
     pagination.max_navigate: 5
+    pagination.template: 'AnimeDbPaginationBundle::pagination.html.twig'

@@ -2,3 +2,9 @@ services:
     pagination:
         class: AnimeDb\Bundle\PaginationBundle\Service\Builder
         arguments: [ '%pagination.max_navigate%' ]
+
+    pagination.twig_extension:
+        class: AnimeDb\Bundle\PaginationBundle\Twig\Extension\PaginationExtension
+        arguments: [ '%pagination.template%' ]
+        tags:
+            - { name: twig.extension }
