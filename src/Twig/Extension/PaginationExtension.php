@@ -9,6 +9,7 @@
  */
 
 namespace AnimeDb\Bundle\PaginationBundle\Twig\Extension;
+
 use AnimeDb\Bundle\PaginationBundle\Service\Configuration;
 
 /**
@@ -63,8 +64,8 @@ class PaginationExtension extends \Twig_Extension
         return $env->render(
             $template ?: $this->template,
             array_merge(
-                ['pagination' => $pagination->getView()],
-                $view_params
+                $view_params,
+                ['pagination' => $pagination->getView()]
             )
         );
     }
