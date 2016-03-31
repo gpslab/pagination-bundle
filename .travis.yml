@@ -10,9 +10,10 @@ notifications:
     email: dev@anime-db.org
 
 install:
+    - phpenv config-rm xdebug.ini
     - composer self-update
     - composer --version
-    - composer install --dev --prefer-dist
+    - composer install --prefer-dist
 
 script:
     - phpunit --verbose --coverage-clover=coverage.clover
