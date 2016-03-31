@@ -10,7 +10,6 @@ notifications:
     email: dev@anime-db.org
 
 install:
-    - phpenv config-rm xdebug.ini
     - composer self-update
     - composer --version
     - composer install --prefer-dist
