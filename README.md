@@ -31,6 +31,16 @@ public function registerBundles()
 }
 ```
 
+### Configuration example
+
+You can configure default templates
+
+```yaml
+anime_db_pagination:
+    max_navigate: 5 # default page range used in pagination control
+    template: 'AnimeDbPaginationBundle::pagination.html.twig' # sliding pagination controls template
+```
+
 ## Usage
 
 ```php

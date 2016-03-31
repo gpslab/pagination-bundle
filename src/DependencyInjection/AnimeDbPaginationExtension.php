@@ -29,8 +29,12 @@ class AnimeDbPaginationExtension extends Extension
      */
     public function load(array $configs, ContainerBuilder $container)
     {
+        $config = $this->processConfiguration(new Configuration(), $configs);
+
+        $container->setParameter('pagination.max_navigate', $config['max_navigate']);
+        $container->setParameter('pagination.template', $config['template']);
+
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
-        $loader->load('parameters.yml');
         $loader->load('services.yml');
     }
 }
