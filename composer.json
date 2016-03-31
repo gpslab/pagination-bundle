@@ -1,0 +1,29 @@
+{
+  "name": "anime-db/pagination-bundle",
+  "license": "MIT",
+  "type": "library",
+  "description": "Pagination bundle",
+  "keywords": ["php", "pagination"],
+  "homepage": "http://github.com/anime-db/pagination-bundle",
+  "autoload": {
+    "psr-4": {
+      "AnimeDb\\Bundle\\PaginationBundle\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "AnimeDb\\Bundle\\PaginationBundle\\Tests\\": "tests/"
+    }
+  },
+  "require": {
+    "php": ">=5.4.0"
+  },
+  "require-dev": {
+    "symfony/dependency-injection": "2.8.*",
+    "symfony/config": "2.8.*",
+    "symfony/http-kernel": "2.8.*",
+    "symfony/expression-language": "2.8.*",
+    "doctrine/collections": "1.3.*"
+  },
+  "minimum-stability": "dev"
+}
