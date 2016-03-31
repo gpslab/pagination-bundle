@@ -62,7 +62,7 @@ public function listAction($page)
     // build pagination
     $pagination = $this->get('pagination')
         ->paginate(
-            ceil($per_page / $per_page), // total pages
+            ceil($total / $per_page), // total pages
             $page // correct page
         )
         ->setPageLink(function($page) use ($router) { // build page link
