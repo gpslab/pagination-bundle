@@ -48,25 +48,31 @@ anime_db_pagination:
 
 public function listAction($page)
 {
+    $per_page = 100; // articles per page
     $em = $this->get('doctrine.orm.entity_manager');
     $router = $this->get('router');
 
+    // get total articles
     $total = (int)$em->createQueryBuilder()
         ->select('COUNT(*)')
         ->from('AcmeDemoBundle:Article', 'a')
         ->getQuery()
         ->getSingleScalarResult();
 
+    // build pagination
     $pagination = $this->get('pagination')
-        ->paginate($total, $page)
-        ->setPageLink(function($page) use ($router) {
+        ->paginate(
+            ceil($per_page / $per_page), // total pages
+            $page // correct page
+        )
+        ->setPageLink(function($page) use ($router) { // build page link
             return $router->generate('article_list', ['page' => $page]);
         })
-        ->setFirstPageLink(function() use ($router) {
+        ->setFirstPageLink(function() use ($router) { // build link for first page
             return $router->generate('article_list');
         });
 
-    $per_page = 100; // articles per page
+    // get articles chunk
     $articles = $em->createQueryBuilder()
         ->select('*')
         ->from('AcmeDemoBundle:Article', 'a')
@@ -99,7 +105,7 @@ public function listAction($page)
 <tr {% if loop.index is odd %}class="color"{% endif %}>
     <td>{{ article.id }}</td>
     <td>{{ article.title }}</td>
-    <td>{{ article.date | date('Y-m-d') }}, {{ article.time | date('H:i:s') }}</td>
+    <td>{{ article.date|date('Y-m-d') }}, {{ article.time|date('H:i:s') }}</td>
 </tr>
 {% endfor %}
 </table>
