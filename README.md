@@ -68,9 +68,7 @@ public function listAction($page)
         ->setPageLink(function($page) use ($router) { // build page link
             return $router->generate('article_list', ['page' => $page]);
         })
-        ->setFirstPageLink(function() use ($router) { // build link for first page
-            return $router->generate('article_list');
-        });
+        ->setFirstPageLink($router->generate('article_list')); // build link for first page
 
     // get articles chunk
     $articles = $em->createQueryBuilder()
