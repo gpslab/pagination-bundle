@@ -11,6 +11,7 @@
 namespace AnimeDb\Bundle\PaginationBundle\Tests\Service;
 
 use AnimeDb\Bundle\PaginationBundle\Service\Configuration;
+use AnimeDb\Bundle\PaginationBundle\Service\NavigateRange;
 use AnimeDb\Bundle\PaginationBundle\Service\View;
 use AnimeDb\Bundle\PaginationBundle\Entity\Node;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -27,14 +28,27 @@ class ViewTest extends \PHPUnit_Framework_TestCase
     protected $config;
 
     /**
+     * @var \PHPUnit_Framework_MockObject_MockObject|NavigateRange
+     */
+    protected $range;
+
+    /**
      * @var View
      */
     protected $view;
 
     protected function setUp()
     {
-        $this->config = $this->getMock(Configuration::class);
-        $this->view = new View($this->config);
+        $this->config = $this
+            ->getMockBuilder(Configuration::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+        $this->range = $this
+            ->getMockBuilder(NavigateRange::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->view = new View($this->config, $this->range);
     }
 
     public function testGetTotal()
@@ -270,17 +284,7 @@ class ViewTest extends \PHPUnit_Framework_TestCase
     {
         return [
             [
-                1,
-                1,
-                5,
-                '%s',
-                null,
-                new ArrayCollection()
-            ],
-            [
                 2,
-                1,
-                5,
                 '/?page=%s',
                 null,
                 new ArrayCollection([
@@ -290,8 +294,6 @@ class ViewTest extends \PHPUnit_Framework_TestCase
             ],
             [
                 2,
-                2,
-                5,
                 '/?page=%s',
                 null,
                 new ArrayCollection([
@@ -301,8 +303,6 @@ class ViewTest extends \PHPUnit_Framework_TestCase
             ],
             [
                 10,
-                1,
-                5,
                 '/?page=%s',
                 null,
                 new ArrayCollection([
@@ -315,8 +315,6 @@ class ViewTest extends \PHPUnit_Framework_TestCase
             ],
             [
                 10,
-                10,
-                5,
                 '/?page=%s',
                 null,
                 new ArrayCollection([
@@ -329,8 +327,6 @@ class ViewTest extends \PHPUnit_Framework_TestCase
             ],
             [
                 10,
-                5,
-                5,
                 '/?page=%s',
                 null,
                 new ArrayCollection([
@@ -343,8 +339,6 @@ class ViewTest extends \PHPUnit_Framework_TestCase
             ],
             [
                 10,
-                5,
-                4,
                 function ($number) {
                     return sprintf('/?page=%s', $number);
                 },
@@ -363,34 +357,82 @@ class ViewTest extends \PHPUnit_Framework_TestCase
      * @dataProvider getNodes
      *
      * @param int $total_pages
-     * @param int $current_page
-     * @param int $max_navigate
      * @param string|\Closure $page_link
      * @param string $first_page_link
      * @param ArrayCollection $list
      */
-    public function testGetIterator($total_pages, $current_page, $max_navigate, $page_link, $first_page_link, $list)
+    public function testGetIterator($total_pages, $page_link, $first_page_link, $list)
     {
+        $current_page = 1;
+        foreach ($list as $node) {
+            /** @var $node Node */
+            if ($node->isCurrent()) {
+                $current_page = $node->getPage();
+            }
+        }
+
+        $left_offset = $current_page - $list->first()->getPage();
+        $right_offset = $list->last()->getPage() - $current_page;
+
+        if ($list->first()->getPage() == 1) {
+            $this->config
+                ->expects($this->once())
+                ->method('getFirstPageLink')
+                ->will($this->returnValue($first_page_link));
+        } else {
+            $this->config
+                ->expects($this->never())
+                ->method('getFirstPageLink');
+        }
+
         $this->config
-            ->expects($this->any())
+            ->expects($this->once())
             ->method('getTotalPages')
             ->will($this->returnValue($total_pages));
         $this->config
-            ->expects($this->any())
+            ->expects($this->atLeastOnce())
             ->method('getCurrentPage')
             ->will($this->returnValue($current_page));
         $this->config
-            ->expects($this->any())
-            ->method('getMaxNavigate')
-            ->will($this->returnValue($max_navigate));
-        $this->config
-            ->expects($this->any())
+            ->expects($this->atLeastOnce())
             ->method('getPageLink')
             ->will($this->returnValue($page_link));
-        $this->config
-            ->expects($this->any())
-            ->method('getFirstPageLink')
-            ->will($this->returnValue($first_page_link));
+
+        $this->range
+            ->expects($this->once())
+            ->method('getLeftOffset')
+            ->will($this->returnValue($left_offset));
+        $this->range
+            ->expects($this->once())
+            ->method('getRightOffset')
+            ->will($this->returnValue($right_offset));
+
         $this->assertEquals($list, $this->view->getIterator());
+    }
+
+    public function testGetIteratorEmpty()
+    {
+        $this->config
+            ->expects($this->once())
+            ->method('getTotalPages')
+            ->will($this->returnValue(1));
+        $this->config
+            ->expects($this->never())
+            ->method('getCurrentPage');
+        $this->config
+            ->expects($this->never())
+            ->method('getPageLink');
+        $this->config
+            ->expects($this->never())
+            ->method('getFirstPageLink');
+
+        $this->range
+            ->expects($this->never())
+            ->method('getLeftOffset');
+        $this->range
+            ->expects($this->never())
+            ->method('getRightOffset');
+
+        $this->assertEquals(new ArrayCollection(), $this->view->getIterator());
     }
 }

@@ -192,7 +192,7 @@ class Configuration
     public function getView()
     {
         if (!$this->view) {
-            $this->view = new View($this);
+            $this->view = new View($this, new NavigateRange($this));
         }
         return $this->view;
     }

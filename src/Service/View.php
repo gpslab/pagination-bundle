@@ -24,6 +24,11 @@ class View implements \IteratorAggregate
     protected $config;
 
     /**
+     * @var NavigateRange
+     */
+    protected $range;
+
+    /**
      * @var Node|null
      */
     protected $first;
@@ -55,9 +60,12 @@ class View implements \IteratorAggregate
 
     /**
      * @param Configuration $config
+     * @param NavigateRange $range
      */
-    public function __construct(Configuration $config) {
+    public function __construct(Configuration $config, NavigateRange $range)
+    {
         $this->config = $config;
+        $this->range = $range;
     }
 
     /**
@@ -142,13 +150,17 @@ class View implements \IteratorAggregate
             $this->list = new ArrayCollection();
 
             if ($this->getTotal() > 1) {
-                list($page, $page_to) = $this->getNavigateRange();
-                for (; $page <= $page_to; $page++) {
+                // determining the first and last pages in paging based on the current page and offset
+                $page = $this->config->getCurrentPage() - $this->range->getLeftOffset();
+                $page_to = $this->config->getCurrentPage() + $this->range->getRightOffset();
+
+                while ($page <= $page_to) {
                     if ($page == $this->config->getCurrentPage()) {
                         $this->list->add($this->getCurrent());
                     } else {
                         $this->list->add(new Node($page, $this->buildLink($page)));
                     }
+                    $page++;
                 }
             }
         }
@@ -172,37 +184,5 @@ class View implements \IteratorAggregate
         } else {
             return sprintf($this->config->getPageLink(), $page);
         }
-    }
-
-    /**
-     * @return int[]
-     */
-    protected function getNavigateRange()
-    {
-        // definition of offset to the left and to the right of the selected page
-        $left_offset = floor(($this->config->getMaxNavigate() - 1) / 2);
-        $right_offset = ceil(($this->config->getMaxNavigate() - 1) / 2);
-
-        // adjustment, if the offset is too large left
-        if ($this->config->getCurrentPage() - $left_offset < 1) {
-            $offset = abs($this->config->getCurrentPage() - 1 - $left_offset);
-            $left_offset = $left_offset - $offset;
-            $right_offset = $right_offset + $offset;
-        }
-
-        // adjustment, if the offset is too large right
-        if ($this->config->getCurrentPage() + $right_offset > $this->getTotal()) {
-            $offset = abs($this->getTotal() - $this->config->getCurrentPage() - $right_offset);
-            $left_offset = $left_offset + $offset;
-            $right_offset = $right_offset - $offset;
-        }
-
-        // determining the first and last pages in paging based on the current page and offset
-        $page_from = $this->config->getCurrentPage() - $left_offset;
-
-        return [
-            $page_from > 1 ? $page_from : 1,
-            $this->config->getCurrentPage() + $right_offset
-        ];
     }
 }
