@@ -61,19 +61,19 @@ class NavigateRange
     {
         if (($this->left_offset < 0 || $this->right_offset < 0) && $this->config->getTotalPages() > 1) {
             // definition of offset to the left and to the right of the selected page
-            $this->left_offset = (int)floor(($this->config->getMaxNavigate() - 1) / 2);
-            $this->right_offset = (int)ceil(($this->config->getMaxNavigate() - 1) / 2);
+            $this->left_offset = (int) floor(($this->config->getMaxNavigate() - 1) / 2);
+            $this->right_offset = (int) ceil(($this->config->getMaxNavigate() - 1) / 2);
 
             // adjustment, if the offset is too large left
             if ($this->config->getCurrentPage() - $this->left_offset < 1) {
-                $offset = (int)abs($this->config->getCurrentPage() - 1 - $this->left_offset);
+                $offset = (int) abs($this->config->getCurrentPage() - 1 - $this->left_offset);
                 $this->left_offset = $this->left_offset - $offset;
                 $this->right_offset = $this->right_offset + $offset;
             }
 
             // adjustment, if the offset is too large right
             if ($this->config->getCurrentPage() + $this->right_offset > $this->config->getTotalPages()) {
-                $offset = (int)abs($this->config->getTotalPages() - $this->config->getCurrentPage() - $this->right_offset);
+                $offset = (int) abs($this->config->getTotalPages() - $this->config->getCurrentPage() - $this->right_offset);
                 $this->left_offset = $this->left_offset + $offset;
                 $this->right_offset = $this->right_offset - $offset;
             }
