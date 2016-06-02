@@ -40,7 +40,7 @@ class PaginationExtensionTest extends \PHPUnit_Framework_TestCase
 
         $this->assertInternalType('array', $functions);
         $this->assertEquals(1, count($functions));
-        $this->assertInstanceOf(\Twig_Function::class, $functions[0]);
+        $this->assertInstanceOf(\Twig_SimpleFunction::class, $functions[0]);
     }
 
     public function testRender()
