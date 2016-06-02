@@ -3,7 +3,7 @@
   "license": "MIT",
   "type": "library",
   "description": "Pagination bundle",
-  "keywords": ["php", "pagination"],
+  "keywords": ["php", "pagination", "symfony", "doctrine"],
   "homepage": "http://github.com/anime-db/pagination-bundle",
   "autoload": {
     "psr-4": {

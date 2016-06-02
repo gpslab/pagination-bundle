@@ -10,6 +10,8 @@
 
 namespace AnimeDb\Bundle\PaginationBundle\Service;
 
+use Doctrine\ORM\QueryBuilder;
+
 /**
  * @package AnimeDb\Bundle\PaginationBundle\Service
  * @author  Peter Gribanov <info@peter-gribanov.ru>
@@ -37,8 +39,32 @@ class Builder
      *
      * @return Configuration
      */
-    public function paginate($total_pages = 0, $current_page = 1) {
+    public function paginate($total_pages = 0, $current_page = 1)
+    {
         return (new Configuration($total_pages, $current_page))
+            ->setMaxNavigate($this->max_navigate);
+    }
+
+    /**
+     * @param QueryBuilder $query
+     * @param int $per_page
+     * @param int $current_page
+     *
+     * @return Configuration
+     */
+    public function paginateQuery(QueryBuilder $query, $per_page, $current_page = 1)
+    {
+        $counter = clone $query;
+        $total = $counter
+            ->select(sprintf('COUNT(%s)', current($query->getRootAliases())))
+            ->getQuery()
+            ->getSingleScalarResult();
+
+        $query
+            ->setFirstResult(($current_page - 1) * $per_page)
+            ->setMaxResults($per_page);
+
+        return (new Configuration($total, $current_page))
             ->setMaxNavigate($this->max_navigate);
     }
 }

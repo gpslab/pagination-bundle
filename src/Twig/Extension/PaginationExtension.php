@@ -37,7 +37,7 @@ class PaginationExtension extends \Twig_Extension
     public function getFunctions()
     {
         return [
-            new \Twig_SimpleFunction(
+            new \Twig_Function(
                 'pagination_render',
                 [$this, 'render'],
                 ['is_safe' => ['html'], 'needs_environment' => true]
