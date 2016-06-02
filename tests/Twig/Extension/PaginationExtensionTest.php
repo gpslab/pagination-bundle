@@ -40,7 +40,7 @@ class PaginationExtensionTest extends \PHPUnit_Framework_TestCase
 
         $this->assertInternalType('array', $functions);
         $this->assertEquals(1, count($functions));
-        $this->assertInstanceOf('\Twig_SimpleFunction', $functions[0]);
+        $this->assertInstanceOf(\Twig_Function::class, $functions[0]);
     }
 
     public function testRender()
@@ -49,7 +49,7 @@ class PaginationExtensionTest extends \PHPUnit_Framework_TestCase
         $view = 'baz';
         /* @var $env \PHPUnit_Framework_MockObject_MockObject|\Twig_Environment */
         $env = $this
-            ->getMockBuilder('\Twig_Environment')
+            ->getMockBuilder(\Twig_Environment::class)
             ->disableOriginalConstructor()
             ->getMock();
         $env
@@ -60,7 +60,7 @@ class PaginationExtensionTest extends \PHPUnit_Framework_TestCase
 
         /* @var $configuration \PHPUnit_Framework_MockObject_MockObject|Configuration */
         $configuration = $this
-            ->getMockBuilder('\AnimeDb\Bundle\PaginationBundle\Service\Configuration')
+            ->getMockBuilder(Configuration::class)
             ->disableOriginalConstructor()
             ->getMock();
         $configuration
@@ -81,7 +81,7 @@ class PaginationExtensionTest extends \PHPUnit_Framework_TestCase
         $template = 'my_template';
         /* @var $env \PHPUnit_Framework_MockObject_MockObject|\Twig_Environment */
         $env = $this
-            ->getMockBuilder('\Twig_Environment')
+            ->getMockBuilder(\Twig_Environment::class)
             ->disableOriginalConstructor()
             ->getMock();
         $env
@@ -92,7 +92,7 @@ class PaginationExtensionTest extends \PHPUnit_Framework_TestCase
 
         /* @var $configuration \PHPUnit_Framework_MockObject_MockObject|Configuration */
         $configuration = $this
-            ->getMockBuilder('\AnimeDb\Bundle\PaginationBundle\Service\Configuration')
+            ->getMockBuilder(Configuration::class)
             ->disableOriginalConstructor()
             ->getMock();
         $configuration
@@ -114,7 +114,7 @@ class PaginationExtensionTest extends \PHPUnit_Framework_TestCase
         $view = 'baz';
         /* @var $env \PHPUnit_Framework_MockObject_MockObject|\Twig_Environment */
         $env = $this
-            ->getMockBuilder('\Twig_Environment')
+            ->getMockBuilder(\Twig_Environment::class)
             ->disableOriginalConstructor()
             ->getMock();
         $env
@@ -125,7 +125,7 @@ class PaginationExtensionTest extends \PHPUnit_Framework_TestCase
 
         /* @var $configuration \PHPUnit_Framework_MockObject_MockObject|Configuration */
         $configuration = $this
-            ->getMockBuilder('\AnimeDb\Bundle\PaginationBundle\Service\Configuration')
+            ->getMockBuilder(Configuration::class)
             ->disableOriginalConstructor()
             ->getMock();
         $configuration
