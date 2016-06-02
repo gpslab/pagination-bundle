@@ -290,7 +290,7 @@ class ViewTest extends \PHPUnit_Framework_TestCase
                 new ArrayCollection([
                     new Node(1, '/?page=1', true),
                     new Node(2, '/?page=2'),
-                ])
+                ]),
             ],
             [
                 2,
@@ -299,7 +299,7 @@ class ViewTest extends \PHPUnit_Framework_TestCase
                 new ArrayCollection([
                     new Node(1, '/?page=1'),
                     new Node(2, '/?page=2', true),
-                ])
+                ]),
             ],
             [
                 10,
@@ -311,7 +311,7 @@ class ViewTest extends \PHPUnit_Framework_TestCase
                     new Node(3, '/?page=3'),
                     new Node(4, '/?page=4'),
                     new Node(5, '/?page=5'),
-                ])
+                ]),
             ],
             [
                 10,
@@ -323,7 +323,7 @@ class ViewTest extends \PHPUnit_Framework_TestCase
                     new Node(8, '/?page=8'),
                     new Node(9, '/?page=9'),
                     new Node(10, '/?page=10', true),
-                ])
+                ]),
             ],
             [
                 10,
@@ -335,7 +335,7 @@ class ViewTest extends \PHPUnit_Framework_TestCase
                     new Node(5, '/?page=5', true),
                     new Node(6, '/?page=6'),
                     new Node(7, '/?page=7'),
-                ])
+                ]),
             ],
             [
                 10,
@@ -348,8 +348,8 @@ class ViewTest extends \PHPUnit_Framework_TestCase
                     new Node(5, '/?page=5', true),
                     new Node(6, '/?page=6'),
                     new Node(7, '/?page=7'),
-                ])
-            ]
+                ]),
+            ],
         ];
     }
 
