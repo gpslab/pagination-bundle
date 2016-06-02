@@ -44,68 +44,146 @@ anime_db_pagination:
 ## Usage
 
 ```php
-// Acme\DemoBundle\Controller\ArticleController.php
+namespace Acme\DemoBundle\Controller;
 
-public function listAction($page)
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration;
+
+class ArticleController extends Controller
 {
-    $per_page = 100; // articles per page
-    $em = $this->get('doctrine.orm.entity_manager');
-    $router = $this->get('router');
+    /**
+     * @Configuration\Route("/article/", name="article_index")
+     * @Configuration\Method({"GET"})
+     *
+     * @param Request $request
+     *
+     * @return Response
+     */
+    public function indexAction(Request $request)
+    {
+        $per_page = 100; // articles per page
+        $em = $this->get('doctrine.orm.entity_manager');
+        $router = $this->get('router');
 
-    // get total articles
-    $total = (int)$em->createQueryBuilder()
-        ->select('COUNT(*)')
-        ->from('AcmeDemoBundle:Article', 'a')
-        ->getQuery()
-        ->getSingleScalarResult();
+        // get total articles
+        $total = (int)$em
+            ->createQueryBuilder()
+            ->select('COUNT(*)')
+            ->from('AcmeDemoBundle:Article', 'a')
+            ->getQuery()
+            ->getSingleScalarResult();
 
-    // build pagination
-    $pagination = $this->get('pagination')
-        ->paginate(
-            ceil($total / $per_page), // total pages
-            $page // correct page
-        )
-        ->setPageLink(function($page) use ($router) { // build page link
-            return $router->generate('article_list', ['page' => $page]);
-        })
-        ->setFirstPageLink($router->generate('article_list')); // build link for first page
+        // build pagination
+        $pagination = $this
+            ->get('pagination')
+            ->paginate(
+                ceil($total / $per_page), // total pages
+                $request->query->get('page') // correct page
+            )
+            ->setPageLink(function($page) use ($router) { // build page link
+                return $router->generate('article_index', ['page' => $page]);
+            })
+            ->setFirstPageLink($router->generate('article_index')); // build link for first page
 
-    // get articles chunk
-    $articles = $em->createQueryBuilder()
-        ->select('*')
-        ->from('AcmeDemoBundle:Article', 'a')
-        ->setFirstResult(($pagination->getCurrentPage() - 1) * $per_page)
-        ->setMaxResults($per_page)
-        ->getQuery()
-        ->getResult();
+        // get articles chunk
+        $articles = $em
+            ->createQueryBuilder()
+            ->select('*')
+            ->from('AcmeDemoBundle:Article', 'a')
+            ->setFirstResult(($pagination->getCurrentPage() - 1) * $per_page)
+            ->setMaxResults($per_page)
+            ->getQuery()
+            ->getResult();
 
-    // parameters to template
-    return $this->render('AcmeDemoBundle:Article:list.html.twig', [
-        'total' => $total,
-        'articles' => $articles,
-        'pagination' => $pagination
-    ]);
+        // parameters to template
+        return $this->render('AcmeDemoBundle:Article:index.html.twig', [
+            'total' => $total,
+            'articles' => $articles,
+            'pagination' => $pagination
+        ]);
+    }
 }
 ```
 
+### From QueryBuilder
+
+```php
+namespace Acme\DemoBundle\Controller;
+
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration;
+use Acme\DemoBundle\Entity\Article;
+
+class ArticleController extends Controller
+{
+    /**
+     * @var int
+     */
+    const PER_PAGE = 100;
+
+    /**
+     * @Configuration\Route("/article/", name="article_index")
+     * @Configuration\Method({"GET"})
+     *
+     * @param Request $request
+     *
+     * @return Response
+     */
+    public function indexAction(Request $request)
+    {
+        // create get articles query
+        // would be better move this query to repository class
+        $query = $this
+            ->getDoctrine()
+            ->getRepository('AcmeDemoBundle:Article')
+            ->createQueryBuilder('a')
+            ->where('a.status = :status')
+            ->setParameter('status', Article::STATUS_ENABLED);
+
+        // build pagination
+        $pagination = $this
+            ->get('pagination')
+            ->paginateQuery(
+                $query, // query
+                self::PER_PAGE, // articles per page
+                $request->query->get('page') // correct page
+            )
+            ->setPageLink(function($page) { // build page link
+                return $this->generateUrl('article_index', ['page' => $page]);
+            })
+            ->setFirstPageLink($this->generateUrl('article_index')); // build link for first page
+
+        // parameters to template
+        return $this->render('AcmeDemoBundle:Article:index.html.twig', [
+            'total' => $pagination->getTotalPages(), // total pages
+            'articles' => $query->getQuery()->getResult(), // get articles chunk
+            'pagination' => $pagination
+        ]);
+    }
+}
+```
 
 ### View
 
 ```twig
-{# total items count #}
-<div class="count">
+{# total items #}
+<div class="total">
     {{ total }}
 </div>
-<table>
 
-{# table body #}
-{% for article in articles %}
-<tr {% if loop.index is odd %}class="color"{% endif %}>
-    <td>{{ article.id }}</td>
-    <td>{{ article.title }}</td>
-    <td>{{ article.date|date('Y-m-d') }}, {{ article.time|date('H:i:s') }}</td>
-</tr>
-{% endfor %}
+{# list articles #}
+<table>
+    {% for article in articles %}
+        <tr{% if loop.index is odd %} class="color"{% endif %}>
+            <td>{{ article.id }}</td>
+            <td>{{ article.title }}</td>
+            <td>{{ article.date|date('Y-m-d, H:i:s') }}</td>
+        </tr>
+    {% endfor %}
 </table>
 
 {# display navigation #}
