@@ -5,6 +5,7 @@
 [![Code Coverage](https://scrutinizer-ci.com/g/anime-db/pagination-bundle/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/anime-db/pagination-bundle/?branch=master)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/anime-db/pagination-bundle/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/anime-db/pagination-bundle/?branch=master)
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/47d29f1b-830d-4c11-aaa4-01031f23a8ea/mini.png)](https://insight.sensiolabs.com/projects/47d29f1b-830d-4c11-aaa4-01031f23a8ea)
+[![Dependency Status](https://www.versioneye.com/user/projects/5746f684ce8d0e004505f4db/badge.svg?style=flat)](https://www.versioneye.com/user/projects/5746f684ce8d0e004505f4db)
 [![License](https://poser.pugx.org/anime-db/pagination-bundle/license.png)](https://packagist.org/packages/anime-db/pagination-bundle)
 
 # PaginationBundle
