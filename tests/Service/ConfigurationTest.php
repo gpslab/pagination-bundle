@@ -11,6 +11,7 @@
 namespace AnimeDb\Bundle\PaginationBundle\Tests\Service;
 
 use AnimeDb\Bundle\PaginationBundle\Service\Configuration;
+use AnimeDb\Bundle\PaginationBundle\Service\View;
 
 /**
  * @package AnimeDb\Bundle\PaginationBundle\Tests\Service
@@ -130,7 +131,7 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
     public function testGetView()
     {
         $view = $this->config->getView();
-        $this->assertInstanceOf('\AnimeDb\Bundle\PaginationBundle\Service\View', $view);
+        $this->assertInstanceOf(View::class, $view);
 
         // test lazy load
         $this->config->setPageLink('?p=%s');

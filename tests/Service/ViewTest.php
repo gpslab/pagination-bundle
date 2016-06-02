@@ -33,7 +33,7 @@ class ViewTest extends \PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-        $this->config = $this->getMock('\AnimeDb\Bundle\PaginationBundle\Service\Configuration');
+        $this->config = $this->getMock(Configuration::class);
         $this->view = new View($this->config);
     }
 
@@ -137,7 +137,7 @@ class ViewTest extends \PHPUnit_Framework_TestCase
             ->will($this->returnValue($page_link));
 
         $node = $this->view->getFirst();
-        $this->assertInstanceOf('\AnimeDb\Bundle\PaginationBundle\Entity\Node', $node);
+        $this->assertInstanceOf(Node::class, $node);
         $this->assertEquals(1, $node->getPage());
         if ($first_page_link) {
             $this->assertEquals($first_page_link, $node->getLink());
@@ -167,7 +167,7 @@ class ViewTest extends \PHPUnit_Framework_TestCase
             ->will($this->returnValue($page_link));
 
         $node = $this->view->getPrev();
-        $this->assertInstanceOf('\AnimeDb\Bundle\PaginationBundle\Entity\Node', $node);
+        $this->assertInstanceOf(Node::class, $node);
         $this->assertEquals(4, $node->getPage());
         $this->assertEquals($this->getLink($page_link, 4), $node->getLink());
     }
@@ -194,7 +194,7 @@ class ViewTest extends \PHPUnit_Framework_TestCase
             ->will($this->returnValue($page_link));
 
         $node = $this->view->getCurrent();
-        $this->assertInstanceOf('\AnimeDb\Bundle\PaginationBundle\Entity\Node', $node);
+        $this->assertInstanceOf(Node::class, $node);
         $this->assertEquals(1, $node->getPage());
         if ($first_page_link) {
             $this->assertEquals($first_page_link, $node->getLink());
@@ -228,7 +228,7 @@ class ViewTest extends \PHPUnit_Framework_TestCase
             ->will($this->returnValue($page_link));
 
         $node = $this->view->getNext();
-        $this->assertInstanceOf('\AnimeDb\Bundle\PaginationBundle\Entity\Node', $node);
+        $this->assertInstanceOf(Node::class, $node);
         $this->assertEquals(6, $node->getPage());
         $this->assertEquals($this->getLink($page_link, 6), $node->getLink());
     }
@@ -258,7 +258,7 @@ class ViewTest extends \PHPUnit_Framework_TestCase
             ->will($this->returnValue($page_link));
 
         $node = $this->view->getLast();
-        $this->assertInstanceOf('\AnimeDb\Bundle\PaginationBundle\Entity\Node', $node);
+        $this->assertInstanceOf(Node::class, $node);
         $this->assertEquals(10, $node->getPage());
         $this->assertEquals($this->getLink($page_link, 10), $node->getLink());
     }
