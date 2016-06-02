@@ -66,14 +66,14 @@ class NavigateRange
 
             // adjustment, if the offset is too large left
             if ($this->config->getCurrentPage() - $this->left_offset < 1) {
-                $offset = abs($this->config->getCurrentPage() - 1 - $this->left_offset);
+                $offset = (int)abs($this->config->getCurrentPage() - 1 - $this->left_offset);
                 $this->left_offset = $this->left_offset - $offset;
                 $this->right_offset = $this->right_offset + $offset;
             }
 
             // adjustment, if the offset is too large right
             if ($this->config->getCurrentPage() + $this->right_offset > $this->config->getTotalPages()) {
-                $offset = abs($this->config->getTotalPages() - $this->config->getCurrentPage() - $this->right_offset);
+                $offset = (int)abs($this->config->getTotalPages() - $this->config->getCurrentPage() - $this->right_offset);
                 $this->left_offset = $this->left_offset + $offset;
                 $this->right_offset = $this->right_offset - $offset;
             }
