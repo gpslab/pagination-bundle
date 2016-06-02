@@ -65,7 +65,7 @@ class NavigateRangeTest extends \PHPUnit_Framework_TestCase
     public function testBuildOffset($max_navigate, $current_page, $total_pages, $left_offset, $right_offset)
     {
         $this->config
-            ->expects($this->atLeastOnce())
+            ->expects($this->exactly(2)) // test cache build result
             ->method('getMaxNavigate')
             ->will($this->returnValue($max_navigate));
         $this->config
