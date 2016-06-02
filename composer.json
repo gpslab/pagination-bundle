@@ -24,5 +24,5 @@
   "require-dev": {
     "symfony/expression-language": "~2.4|~3.0"
   },
-  "minimum-stability": "dev"
+  "minimum-stability": "stable"
 }
