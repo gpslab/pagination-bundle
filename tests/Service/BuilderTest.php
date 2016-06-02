@@ -11,6 +11,8 @@
 namespace AnimeDb\Bundle\PaginationBundle\Tests\Service;
 
 use AnimeDb\Bundle\PaginationBundle\Service\Builder;
+use Doctrine\ORM\QueryBuilder;
+use Doctrine\ORM\AbstractQuery;
 
 /**
  * @package AnimeDb\Bundle\PaginationBundle\Tests\Service
@@ -42,6 +44,75 @@ class BuilderTest extends \PHPUnit_Framework_TestCase
         $config = $builder->paginate($total_pages, $current_page);
         $this->assertEquals($max_navigate, $config->getMaxNavigate());
         $this->assertEquals($total_pages, $config->getTotalPages());
+        $this->assertEquals($current_page, $config->getCurrentPage());
+    }
+
+    /**
+     * @return array
+     */
+    public function getPaginateQueryData()
+    {
+        return [
+            [5, 5, 10, 1],
+            [10, 10, 150, 7],
+        ];
+    }
+
+    /**
+     * @dataProvider getPaginateQueryData
+     *
+     * @param int $max_navigate
+     * @param int $per_page
+     * @param int $total
+     * @param int $current_page
+     */
+    public function testPaginateQuery($max_navigate, $per_page, $total, $current_page)
+    {
+        /** @var $query \PHPUnit_Framework_MockObject_MockObject|AbstractQuery */
+        $query = $this
+            ->getMockBuilder(AbstractQuery::class)
+            ->disableOriginalConstructor()
+            ->setMethods(['getSingleScalarResult'])
+            ->getMockForAbstractClass();
+        $query
+            ->expects($this->once())
+            ->method('getSingleScalarResult')
+            ->will($this->returnValue($total));
+
+        /** @var $query_builder \PHPUnit_Framework_MockObject_MockObject|QueryBuilder */
+        $query_builder = $this
+            ->getMockBuilder(QueryBuilder::class)
+            ->disableOriginalConstructor()
+            ->disableOriginalClone()
+            ->getMock();
+        $query_builder
+            ->expects($this->once())
+            ->method('getRootAliases')
+            ->will($this->returnValue(['a', 'b']));
+        $query_builder
+            ->expects($this->once())
+            ->method('select')
+            ->with('COUNT(a)')
+            ->will($this->returnSelf());
+        $query_builder
+            ->expects($this->once())
+            ->method('setFirstResult')
+            ->with(($current_page - 1) * $per_page)
+            ->will($this->returnSelf());
+        $query_builder
+            ->expects($this->once())
+            ->method('setMaxResults')
+            ->with($per_page)
+            ->will($this->returnSelf());
+        $query_builder
+            ->expects($this->once())
+            ->method('getQuery')
+            ->will($this->returnValue($query));
+
+        $builder = new Builder($max_navigate);
+        $config = $builder->paginateQuery($query_builder, $per_page, $current_page);
+        $this->assertEquals($max_navigate, $config->getMaxNavigate());
+        $this->assertEquals(ceil($total / $per_page), $config->getTotalPages());
         $this->assertEquals($current_page, $config->getCurrentPage());
     }
 }
