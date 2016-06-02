@@ -81,14 +81,29 @@ class NavigateRangeTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($right_offset, $this->range->getRightOffset());
     }
 
-    public function testBuildOffsetEmpty()
+    /**
+     * @expectedException \RangeException
+     */
+    public function testGetLeftOffsetEmpty()
     {
         $this->config
             ->expects($this->atLeastOnce())
             ->method('getTotalPages')
             ->will($this->returnValue(1));
 
-        $this->assertEquals(-1, $this->range->getLeftOffset());
-        $this->assertEquals(-1, $this->range->getRightOffset());
+        $this->range->getLeftOffset();
+    }
+
+    /**
+     * @expectedException \RangeException
+     */
+    public function testGetRightOffsetEmpty()
+    {
+        $this->config
+            ->expects($this->atLeastOnce())
+            ->method('getTotalPages')
+            ->will($this->returnValue(1));
+
+        $this->range->getRightOffset();
     }
 }
