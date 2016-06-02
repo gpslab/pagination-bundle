@@ -65,8 +65,8 @@ class Configuration
      */
     public function __construct($total_pages = 0, $current_page = 1)
     {
-        $this->current_page = $current_page;
-        $this->total_pages = $total_pages;
+        $this->setCurrentPage($current_page);
+        $this->setTotalPages($total_pages);
     }
 
     /**
