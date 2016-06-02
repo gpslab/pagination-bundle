@@ -64,7 +64,7 @@ class Builder
             ->setFirstResult(($current_page - 1) * $per_page)
             ->setMaxResults($per_page);
 
-        return (new Configuration($total, $current_page))
+        return (new Configuration(ceil($total / $per_page), $current_page))
             ->setMaxNavigate($this->max_navigate);
     }
 }
