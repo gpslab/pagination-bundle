@@ -21,7 +21,7 @@ class BuilderTest extends \PHPUnit_Framework_TestCase
     /**
      * @return array
      */
-    public function getConfigs()
+    public function getPaginateData()
     {
         return [
             [5, 10, 1],
@@ -30,13 +30,13 @@ class BuilderTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @dataProvider getConfigs
+     * @dataProvider getPaginateData
      *
-     * @param integer $max_navigate
-     * @param integer $total_pages
-     * @param integer $current_page
+     * @param int $max_navigate
+     * @param int $total_pages
+     * @param int $current_page
      */
-    public function testCreate($max_navigate, $total_pages, $current_page)
+    public function testPaginate($max_navigate, $total_pages, $current_page)
     {
         $builder = new Builder($max_navigate);
         $config = $builder->paginate($total_pages, $current_page);

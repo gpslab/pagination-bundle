@@ -43,8 +43,8 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
     /**
      * @dataProvider getConfigs
      *
-     * @param integer $total_pages
-     * @param integer $current_page
+     * @param int $total_pages
+     * @param int $current_page
      */
     public function testConstruct($total_pages, $current_page)
     {
@@ -56,8 +56,8 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
     /**
      * @dataProvider getConfigs
      *
-     * @param integer $total_pages
-     * @param integer $current_page
+     * @param int $total_pages
+     * @param int $current_page
      */
     public function testCreate($total_pages, $current_page)
     {

@@ -32,9 +32,9 @@ class NodeTest extends \PHPUnit_Framework_TestCase
     /**
      * @dataProvider getNodes
      *
-     * @param integer $page
+     * @param int $page
      * @param string $link
-     * @param boolean $is_current
+     * @param bool $is_current
      */
     public function test($page, $link, $is_current)
     {

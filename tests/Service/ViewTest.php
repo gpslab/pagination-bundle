@@ -106,7 +106,7 @@ class ViewTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @param string|callback $page_link
-     * @param integer $number
+     * @param int $number
      *
      * @return string
      */
@@ -362,9 +362,9 @@ class ViewTest extends \PHPUnit_Framework_TestCase
     /**
      * @dataProvider getNodes
      *
-     * @param integer $total_pages
-     * @param integer $current_page
-     * @param integer $max_navigate
+     * @param int $total_pages
+     * @param int $current_page
+     * @param int $max_navigate
      * @param string|\Closure $page_link
      * @param string $first_page_link
      * @param ArrayCollection $list
