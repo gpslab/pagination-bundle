@@ -33,15 +33,13 @@ class PaginationExtension extends \Twig_Extension
         return [
             new \Twig_SimpleFunction(
                 'pagination_render',
-                [$this, 'render'],
+                [$this, 'renderPagination'],
                 ['is_safe' => ['html'], 'needs_environment' => true]
             ),
         ];
     }
 
     /**
-     * Renders the pagination template.
-     *
      * @param \Twig_Environment $env
      * @param Configuration $pagination
      * @param string $template
@@ -49,7 +47,7 @@ class PaginationExtension extends \Twig_Extension
      *
      * @return string
      */
-    public function render(
+    public function renderPagination(
         \Twig_Environment $env,
         Configuration $pagination,
         $template = null,
