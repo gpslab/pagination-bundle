@@ -1,25 +1,22 @@
 <?php
 /**
- * AnimeDb package
+ * AnimeDb package.
  *
- * @package   AnimeDb
  * @author    Peter Gribanov <info@peter-gribanov.ru>
  * @copyright Copyright (c) 2011, Peter Gribanov
  * @license   http://opensource.org/licenses/MIT
  */
-
 namespace AnimeDb\Bundle\PaginationBundle\Service;
 
 use Doctrine\ORM\QueryBuilder;
 
 /**
- * @package AnimeDb\Bundle\PaginationBundle\Service
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
 class Builder
 {
     /**
-     * The number of pages displayed in the navigation
+     * The number of pages displayed in the navigation.
      *
      * @var int
      */

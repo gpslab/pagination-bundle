@@ -1,17 +1,15 @@
 <?php
 /**
- * AnimeDb package
+ * AnimeDb package.
  *
- * @package   AnimeDb
  * @author    Peter Gribanov <info@peter-gribanov.ru>
  * @copyright Copyright (c) 2011, Peter Gribanov
  * @license   http://opensource.org/licenses/MIT
  */
-
 namespace AnimeDb\Bundle\PaginationBundle\Tests\Service;
 
-use AnimeDb\Bundle\PaginationBundle\Service\NavigateRange;
 use AnimeDb\Bundle\PaginationBundle\Service\Configuration;
+use AnimeDb\Bundle\PaginationBundle\Service\NavigateRange;
 
 class NavigateRangeTest extends \PHPUnit_Framework_TestCase
 {

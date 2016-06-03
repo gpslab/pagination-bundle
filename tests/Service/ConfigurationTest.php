@@ -1,20 +1,17 @@
 <?php
 /**
- * AnimeDb package
+ * AnimeDb package.
  *
- * @package   AnimeDb
  * @author    Peter Gribanov <info@peter-gribanov.ru>
  * @copyright Copyright (c) 2011, Peter Gribanov
  * @license   http://opensource.org/licenses/MIT
  */
-
 namespace AnimeDb\Bundle\PaginationBundle\Tests\Service;
 
 use AnimeDb\Bundle\PaginationBundle\Service\Configuration;
 use AnimeDb\Bundle\PaginationBundle\Service\View;
 
 /**
- * @package AnimeDb\Bundle\PaginationBundle\Tests\Service
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
 class ConfigurationTest extends \PHPUnit_Framework_TestCase
@@ -76,25 +73,25 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
                 150,
                 10,
                 'getTotalPages',
-                'setTotalPages'
+                'setTotalPages',
             ],
             [
                 33,
                 1,
                 'getCurrentPage',
-                'setCurrentPage'
+                'setCurrentPage',
             ],
             [
                 Configuration::DEFAULT_LIST_LENGTH,
                 Configuration::DEFAULT_LIST_LENGTH + 5,
                 'getMaxNavigate',
-                'setMaxNavigate'
+                'setMaxNavigate',
             ],
             [
                 Configuration::DEFAULT_PAGE_LINK,
                 'page_%s.html',
                 'getPageLink',
-                'setPageLink'
+                'setPageLink',
             ],
             [
                 Configuration::DEFAULT_PAGE_LINK,
@@ -102,13 +99,13 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
                     return 'page_'.$number.'.html';
                 },
                 'getPageLink',
-                'setPageLink'
+                'setPageLink',
             ],
             [
                 '',
                 '/index.html',
                 'getFirstPageLink',
-                'setFirstPageLink'
+                'setFirstPageLink',
             ],
         ];
     }

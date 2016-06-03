@@ -1,23 +1,20 @@
 <?php
 /**
- * AnimeDb package
+ * AnimeDb package.
  *
- * @package   AnimeDb
  * @author    Peter Gribanov <info@peter-gribanov.ru>
  * @copyright Copyright (c) 2011, Peter Gribanov
  * @license   http://opensource.org/licenses/MIT
  */
-
 namespace AnimeDb\Bundle\PaginationBundle\Tests\Service;
 
+use AnimeDb\Bundle\PaginationBundle\Entity\Node;
 use AnimeDb\Bundle\PaginationBundle\Service\Configuration;
 use AnimeDb\Bundle\PaginationBundle\Service\NavigateRange;
 use AnimeDb\Bundle\PaginationBundle\Service\View;
-use AnimeDb\Bundle\PaginationBundle\Entity\Node;
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**
- * @package AnimeDb\Bundle\PaginationBundle\Tests\Service
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
 class ViewTest extends \PHPUnit_Framework_TestCase
@@ -70,7 +67,7 @@ class ViewTest extends \PHPUnit_Framework_TestCase
             ['getFirst', 1],
             ['getPrev', 1],
             ['getNext', 110],
-            ['getLast', 110]
+            ['getLast', 110],
         ];
     }
 
@@ -101,7 +98,9 @@ class ViewTest extends \PHPUnit_Framework_TestCase
     {
         return [
             ['page_%s.html'],
-            [function ($number) { return 'page_'.$number.'.html'; }],
+            [function ($number) {
+                return 'page_'.$number.'.html';
+            }],
         ];
     }
 
@@ -113,8 +112,12 @@ class ViewTest extends \PHPUnit_Framework_TestCase
         return [
             ['page_%s.html', ''],
             ['page_%s.html', '/index.html'],
-            [function ($number) { return 'page_'.$number.'.html'; }, ''],
-            [function ($number) { return 'page_'.$number.'.html'; }, '/index.html'],
+            [function ($number) {
+                return 'page_'.$number.'.html';
+            }, ''],
+            [function ($number) {
+                return 'page_'.$number.'.html';
+            }, '/index.html'],
         ];
     }
 
