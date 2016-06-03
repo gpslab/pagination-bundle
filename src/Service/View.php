@@ -155,11 +155,11 @@ class View implements \IteratorAggregate
                 $page_to = $this->config->getCurrentPage() + $this->range->getRightOffset();
 
                 while ($page <= $page_to) {
-                    if ($page == $this->config->getCurrentPage()) {
-                        $this->list->add($this->getCurrent());
-                    } else {
-                        $this->list->add(new Node($page, $this->buildLink($page)));
-                    }
+                    $this->list->add(new Node(
+                        $page,
+                        $this->buildLink($page),
+                        $page == $this->config->getCurrentPage()
+                    ));
                     $page++;
                 }
             }
