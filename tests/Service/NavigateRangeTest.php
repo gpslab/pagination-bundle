@@ -48,6 +48,7 @@ class NavigateRangeTest extends \PHPUnit_Framework_TestCase
             [5, 8, 10, 2, 2],
             [5, 9, 10, 3, 1],
             [5, 10, 10, 4, 0],
+            [5, 1, 1, 0, 0], // list pages is empty
         ];
     }
 
@@ -77,31 +78,5 @@ class NavigateRangeTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals($left_offset, $this->range->getLeftOffset());
         $this->assertEquals($right_offset, $this->range->getRightOffset());
-    }
-
-    /**
-     * @expectedException \RangeException
-     */
-    public function testGetLeftOffsetEmpty()
-    {
-        $this->config
-            ->expects($this->atLeastOnce())
-            ->method('getTotalPages')
-            ->will($this->returnValue(1));
-
-        $this->range->getLeftOffset();
-    }
-
-    /**
-     * @expectedException \RangeException
-     */
-    public function testGetRightOffsetEmpty()
-    {
-        $this->config
-            ->expects($this->atLeastOnce())
-            ->method('getTotalPages')
-            ->will($this->returnValue(1));
-
-        $this->range->getRightOffset();
     }
 }

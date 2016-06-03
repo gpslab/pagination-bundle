@@ -54,11 +54,7 @@ class NavigateRange
      */
     protected function buildOffset()
     {
-        if ($this->config->getTotalPages() == 1) {
-            throw new \RangeException('Impossible calculate offsets from empty pages list');
-        }
-
-        if ($this->left_offset < 0 && $this->right_offset < 0) {
+        if ($this->left_offset < 0) {
             // definition of offset to the left and to the right of the selected page
             $this->left_offset = (int) floor(($this->config->getMaxNavigate() - 1) / 2);
             $this->right_offset = (int) ceil(($this->config->getMaxNavigate() - 1) / 2);
