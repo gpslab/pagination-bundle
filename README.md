@@ -99,7 +99,7 @@ class ArticleController extends Controller
             ->getQuery()
             ->getResult();
 
-        // parameters to template
+        // template parameters
         return $this->render('AcmeDemoBundle:Article:index.html.twig', [
             'total' => $total,
             'articles' => $articles,
@@ -159,7 +159,7 @@ class ArticleController extends Controller
             })
             ->setFirstPageLink($this->generateUrl('article_index')); // build link for first page
 
-        // parameters to template
+        // template parameters
         return $this->render('AcmeDemoBundle:Article:index.html.twig', [
             'total' => $pagination->getTotalPages(), // total pages
             'articles' => $query->getQuery()->getResult(), // get articles chunk
