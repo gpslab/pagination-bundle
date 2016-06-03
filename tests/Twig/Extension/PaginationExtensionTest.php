@@ -62,7 +62,7 @@ class PaginationExtensionTest extends \PHPUnit_Framework_TestCase
             ->method('getView')
             ->will($this->returnValue($view));
 
-        $this->assertEquals($expected, $this->extension->render(
+        $this->assertEquals($expected, $this->extension->renderPagination(
             $env,
             $configuration
         ));
@@ -94,7 +94,7 @@ class PaginationExtensionTest extends \PHPUnit_Framework_TestCase
             ->method('getView')
             ->will($this->returnValue($view));
 
-        $this->assertEquals($expected, $this->extension->render(
+        $this->assertEquals($expected, $this->extension->renderPagination(
             $env,
             $configuration,
             $template,
@@ -127,7 +127,7 @@ class PaginationExtensionTest extends \PHPUnit_Framework_TestCase
             ->method('getView')
             ->will($this->returnValue($view));
 
-        $this->assertEquals($expected, $this->extension->render(
+        $this->assertEquals($expected, $this->extension->renderPagination(
             $env,
             $configuration,
             null,
