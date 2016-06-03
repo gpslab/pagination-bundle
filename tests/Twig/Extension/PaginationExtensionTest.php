@@ -1,21 +1,18 @@
 <?php
 /**
- * AnimeDb package
+ * AnimeDb package.
  *
- * @package   AnimeDb
  * @author    Peter Gribanov <info@peter-gribanov.ru>
  * @copyright Copyright (c) 2011, Peter Gribanov
  * @license   http://opensource.org/licenses/MIT
  */
-
 namespace AnimeDb\Bundle\PaginationBundle\Tests\Twig\Extension;
 
-use AnimeDb\Bundle\PaginationBundle\Twig\Extension\PaginationExtension;
 use AnimeDb\Bundle\PaginationBundle\Service\Configuration;
+use AnimeDb\Bundle\PaginationBundle\Twig\Extension\PaginationExtension;
 
 /**
- * Class PaginationExtensionTest
- * @package AnimeDb\Bundle\PaginationBundle\Tests\Twig\Extension
+ * Class PaginationExtensionTest.
  */
 class PaginationExtensionTest extends \PHPUnit_Framework_TestCase
 {

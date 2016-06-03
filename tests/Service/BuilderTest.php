@@ -1,21 +1,18 @@
 <?php
 /**
- * AnimeDb package
+ * AnimeDb package.
  *
- * @package   AnimeDb
  * @author    Peter Gribanov <info@peter-gribanov.ru>
  * @copyright Copyright (c) 2011, Peter Gribanov
  * @license   http://opensource.org/licenses/MIT
  */
-
 namespace AnimeDb\Bundle\PaginationBundle\Tests\Service;
 
 use AnimeDb\Bundle\PaginationBundle\Service\Builder;
-use Doctrine\ORM\QueryBuilder;
 use Doctrine\ORM\AbstractQuery;
+use Doctrine\ORM\QueryBuilder;
 
 /**
- * @package AnimeDb\Bundle\PaginationBundle\Tests\Service
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
 class BuilderTest extends \PHPUnit_Framework_TestCase

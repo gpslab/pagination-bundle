@@ -1,20 +1,17 @@
 <?php
 /**
- * AnimeDb package
+ * AnimeDb package.
  *
- * @package   AnimeDb
  * @author    Peter Gribanov <info@peter-gribanov.ru>
  * @copyright Copyright (c) 2011, Peter Gribanov
  * @license   http://opensource.org/licenses/MIT
  */
-
 namespace AnimeDb\Bundle\PaginationBundle\Twig\Extension;
 
 use AnimeDb\Bundle\PaginationBundle\Service\Configuration;
 
 /**
- * Class PaginationExtension
- * @package AnimeDb\Bundle\PaginationBundle\Twig\Extension
+ * Class PaginationExtension.
  */
 class PaginationExtension extends \Twig_Extension
 {
@@ -41,12 +38,12 @@ class PaginationExtension extends \Twig_Extension
                 'pagination_render',
                 [$this, 'render'],
                 ['is_safe' => ['html'], 'needs_environment' => true]
-            )
+            ),
         ];
     }
 
     /**
-     * Renders the pagination template
+     * Renders the pagination template.
      *
      * @param \Twig_Environment $env
      * @param Configuration $pagination
