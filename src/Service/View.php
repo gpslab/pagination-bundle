@@ -160,7 +160,7 @@ class View implements \IteratorAggregate
                         $this->buildLink($page),
                         $page == $this->config->getCurrentPage()
                     ));
-                    $page++;
+                    ++$page;
                 }
             }
         }
