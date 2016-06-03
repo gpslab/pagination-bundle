@@ -10,9 +10,6 @@ namespace AnimeDb\Bundle\PaginationBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
-/**
- * Class AnimeDbPaginationBundle.
- */
 class AnimeDbPaginationBundle extends Bundle
 {
 }

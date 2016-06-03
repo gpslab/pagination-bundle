@@ -11,11 +11,6 @@ namespace AnimeDb\Bundle\PaginationBundle\Tests\DependencyInjection;
 use AnimeDb\Bundle\PaginationBundle\DependencyInjection\AnimeDbPaginationExtension;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
-/**
- * Test DependencyInjection.
- *
- * @author  Peter Gribanov <info@peter-gribanov.ru>
- */
 class AnimeDbPaginationExtensionTest extends \PHPUnit_Framework_TestCase
 {
     public function testLoad()

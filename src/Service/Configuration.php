@@ -8,9 +8,6 @@
  */
 namespace AnimeDb\Bundle\PaginationBundle\Service;
 
-/**
- * @author Peter Gribanov <info@peter-gribanov.ru>
- */
 class Configuration
 {
     /**

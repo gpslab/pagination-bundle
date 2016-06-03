@@ -10,9 +10,6 @@ namespace AnimeDb\Bundle\PaginationBundle\Service;
 
 use Doctrine\ORM\QueryBuilder;
 
-/**
- * @author  Peter Gribanov <info@peter-gribanov.ru>
- */
 class Builder
 {
     /**

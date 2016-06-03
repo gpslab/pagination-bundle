@@ -14,9 +14,6 @@ use AnimeDb\Bundle\PaginationBundle\Service\NavigateRange;
 use AnimeDb\Bundle\PaginationBundle\Service\View;
 use Doctrine\Common\Collections\ArrayCollection;
 
-/**
- * @author  Peter Gribanov <info@peter-gribanov.ru>
- */
 class ViewTest extends \PHPUnit_Framework_TestCase
 {
     /**

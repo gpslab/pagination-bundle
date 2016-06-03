@@ -10,9 +10,6 @@ namespace AnimeDb\Bundle\PaginationBundle\Twig\Extension;
 
 use AnimeDb\Bundle\PaginationBundle\Service\Configuration;
 
-/**
- * Class PaginationExtension.
- */
 class PaginationExtension extends \Twig_Extension
 {
     /**

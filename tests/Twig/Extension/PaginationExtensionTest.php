@@ -11,9 +11,6 @@ namespace AnimeDb\Bundle\PaginationBundle\Tests\Twig\Extension;
 use AnimeDb\Bundle\PaginationBundle\Service\Configuration;
 use AnimeDb\Bundle\PaginationBundle\Twig\Extension\PaginationExtension;
 
-/**
- * Class PaginationExtensionTest.
- */
 class PaginationExtensionTest extends \PHPUnit_Framework_TestCase
 {
     /**

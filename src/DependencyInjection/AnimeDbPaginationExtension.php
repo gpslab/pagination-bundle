@@ -13,11 +13,6 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 
-/**
- * DependencyInjection.
- *
- * @author  Peter Gribanov <info@peter-gribanov.ru>
- */
 class AnimeDbPaginationExtension extends Extension
 {
     /**

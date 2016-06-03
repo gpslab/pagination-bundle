@@ -10,9 +10,6 @@ namespace AnimeDb\Bundle\PaginationBundle\Tests\Entity;
 
 use AnimeDb\Bundle\PaginationBundle\Entity\Node;
 
-/**
- * @author  Peter Gribanov <info@peter-gribanov.ru>
- */
 class NodeTest extends \PHPUnit_Framework_TestCase
 {
     /**

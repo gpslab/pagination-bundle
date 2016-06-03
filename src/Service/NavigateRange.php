@@ -8,9 +8,6 @@
  */
 namespace AnimeDb\Bundle\PaginationBundle\Service;
 
-/**
- * NavigateRange.
- */
 class NavigateRange
 {
     /**

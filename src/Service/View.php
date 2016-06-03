@@ -11,9 +11,6 @@ namespace AnimeDb\Bundle\PaginationBundle\Service;
 use AnimeDb\Bundle\PaginationBundle\Entity\Node;
 use Doctrine\Common\Collections\ArrayCollection;
 
-/**
- * @author Peter Gribanov <info@peter-gribanov.ru>
- */
 class View implements \IteratorAggregate
 {
     /**

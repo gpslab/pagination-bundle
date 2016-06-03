@@ -12,9 +12,6 @@ use AnimeDb\Bundle\PaginationBundle\Service\Builder;
 use Doctrine\ORM\AbstractQuery;
 use Doctrine\ORM\QueryBuilder;
 
-/**
- * @author  Peter Gribanov <info@peter-gribanov.ru>
- */
 class BuilderTest extends \PHPUnit_Framework_TestCase
 {
     /**
