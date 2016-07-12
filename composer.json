@@ -24,6 +24,7 @@
   "require-dev": {
     "symfony/expression-language": "~2.4|~3.0",
     "phpunit/phpunit": "4.8.*",
-    "scrutinizer/ocular": "1.3.*"
+    "scrutinizer/ocular": "1.3.*",
+    "satooshi/php-coveralls": "^1.0"
   }
 }
