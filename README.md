@@ -213,40 +213,40 @@ Example Material Design template for pagination
 {% spaceless %}
     <ul class="pagination">
         {% if pagination.prev %}
-            <li class="page-item">
-                <a href="{{ pagination.prev.link }}" title="{{ 'previous.page'|trans }}" class="page-link">
-                    <span><i class="zmdi zmdi-chevron-left"></i></span>
+            <li>
+                <a href="{{ pagination.prev.link }}" title="{{ 'previous.page'|trans }}">
+                    <i class="material-icons">chevron_left</i>
                 </a>
             </li>
         {% else %}
-            <li class="page-item disabled">
-                <span class="page-link">
-                    <span><i class="zmdi zmdi-chevron-left"></i></span>
-                </span>
+            <li class="disabled">
+                <a href="#">
+                    <i class="material-icons">chevron_left</i>
+                </a>
             </li>
         {% endif %}
         {% for item in pagination %}
-                {% if item.current %}
-                    <li class="page-item active">
-                        <span title="{{ 'current.page'|trans }}" class="page-link">{{ item.page }}</span>
-                    </li>
-                {% else %}
-                    <li class="page-item">
-                        <a href="{{ item.link }}" title="{{ 'page.number'|trans({'%page%': item.page}) }}" class="page-link">{{ item.page }}</a>
-                    </li>
-                {% endif %}
+            {% if item.current %}
+                <li class="active">
+                    <a href="#">{{ item.page }}</a>
+                </li>
+            {% else %}
+                <li>
+                    <a href="{{ item.link }}" title="{{ 'page.number'|trans({'%page%': item.page}) }}">{{ item.page }}</a>
+                </li>
+            {% endif %}
         {% endfor %}
         {% if pagination.next %}
-            <li class="page-item">
-                <a href="{{ pagination.next.link }}" title="{{ 'next.page'|trans }}" class="page-link">
-                    <span aria-hidden="true"><i class="zmdi zmdi-chevron-right"></i></span>
+            <li>
+                <a href="{{ pagination.next.link }}" title="{{ 'next.page'|trans }}">
+                    <i class="material-icons">chevron_right</i>
                 </a>
             </li>
         {% else %}
-            <li class="page-item disabled">
-                <span class="page-link">
-                    <span aria-hidden="true"><i class="zmdi zmdi-chevron-right"></i></span>
-                </span>
+            <li class="disabled">
+                <a href="#">
+                    <i class="material-icons">chevron_right</i>
+                </a>
             </li>
         {% endif %}
     </ul>
