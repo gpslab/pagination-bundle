@@ -228,7 +228,7 @@ Example Material Design template for pagination
         {% for item in pagination %}
             {% if item.current %}
                 <li class="active">
-                    <a href="#">{{ item.page }}</a>
+                    <a href="#" title="{{ 'current.page'|trans }}">{{ item.page }}</a>
                 </li>
             {% else %}
                 <li>
