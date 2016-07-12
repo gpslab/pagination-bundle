@@ -194,6 +194,66 @@ class ArticleController extends Controller
 </div>
 ```
 
+### Custom view
+
+```twig
+{# display navigation #}
+{{ pagination_render(pagination, 'custom_pagination.html.twig', {custom_var: 'foo'}) }}
+```
+
+Example Material Design template for pagination
+
+```twig
+{# custom_pagination.html.twig #}
+
+{# print 'foo' #}
+{{ custom_var }}
+
+{% if pagination.total > 1 %}
+{% spaceless %}
+    <ul class="pagination">
+        {% if pagination.prev %}
+            <li class="page-item">
+                <a href="{{ pagination.prev.link }}" title="{{ 'previous.page'|trans }}" class="page-link">
+                    <span><i class="zmdi zmdi-chevron-left"></i></span>
+                </a>
+            </li>
+        {% else %}
+            <li class="page-item disabled">
+                <span class="page-link">
+                    <span><i class="zmdi zmdi-chevron-left"></i></span>
+                </span>
+            </li>
+        {% endif %}
+        {% for item in pagination %}
+                {% if item.current %}
+                    <li class="page-item active">
+                        <span title="{{ 'current.page'|trans }}" class="page-link">{{ item.page }}</span>
+                    </li>
+                {% else %}
+                    <li class="page-item">
+                        <a href="{{ item.link }}" title="{{ 'page.number'|trans({'%page%': item.page}) }}" class="page-link">{{ item.page }}</a>
+                    </li>
+                {% endif %}
+        {% endfor %}
+        {% if pagination.next %}
+            <li class="page-item">
+                <a href="{{ pagination.next.link }}" title="{{ 'next.page'|trans }}" class="page-link">
+                    <span aria-hidden="true"><i class="zmdi zmdi-chevron-right"></i></span>
+                </a>
+            </li>
+        {% else %}
+            <li class="page-item disabled">
+                <span class="page-link">
+                    <span aria-hidden="true"><i class="zmdi zmdi-chevron-right"></i></span>
+                </span>
+            </li>
+        {% endif %}
+    </ul>
+{% endspaceless %}
+{% endif %}
+```
+
 ## License
 
 This bundle is under the [MIT license](http://opensource.org/licenses/MIT). See the complete license in the file: LICENSE
