@@ -192,3 +192,8 @@ class ArticleController extends Controller
 <div class="navigation">
     {{ pagination_render(pagination) }}
 </div>
+```
+
+## License
+
+This bundle is under the [MIT license](http://opensource.org/licenses/MIT). See the complete license in the file: LICENSE
