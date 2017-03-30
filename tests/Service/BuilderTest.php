@@ -9,12 +9,12 @@
 
 namespace GpsLab\Bundle\PaginationBundle\Tests\Service;
 
-use GpsLab\Bundle\PaginationBundle\Exception\OutOfRangeException;
 use GpsLab\Bundle\PaginationBundle\Service\Builder;
 use Doctrine\ORM\AbstractQuery;
 use Doctrine\ORM\QueryBuilder;
 use GpsLab\Bundle\PaginationBundle\Tests\TestCase;
 use Symfony\Bundle\FrameworkBundle\Routing\Router;
+use Symfony\Component\HttpFoundation\Request;
 
 class BuilderTest extends TestCase
 {
@@ -119,7 +119,7 @@ class BuilderTest extends TestCase
     }
 
     /**
-     * @expectedException OutOfRangeException
+     * @expectedException \GpsLab\Bundle\PaginationBundle\Exception\OutOfRangeException
      */
     public function testPaginateQueryOutOfRange()
     {
@@ -147,20 +147,64 @@ class BuilderTest extends TestCase
             ->will($this->returnSelf());
         $query_builder
             ->expects($this->once())
-            ->method('setFirstResult')
-            ->with(($current_page - 1) * $per_page)
-            ->will($this->returnSelf());
-        $query_builder
-            ->expects($this->once())
-            ->method('setMaxResults')
-            ->with($per_page)
-            ->will($this->returnSelf());
-        $query_builder
-            ->expects($this->once())
             ->method('getQuery')
             ->will($this->returnValue($query));
 
         $builder = new Builder($this->router, 5, 'page');
         $builder->paginateQuery($query_builder, $per_page, $current_page);
+    }
+
+    /**
+     * @expectedException \GpsLab\Bundle\PaginationBundle\Exception\IncorrectPageNumberException
+     */
+    public function testPaginateRequestIncorrectPage()
+    {
+        /* @var $request \PHPUnit_Framework_MockObject_MockObject|Request */
+        $request = $this->getMockNoConstructor('Symfony\Component\HttpFoundation\Request');
+        $request
+            ->expects($this->once())
+            ->method('get')
+            ->with('page')
+            ->will($this->returnValue('foo'))
+        ;
+
+        $builder = new Builder($this->router, 5, 'page');
+        $builder->paginateRequest($request, 10);
+    }
+
+    /**
+     * @expectedException \GpsLab\Bundle\PaginationBundle\Exception\OutOfRangeException
+     */
+    public function testPaginateRequestLowPageNumber()
+    {
+        /* @var $request \PHPUnit_Framework_MockObject_MockObject|Request */
+        $request = $this->getMockNoConstructor('Symfony\Component\HttpFoundation\Request');
+        $request
+            ->expects($this->once())
+            ->method('get')
+            ->with('p')
+            ->will($this->returnValue(0))
+        ;
+
+        $builder = new Builder($this->router, 5, 'page');
+        $builder->paginateRequest($request, 10, 'p');
+    }
+
+    /**
+     * @expectedException \GpsLab\Bundle\PaginationBundle\Exception\OutOfRangeException
+     */
+    public function testPaginateRequestOutOfRange()
+    {
+        /* @var $request \PHPUnit_Framework_MockObject_MockObject|Request */
+        $request = $this->getMockNoConstructor('Symfony\Component\HttpFoundation\Request');
+        $request
+            ->expects($this->once())
+            ->method('get')
+            ->with('p')
+            ->will($this->returnValue(150))
+        ;
+
+        $builder = new Builder($this->router, 5, 'page');
+        $builder->paginateRequest($request, 10, 'p');
     }
 }
