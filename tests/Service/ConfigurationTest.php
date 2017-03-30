@@ -111,8 +111,8 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
     /**
      * @dataProvider getMethods
      *
-     * @param mixed $default
-     * @param mixed $new
+     * @param mixed  $default
+     * @param mixed  $new
      * @param string $getter
      * @param string $setter
      */
