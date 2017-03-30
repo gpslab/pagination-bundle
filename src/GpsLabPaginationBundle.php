@@ -15,7 +15,7 @@ use Symfony\Component\HttpKernel\Bundle\Bundle;
 class GpsLabPaginationBundle extends Bundle
 {
     /**
-     * @return ExtensionInterface|bool
+     * @return ExtensionInterface|null
      */
     public function getContainerExtension()
     {
@@ -33,6 +33,6 @@ class GpsLabPaginationBundle extends Bundle
 
         }
 
-        return $this->extension;
+        return $this->extension ?: null;
     }
 }
