@@ -26,34 +26,34 @@ class Configuration
     /**
      * @var int
      */
-    protected $total_pages = 0;
+    private $total_pages = 0;
 
     /**
      * @var int
      */
-    protected $current_page = 1;
+    private $current_page = 1;
 
     /**
      * @var View
      */
-    protected $view;
+    private $view;
 
     /**
      * The number of pages displayed in the navigation.
      *
      * @var int
      */
-    protected $max_navigate = self::DEFAULT_LIST_LENGTH;
+    private $max_navigate = self::DEFAULT_LIST_LENGTH;
 
     /**
      * @var string|callback
      */
-    protected $page_link = self::DEFAULT_PAGE_LINK;
+    private $page_link = self::DEFAULT_PAGE_LINK;
 
     /**
      * @var string
      */
-    protected $first_page_link = '';
+    private $first_page_link = '';
 
     /**
      * @param int $total_pages

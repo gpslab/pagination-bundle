@@ -17,42 +17,42 @@ class View implements \IteratorAggregate
     /**
      * @var Configuration
      */
-    protected $config;
+    private $config;
 
     /**
      * @var NavigateRange
      */
-    protected $range;
+    private $range;
 
     /**
      * @var Node|null
      */
-    protected $first;
+    private $first;
 
     /**
      * @var Node|null
      */
-    protected $prev;
+    private $prev;
 
     /**
      * @var Node
      */
-    protected $current;
+    private $current;
 
     /**
      * @var Node|null
      */
-    protected $next;
+    private $next;
 
     /**
      * @var Node|null
      */
-    protected $last;
+    private $last;
 
     /**
      * @var ArrayCollection|null
      */
-    protected $list;
+    private $list;
 
     /**
      * @param Configuration $config
@@ -174,7 +174,7 @@ class View implements \IteratorAggregate
      *
      * @return string
      */
-    protected function buildLink($page)
+    private function buildLink($page)
     {
         if ($page == 1 && $this->config->getFirstPageLink()) {
             return $this->config->getFirstPageLink();

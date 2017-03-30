@@ -14,17 +14,17 @@ class NavigateRange
     /**
      * @var Configuration
      */
-    protected $config;
+    private $config;
 
     /**
      * @var int
      */
-    protected $left_offset = -1;
+    private $left_offset = -1;
 
     /**
      * @var int
      */
-    protected $right_offset = -1;
+    private $right_offset = -1;
 
     /**
      * @param Configuration $config
@@ -53,7 +53,7 @@ class NavigateRange
     /**
      * @return self
      */
-    protected function buildOffset()
+    private function buildOffset()
     {
         if ($this->left_offset < 0) {
             $this
@@ -71,7 +71,7 @@ class NavigateRange
      *
      * @return self
      */
-    protected function definitionOffset()
+    private function definitionOffset()
     {
         $this->left_offset = (int) floor(($this->config->getMaxNavigate() - 1) / 2);
         $this->right_offset = (int) ceil(($this->config->getMaxNavigate() - 1) / 2);
@@ -84,7 +84,7 @@ class NavigateRange
      *
      * @return self
      */
-    protected function adjustmentLargeLeftOffset()
+    private function adjustmentLargeLeftOffset()
     {
         if ($this->config->getCurrentPage() - $this->left_offset < 1) {
             $offset = (int) abs($this->config->getCurrentPage() - 1 - $this->left_offset);
@@ -100,7 +100,7 @@ class NavigateRange
      *
      * @return self
      */
-    protected function adjustmentLargeRightOffset()
+    private function adjustmentLargeRightOffset()
     {
         if ($this->config->getCurrentPage() + $this->right_offset > $this->config->getTotalPages()) {
             $offset = (int) abs(
@@ -120,7 +120,7 @@ class NavigateRange
      *
      * @return self
      */
-    protected function adjustmentLowerLeftOffset()
+    private function adjustmentLowerLeftOffset()
     {
         if ($this->left_offset >= $this->config->getCurrentPage()) {
             $this->left_offset = $this->config->getCurrentPage() - 1;

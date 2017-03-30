@@ -14,17 +14,17 @@ class Node
     /**
      * @var int
      */
-    protected $page = 1;
+    private $page = 1;
 
     /**
      * @var string
      */
-    protected $link = '';
+    private $link = '';
 
     /**
      * @var bool
      */
-    protected $is_current = false;
+    private $is_current = false;
 
     /**
      * @param int    $page

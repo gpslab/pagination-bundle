@@ -16,7 +16,7 @@ class PaginationExtension extends \Twig_Extension
     /**
      * @var string
      */
-    protected $template = '';
+    private $template = '';
 
     /**
      * @param string $template
@@ -56,10 +56,7 @@ class PaginationExtension extends \Twig_Extension
     ) {
         return $env->render(
             $template ?: $this->template,
-            array_merge(
-                $view_params,
-                ['pagination' => $pagination->getView()]
-            )
+            array_merge($view_params, ['pagination' => $pagination->getView()])
         );
     }
 
