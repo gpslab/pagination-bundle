@@ -10,9 +10,10 @@
 namespace GpsLab\Bundle\PaginationBundle\Tests\Twig\Extension;
 
 use GpsLab\Bundle\PaginationBundle\Service\Configuration;
+use GpsLab\Bundle\PaginationBundle\Tests\TestCase;
 use GpsLab\Bundle\PaginationBundle\Twig\Extension\PaginationExtension;
 
-class PaginationExtensionTest extends \PHPUnit_Framework_TestCase
+class PaginationExtensionTest extends TestCase
 {
     /**
      * @var PaginationExtension
@@ -43,10 +44,7 @@ class PaginationExtensionTest extends \PHPUnit_Framework_TestCase
         $expected = 'bar';
         $view = 'baz';
         /* @var $env \PHPUnit_Framework_MockObject_MockObject|\Twig_Environment */
-        $env = $this
-            ->getMockBuilder('Twig_Environment')
-            ->disableOriginalConstructor()
-            ->getMock();
+        $env = $this->getMockNoConstructor('Twig_Environment');
         $env
             ->expects($this->once())
             ->method('render')
@@ -54,10 +52,7 @@ class PaginationExtensionTest extends \PHPUnit_Framework_TestCase
             ->will($this->returnValue($expected));
 
         /* @var $configuration \PHPUnit_Framework_MockObject_MockObject|Configuration */
-        $configuration = $this
-            ->getMockBuilder('GpsLab\Bundle\PaginationBundle\Service\Configuration')
-            ->disableOriginalConstructor()
-            ->getMock();
+        $configuration = $this->getMockNoConstructor('GpsLab\Bundle\PaginationBundle\Service\Configuration');
         $configuration
             ->expects($this->once())
             ->method('getView')
@@ -75,10 +70,7 @@ class PaginationExtensionTest extends \PHPUnit_Framework_TestCase
         $view = 'baz';
         $template = 'my_template';
         /* @var $env \PHPUnit_Framework_MockObject_MockObject|\Twig_Environment */
-        $env = $this
-            ->getMockBuilder('Twig_Environment')
-            ->disableOriginalConstructor()
-            ->getMock();
+        $env = $this->getMockNoConstructor('Twig_Environment');
         $env
             ->expects($this->once())
             ->method('render')
@@ -86,10 +78,7 @@ class PaginationExtensionTest extends \PHPUnit_Framework_TestCase
             ->will($this->returnValue($expected));
 
         /* @var $configuration \PHPUnit_Framework_MockObject_MockObject|Configuration */
-        $configuration = $this
-            ->getMockBuilder('GpsLab\Bundle\PaginationBundle\Service\Configuration')
-            ->disableOriginalConstructor()
-            ->getMock();
+        $configuration = $this->getMockNoConstructor('GpsLab\Bundle\PaginationBundle\Service\Configuration');
         $configuration
             ->expects($this->once())
             ->method('getView')
@@ -108,10 +97,7 @@ class PaginationExtensionTest extends \PHPUnit_Framework_TestCase
         $expected = 'bar';
         $view = 'baz';
         /* @var $env \PHPUnit_Framework_MockObject_MockObject|\Twig_Environment */
-        $env = $this
-            ->getMockBuilder('Twig_Environment')
-            ->disableOriginalConstructor()
-            ->getMock();
+        $env = $this->getMockNoConstructor('Twig_Environment');
         $env
             ->expects($this->once())
             ->method('render')
@@ -119,10 +105,7 @@ class PaginationExtensionTest extends \PHPUnit_Framework_TestCase
             ->will($this->returnValue($expected));
 
         /* @var $configuration \PHPUnit_Framework_MockObject_MockObject|Configuration */
-        $configuration = $this
-            ->getMockBuilder('GpsLab\Bundle\PaginationBundle\Service\Configuration')
-            ->disableOriginalConstructor()
-            ->getMock();
+        $configuration = $this->getMockNoConstructor('GpsLab\Bundle\PaginationBundle\Service\Configuration');
         $configuration
             ->expects($this->once())
             ->method('getView')

@@ -10,8 +10,9 @@
 namespace GpsLab\Bundle\PaginationBundle\Tests\Service;
 
 use GpsLab\Bundle\PaginationBundle\Service\Configuration;
+use GpsLab\Bundle\PaginationBundle\Tests\TestCase;
 
-class ConfigurationTest extends \PHPUnit_Framework_TestCase
+class ConfigurationTest extends TestCase
 {
     /**
      * @var Configuration

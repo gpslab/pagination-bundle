@@ -14,8 +14,9 @@ use GpsLab\Bundle\PaginationBundle\Service\Configuration;
 use GpsLab\Bundle\PaginationBundle\Service\NavigateRange;
 use GpsLab\Bundle\PaginationBundle\Service\View;
 use Doctrine\Common\Collections\ArrayCollection;
+use GpsLab\Bundle\PaginationBundle\Tests\TestCase;
 
-class ViewTest extends \PHPUnit_Framework_TestCase
+class ViewTest extends TestCase
 {
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject|Configuration
@@ -34,16 +35,8 @@ class ViewTest extends \PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-        $this->config = $this
-            ->getMockBuilder('GpsLab\Bundle\PaginationBundle\Service\Configuration')
-            ->disableOriginalConstructor()
-            ->getMock()
-        ;
-        $this->range = $this
-            ->getMockBuilder('GpsLab\Bundle\PaginationBundle\Service\NavigateRange')
-            ->disableOriginalConstructor()
-            ->getMock()
-        ;
+        $this->config = $this->getMockNoConstructor('GpsLab\Bundle\PaginationBundle\Service\Configuration');
+        $this->range = $this->getMockNoConstructor('GpsLab\Bundle\PaginationBundle\Service\NavigateRange');
 
         $this->view = new View($this->config, $this->range);
     }

@@ -12,9 +12,10 @@ namespace GpsLab\Bundle\PaginationBundle\Tests\Service;
 use GpsLab\Bundle\PaginationBundle\Service\Builder;
 use Doctrine\ORM\AbstractQuery;
 use Doctrine\ORM\QueryBuilder;
+use GpsLab\Bundle\PaginationBundle\Tests\TestCase;
 use Symfony\Bundle\FrameworkBundle\Routing\Router;
 
-class BuilderTest extends \PHPUnit_Framework_TestCase
+class BuilderTest extends TestCase
 {
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject|Router
@@ -23,11 +24,7 @@ class BuilderTest extends \PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-        $this->router = $this
-            ->getMockBuilder('Symfony\Bundle\FrameworkBundle\Routing\Router')
-            ->disableOriginalConstructor()
-            ->getMock()
-        ;
+        $this->router = $this->getMockNoConstructor('Symfony\Bundle\FrameworkBundle\Routing\Router');
     }
 
     /**
@@ -80,22 +77,14 @@ class BuilderTest extends \PHPUnit_Framework_TestCase
     public function testPaginateQuery($max_navigate, $per_page, $total, $current_page)
     {
         /** @var $query \PHPUnit_Framework_MockObject_MockObject|AbstractQuery */
-        $query = $this
-            ->getMockBuilder('Doctrine\ORM\AbstractQuery')
-            ->disableOriginalConstructor()
-            ->setMethods(['getSingleScalarResult'])
-            ->getMockForAbstractClass();
+        $query = $this->getMockAbstract('Doctrine\ORM\AbstractQuery', ['getSingleScalarResult']);
         $query
             ->expects($this->once())
             ->method('getSingleScalarResult')
             ->will($this->returnValue($total));
 
         /** @var $query_builder \PHPUnit_Framework_MockObject_MockObject|QueryBuilder */
-        $query_builder = $this
-            ->getMockBuilder('Doctrine\ORM\QueryBuilder')
-            ->disableOriginalConstructor()
-            ->disableOriginalClone()
-            ->getMock();
+        $query_builder = $this->getMockNoConstructor('Doctrine\ORM\QueryBuilder');
         $query_builder
             ->expects($this->once())
             ->method('getRootAliases')

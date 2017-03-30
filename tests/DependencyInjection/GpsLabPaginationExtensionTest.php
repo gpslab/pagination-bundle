@@ -10,9 +10,10 @@
 namespace GpsLab\Bundle\PaginationBundle\Tests\DependencyInjection;
 
 use GpsLab\Bundle\PaginationBundle\DependencyInjection\GpsLabPaginationExtension;
+use GpsLab\Bundle\PaginationBundle\Tests\TestCase;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
-class GpsLabPaginationExtensionTest extends \PHPUnit_Framework_TestCase
+class GpsLabPaginationExtensionTest extends TestCase
 {
     public function testLoad()
     {

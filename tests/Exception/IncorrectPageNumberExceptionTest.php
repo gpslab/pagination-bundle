@@ -10,8 +10,9 @@
 namespace GpsLab\Bundle\PaginationBundle\Tests\Exception;
 
 use GpsLab\Bundle\PaginationBundle\Exception\IncorrectPageNumberException;
+use GpsLab\Bundle\PaginationBundle\Tests\TestCase;
 
-class IncorrectPageNumberExceptionTest extends \PHPUnit_Framework_TestCase
+class IncorrectPageNumberExceptionTest extends TestCase
 {
     public function testIncorrect()
     {

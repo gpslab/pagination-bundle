@@ -10,8 +10,9 @@
 namespace GpsLab\Bundle\PaginationBundle\Tests\Exception;
 
 use GpsLab\Bundle\PaginationBundle\Exception\OutOfRangeException;
+use GpsLab\Bundle\PaginationBundle\Tests\TestCase;
 
-class OutOfRangeExceptionTest extends \PHPUnit_Framework_TestCase
+class OutOfRangeExceptionTest extends TestCase
 {
     public function testIncorrect()
     {

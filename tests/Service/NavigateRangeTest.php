@@ -11,8 +11,9 @@ namespace GpsLab\Bundle\PaginationBundle\Tests\Service;
 
 use GpsLab\Bundle\PaginationBundle\Service\Configuration;
 use GpsLab\Bundle\PaginationBundle\Service\NavigateRange;
+use GpsLab\Bundle\PaginationBundle\Tests\TestCase;
 
-class NavigateRangeTest extends \PHPUnit_Framework_TestCase
+class NavigateRangeTest extends TestCase
 {
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject|Configuration
@@ -26,11 +27,7 @@ class NavigateRangeTest extends \PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-        $this->config = $this
-            ->getMockBuilder('GpsLab\Bundle\PaginationBundle\Service\Configuration')
-            ->disableOriginalConstructor()
-            ->getMock()
-        ;
+        $this->config = $this->getMockNoConstructor('GpsLab\Bundle\PaginationBundle\Service\Configuration');
 
         $this->range = new NavigateRange($this->config);
     }

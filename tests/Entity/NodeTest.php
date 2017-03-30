@@ -10,8 +10,9 @@
 namespace GpsLab\Bundle\PaginationBundle\Tests\Entity;
 
 use GpsLab\Bundle\PaginationBundle\Entity\Node;
+use GpsLab\Bundle\PaginationBundle\Tests\TestCase;
 
-class NodeTest extends \PHPUnit_Framework_TestCase
+class NodeTest extends TestCase
 {
     /**
      * @return array
