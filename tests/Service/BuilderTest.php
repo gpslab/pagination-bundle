@@ -12,9 +12,24 @@ namespace GpsLab\Bundle\PaginationBundle\Tests\Service;
 use GpsLab\Bundle\PaginationBundle\Service\Builder;
 use Doctrine\ORM\AbstractQuery;
 use Doctrine\ORM\QueryBuilder;
+use Symfony\Bundle\FrameworkBundle\Routing\Router;
 
 class BuilderTest extends \PHPUnit_Framework_TestCase
 {
+    /**
+     * @var \PHPUnit_Framework_MockObject_MockObject|Router
+     */
+    private $router;
+
+    protected function setUp()
+    {
+        $this->router = $this
+            ->getMockBuilder(Router::class)
+            ->disableOriginalConstructor()
+            ->getMock()
+        ;
+    }
+
     /**
      * @return array
      */
@@ -35,8 +50,9 @@ class BuilderTest extends \PHPUnit_Framework_TestCase
      */
     public function testPaginate($max_navigate, $total_pages, $current_page)
     {
-        $builder = new Builder($max_navigate);
+        $builder = new Builder($this->router, $max_navigate);
         $config = $builder->paginate($total_pages, $current_page);
+
         $this->assertEquals($max_navigate, $config->getMaxNavigate());
         $this->assertEquals($total_pages, $config->getTotalPages());
         $this->assertEquals($current_page, $config->getCurrentPage());
@@ -104,8 +120,9 @@ class BuilderTest extends \PHPUnit_Framework_TestCase
             ->method('getQuery')
             ->will($this->returnValue($query));
 
-        $builder = new Builder($max_navigate);
+        $builder = new Builder($this->router, $max_navigate);
         $config = $builder->paginateQuery($query_builder, $per_page, $current_page);
+
         $this->assertEquals($max_navigate, $config->getMaxNavigate());
         $this->assertEquals(ceil($total / $per_page), $config->getTotalPages());
         $this->assertEquals($current_page, $config->getCurrentPage());
