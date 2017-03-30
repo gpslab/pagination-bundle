@@ -20,13 +20,17 @@ class GpsLabPaginationBundle extends Bundle
     public function getContainerExtension()
     {
         if (null === $this->extension) {
-            $extension = $this->createContainerExtension();
+            $this->extension = false;
+            $class = $this->getContainerExtensionClass();
 
-            if ($extension instanceof ExtensionInterface) {
-                $this->extension = $extension;
-            } else {
-                $this->extension = false;
+            if (class_exists($class)) {
+                $extension = new $class();
+
+                if ($extension instanceof ExtensionInterface) {
+                    $this->extension = $extension;
+                }
             }
+
         }
 
         return $this->extension;
