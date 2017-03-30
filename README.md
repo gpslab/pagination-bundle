@@ -1,13 +1,11 @@
-[![Latest Stable Version](https://poser.pugx.org/gpslab/pagination-bundle/v/stable.png)](https://packagist.org/packages/gpslab/pagination-bundle)
-[![Latest Unstable Version](https://poser.pugx.org/gpslab/pagination-bundle/v/unstable.png)](https://packagist.org/packages/gpslab/pagination-bundle)
-[![Total Downloads](https://poser.pugx.org/gpslab/pagination-bundle/downloads)](https://packagist.org/packages/gpslab/pagination-bundle)
-[![Build Status](https://travis-ci.org/gpslab/pagination-bundle.svg?branch=master)](https://travis-ci.org/gpslab/pagination-bundle)
-[![Coverage Status](https://coveralls.io/repos/github/gpslab/pagination-bundle/badge.svg?branch=master)](https://coveralls.io/github/gpslab/pagination-bundle?branch=master)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/gpslab/pagination-bundle/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/gpslab/pagination-bundle/?branch=master)
-[![SensioLabsInsight](https://insight.sensiolabs.com/projects/47d29f1b-830d-4c11-aaa4-01031f23a8ea/mini.png)](https://insight.sensiolabs.com/projects/47d29f1b-830d-4c11-aaa4-01031f23a8ea)
-[![StyleCI](https://styleci.io/repos/55138370/shield)](https://styleci.io/repos/55138370)
-[![Dependency Status](https://www.versioneye.com/user/projects/5746f684ce8d0e004505f4db/badge.svg?style=flat)](https://www.versioneye.com/user/projects/5746f684ce8d0e004505f4db)
-[![License](https://poser.pugx.org/gpslab/pagination-bundle/license.png)](https://packagist.org/packages/gpslab/pagination-bundle)
+[![Latest Stable Version](https://img.shields.io/packagist/v/gpslab/pagination-bundle.svg?maxAge=3600&label=stable)](https://packagist.org/packages/gpslab/pagination-bundle)
+[![Total Downloads](https://img.shields.io/packagist/dt/gpslab/pagination-bundle.svg?maxAge=3600)](https://packagist.org/packages/gpslab/pagination-bundle)
+[![Build Status](https://img.shields.io/travis/gpslab/pagination-bundle.svg?maxAge=3600)](https://travis-ci.org/gpslab/pagination-bundle)
+[![Coverage Status](https://img.shields.io/coveralls/gpslab/pagination-bundle.svg?maxAge=3600)](https://coveralls.io/github/gpslab/pagination-bundle?branch=master)
+[![Scrutinizer Code Quality](https://img.shields.io/scrutinizer/g/gpslab/pagination-bundle.svg?maxAge=3600)](https://scrutinizer-ci.com/g/gpslab/pagination-bundle/?branch=master)
+[![SensioLabs Insight](https://img.shields.io/sensiolabs/i/6e0b6018-9a7e-4f25-9960-b27f6807b6d7.svg?maxAge=3600&label=SLInsight)](https://insight.sensiolabs.com/projects/6e0b6018-9a7e-4f25-9960-b27f6807b6d7)
+[![StyleCI](https://styleci.io/repos/86694387/shield?branch=master)](https://styleci.io/repos/86694387)
+[![License](https://img.shields.io/packagist/l/gpslab/pagination-bundle.svg?maxAge=3600)](https://github.com/gpslab/pagination-bundle)
 
 # PaginationBundle
 
