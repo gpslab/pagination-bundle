@@ -86,7 +86,7 @@ class Builder
             ->setMaxResults($per_page)
         ;
 
-        return (new Configuration($total_pages, $current_page))->setMaxNavigate($this->max_navigate);
+        return $this->paginate($total_pages, $current_page);
     }
 
     /**
@@ -106,7 +106,12 @@ class Builder
         $parameter_name = $parameter_name ?: $this->parameter_name;
         $current_page = $this->validateCurrentPage($request->get($parameter_name), $total_pages);
 
-        return $this->configureFromRequest($request, $total_pages, $current_page, $parameter_name, $reference_type);
+        return $this->configureFromRequest(
+            $request,
+            $this->paginate($total_pages, $current_page),
+            $parameter_name,
+            $reference_type
+        );
     }
 
     /**
@@ -125,18 +130,14 @@ class Builder
         $parameter_name = 'page',
         $reference_type = UrlGeneratorInterface::ABSOLUTE_PATH
     ) {
-        $counter = clone $query;
-        $total = $counter
-            ->select(sprintf('COUNT(%s)', current($query->getRootAliases())))
-            ->getQuery()
-            ->getSingleScalarResult()
-        ;
-
-        $total_pages = ceil($total / $per_page);
         $parameter_name = $parameter_name ?: $this->parameter_name;
-        $current_page = $this->validateCurrentPage($request->get($parameter_name), $total_pages);
 
-        return $this->configureFromRequest($request, $total_pages, $current_page, $parameter_name, $reference_type);
+        return $this->configureFromRequest(
+            $request,
+            $this->paginateQuery($query, $per_page, $request->get($parameter_name)),
+            $parameter_name,
+            $reference_type
+        );
     }
 
     /**
@@ -159,26 +160,23 @@ class Builder
     }
 
     /**
-     * @param Request $request
-     * @param int     $total_pages
-     * @param int     $current_page
-     * @param string  $parameter_name
-     * @param int     $reference_type
+     * @param Request       $request
+     * @param Configuration $configuration
+     * @param string        $parameter_name
+     * @param int           $reference_type
      *
      * @return Configuration
      */
     private function configureFromRequest(
         Request $request,
-        $total_pages,
-        $current_page,
+        Configuration $configuration,
         $parameter_name,
         $reference_type
     ) {
         $route = $request->get('_route');
         $route_params = $request->get('_route_params');
 
-        return (new Configuration($total_pages, $current_page))
-            ->setMaxNavigate($this->max_navigate)
+        return $configuration
             ->setPageLink(function ($number) use ($route, $route_params, $parameter_name, $reference_type) {
                 $params = array_merge($route_params, [$parameter_name => $number]);
 
