@@ -9,6 +9,7 @@
 
 namespace GpsLab\Bundle\PaginationBundle\Tests\Service;
 
+use GpsLab\Bundle\PaginationBundle\Exception\OutOfRangeException;
 use GpsLab\Bundle\PaginationBundle\Service\Builder;
 use Doctrine\ORM\AbstractQuery;
 use Doctrine\ORM\QueryBuilder;
@@ -115,5 +116,51 @@ class BuilderTest extends TestCase
         $this->assertEquals($max_navigate, $config->getMaxNavigate());
         $this->assertEquals(ceil($total / $per_page), $config->getTotalPages());
         $this->assertEquals($current_page, $config->getCurrentPage());
+    }
+
+    /**
+     * @expectedException OutOfRangeException
+     */
+    public function testPaginateQueryOutOfRange()
+    {
+        $total = 10;
+        $per_page = 5;
+        $current_page = 150;
+
+        /** @var $query \PHPUnit_Framework_MockObject_MockObject|AbstractQuery */
+        $query = $this->getMockAbstract('Doctrine\ORM\AbstractQuery', ['getSingleScalarResult']);
+        $query
+            ->expects($this->once())
+            ->method('getSingleScalarResult')
+            ->will($this->returnValue($total));
+
+        /** @var $query_builder \PHPUnit_Framework_MockObject_MockObject|QueryBuilder */
+        $query_builder = $this->getMockNoConstructor('Doctrine\ORM\QueryBuilder');
+        $query_builder
+            ->expects($this->once())
+            ->method('getRootAliases')
+            ->will($this->returnValue(['a', 'b']));
+        $query_builder
+            ->expects($this->once())
+            ->method('select')
+            ->with('COUNT(a)')
+            ->will($this->returnSelf());
+        $query_builder
+            ->expects($this->once())
+            ->method('setFirstResult')
+            ->with(($current_page - 1) * $per_page)
+            ->will($this->returnSelf());
+        $query_builder
+            ->expects($this->once())
+            ->method('setMaxResults')
+            ->with($per_page)
+            ->will($this->returnSelf());
+        $query_builder
+            ->expects($this->once())
+            ->method('getQuery')
+            ->will($this->returnValue($query));
+
+        $builder = new Builder($this->router, 5, 'page');
+        $builder->paginateQuery($query_builder, $per_page, $current_page);
     }
 }
