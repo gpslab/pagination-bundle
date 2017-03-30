@@ -51,7 +51,7 @@ class NavigateRange
     }
 
     /**
-     * @return NavigateRange
+     * @return self
      */
     protected function buildOffset()
     {
@@ -69,7 +69,7 @@ class NavigateRange
     /**
      * Definition of offset to the left and to the right of the selected page.
      *
-     * @return NavigateRange
+     * @return self
      */
     protected function definitionOffset()
     {
@@ -82,7 +82,7 @@ class NavigateRange
     /**
      * Adjustment, if the offset is too large left.
      *
-     * @return NavigateRange
+     * @return self
      */
     protected function adjustmentLargeLeftOffset()
     {
@@ -98,7 +98,7 @@ class NavigateRange
     /**
      * Adjustment, if the offset is too large right.
      *
-     * @return NavigateRange
+     * @return self
      */
     protected function adjustmentLargeRightOffset()
     {
@@ -118,7 +118,7 @@ class NavigateRange
     /**
      * Left offset should point not lower of the first page.
      *
-     * @return NavigateRange
+     * @return self
      */
     protected function adjustmentLowerLeftOffset()
     {

@@ -69,7 +69,7 @@ class Configuration
      * @param int $total_pages
      * @param int $current_page
      *
-     * @return Configuration
+     * @return self
      */
     public static function create($total_pages = 0, $current_page = 1)
     {
@@ -87,7 +87,7 @@ class Configuration
     /**
      * @param int $total_pages
      *
-     * @return Configuration
+     * @return self
      */
     public function setTotalPages($total_pages)
     {
@@ -107,7 +107,7 @@ class Configuration
     /**
      * @param int $current_page
      *
-     * @return Configuration
+     * @return self
      */
     public function setCurrentPage($current_page)
     {
@@ -127,7 +127,7 @@ class Configuration
     /**
      * @param int $max_navigate
      *
-     * @return Configuration
+     * @return self
      */
     public function setMaxNavigate($max_navigate)
     {
@@ -158,7 +158,7 @@ class Configuration
      *
      * @param string|callback $page_link
      *
-     * @return Configuration
+     * @return self
      */
     public function setPageLink($page_link)
     {
@@ -178,7 +178,7 @@ class Configuration
     /**
      * @param string $first_page_link
      *
-     * @return Configuration
+     * @return self
      */
     public function setFirstPageLink($first_page_link)
     {
