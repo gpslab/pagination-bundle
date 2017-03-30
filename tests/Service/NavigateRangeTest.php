@@ -27,9 +27,10 @@ class NavigateRangeTest extends \PHPUnit_Framework_TestCase
     protected function setUp()
     {
         $this->config = $this
-            ->getMockBuilder(Configuration::class)
+            ->getMockBuilder('GpsLab\Bundle\PaginationBundle\Service\Configuration')
             ->disableOriginalConstructor()
-            ->getMock();
+            ->getMock()
+        ;
 
         $this->range = new NavigateRange($this->config);
     }

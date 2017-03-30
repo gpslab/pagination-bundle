@@ -10,7 +10,6 @@
 namespace GpsLab\Bundle\PaginationBundle\Tests\Service;
 
 use GpsLab\Bundle\PaginationBundle\Service\Configuration;
-use GpsLab\Bundle\PaginationBundle\Service\View;
 
 class ConfigurationTest extends \PHPUnit_Framework_TestCase
 {
@@ -126,7 +125,7 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
     public function testGetView()
     {
         $view = $this->config->getView();
-        $this->assertInstanceOf(View::class, $view);
+        $this->assertInstanceOf('GpsLab\Bundle\PaginationBundle\Service\View', $view);
 
         // test lazy load
         $this->config->setPageLink('?p=%s');

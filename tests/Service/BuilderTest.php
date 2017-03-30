@@ -24,7 +24,7 @@ class BuilderTest extends \PHPUnit_Framework_TestCase
     protected function setUp()
     {
         $this->router = $this
-            ->getMockBuilder(Router::class)
+            ->getMockBuilder('Symfony\Bundle\FrameworkBundle\Routing\Router')
             ->disableOriginalConstructor()
             ->getMock()
         ;
@@ -81,7 +81,7 @@ class BuilderTest extends \PHPUnit_Framework_TestCase
     {
         /** @var $query \PHPUnit_Framework_MockObject_MockObject|AbstractQuery */
         $query = $this
-            ->getMockBuilder(AbstractQuery::class)
+            ->getMockBuilder('Doctrine\ORM\AbstractQuery')
             ->disableOriginalConstructor()
             ->setMethods(['getSingleScalarResult'])
             ->getMockForAbstractClass();
@@ -92,7 +92,7 @@ class BuilderTest extends \PHPUnit_Framework_TestCase
 
         /** @var $query_builder \PHPUnit_Framework_MockObject_MockObject|QueryBuilder */
         $query_builder = $this
-            ->getMockBuilder(QueryBuilder::class)
+            ->getMockBuilder('Doctrine\ORM\QueryBuilder')
             ->disableOriginalConstructor()
             ->disableOriginalClone()
             ->getMock();

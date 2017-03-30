@@ -17,7 +17,7 @@ class GpsLabPaginationExtensionTest extends \PHPUnit_Framework_TestCase
     public function testLoad()
     {
         /* @var $container \PHPUnit_Framework_MockObject_MockObject|ContainerBuilder */
-        $container = $this->getMock(ContainerBuilder::class);
+        $container = $this->getMock('Symfony\Component\DependencyInjection\ContainerBuilder');
 
         $di = new GpsLabPaginationExtension();
         $di->load([], $container);

@@ -35,13 +35,15 @@ class ViewTest extends \PHPUnit_Framework_TestCase
     protected function setUp()
     {
         $this->config = $this
-            ->getMockBuilder(Configuration::class)
+            ->getMockBuilder('GpsLab\Bundle\PaginationBundle\Service\Configuration')
             ->disableOriginalConstructor()
-            ->getMock();
+            ->getMock()
+        ;
         $this->range = $this
-            ->getMockBuilder(NavigateRange::class)
+            ->getMockBuilder('GpsLab\Bundle\PaginationBundle\Service\NavigateRange')
             ->disableOriginalConstructor()
-            ->getMock();
+            ->getMock()
+        ;
 
         $this->view = new View($this->config, $this->range);
     }
@@ -51,7 +53,8 @@ class ViewTest extends \PHPUnit_Framework_TestCase
         $this->config
             ->expects($this->once())
             ->method('getTotalPages')
-            ->will($this->returnValue('110'));
+            ->will($this->returnValue('110'))
+        ;
 
         $this->assertEquals(110, $this->view->getTotal());
     }
@@ -80,11 +83,13 @@ class ViewTest extends \PHPUnit_Framework_TestCase
         $this->config
             ->expects($this->any())
             ->method('getTotalPages')
-            ->will($this->returnValue(110));
+            ->will($this->returnValue(110))
+        ;
         $this->config
             ->expects($this->any())
             ->method('getCurrentPage')
-            ->will($this->returnValue($current_page));
+            ->will($this->returnValue($current_page))
+        ;
 
         $this->assertNull(call_user_func([$this->view, $method]));
     }
@@ -152,7 +157,7 @@ class ViewTest extends \PHPUnit_Framework_TestCase
             ->will($this->returnValue($page_link));
 
         $node = $this->view->getFirst();
-        $this->assertInstanceOf(Node::class, $node);
+        $this->assertInstanceOf('GpsLab\Bundle\PaginationBundle\Entity\Node', $node);
         $this->assertEquals(1, $node->getPage());
         if ($first_page_link) {
             $this->assertEquals($first_page_link, $node->getLink());
@@ -182,7 +187,7 @@ class ViewTest extends \PHPUnit_Framework_TestCase
             ->will($this->returnValue($page_link));
 
         $node = $this->view->getPrev();
-        $this->assertInstanceOf(Node::class, $node);
+        $this->assertInstanceOf('GpsLab\Bundle\PaginationBundle\Entity\Node', $node);
         $this->assertEquals(4, $node->getPage());
         $this->assertEquals($this->getLink($page_link, 4), $node->getLink());
     }
@@ -209,7 +214,7 @@ class ViewTest extends \PHPUnit_Framework_TestCase
             ->will($this->returnValue($page_link));
 
         $node = $this->view->getCurrent();
-        $this->assertInstanceOf(Node::class, $node);
+        $this->assertInstanceOf('GpsLab\Bundle\PaginationBundle\Entity\Node', $node);
         $this->assertEquals(1, $node->getPage());
         if ($first_page_link) {
             $this->assertEquals($first_page_link, $node->getLink());
@@ -243,7 +248,7 @@ class ViewTest extends \PHPUnit_Framework_TestCase
             ->will($this->returnValue($page_link));
 
         $node = $this->view->getNext();
-        $this->assertInstanceOf(Node::class, $node);
+        $this->assertInstanceOf('GpsLab\Bundle\PaginationBundle\Entity\Node', $node);
         $this->assertEquals(6, $node->getPage());
         $this->assertEquals($this->getLink($page_link, 6), $node->getLink());
     }
@@ -273,7 +278,7 @@ class ViewTest extends \PHPUnit_Framework_TestCase
             ->will($this->returnValue($page_link));
 
         $node = $this->view->getLast();
-        $this->assertInstanceOf(Node::class, $node);
+        $this->assertInstanceOf('GpsLab\Bundle\PaginationBundle\Entity\Node', $node);
         $this->assertEquals(10, $node->getPage());
         $this->assertEquals($this->getLink($page_link, 10), $node->getLink());
     }
