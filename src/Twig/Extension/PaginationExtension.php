@@ -42,9 +42,9 @@ class PaginationExtension extends \Twig_Extension
 
     /**
      * @param \Twig_Environment $env
-     * @param Configuration $pagination
-     * @param string $template
-     * @param array $view_params
+     * @param Configuration     $pagination
+     * @param string            $template
+     * @param array             $view_params
      *
      * @return string
      */

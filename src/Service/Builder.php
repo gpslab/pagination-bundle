@@ -102,7 +102,7 @@ class Builder
         } elseif (!is_numeric($current_page) || $current_page < 1 || $current_page > $total_pages) {
             throw IncorrectPageNumberException::incorrect($current_page);
         } else {
-            $current_page = (int)$current_page;
+            $current_page = (int) $current_page;
         }
 
         return $this
@@ -145,7 +145,7 @@ class Builder
         } elseif (!is_numeric($current_page) || $current_page < 1) {
             throw IncorrectPageNumberException::incorrect($current_page);
         } else {
-            $current_page = (int)$current_page;
+            $current_page = (int) $current_page;
         }
 
         $counter = clone $query;

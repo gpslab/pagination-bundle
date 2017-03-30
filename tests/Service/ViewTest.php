@@ -73,7 +73,7 @@ class ViewTest extends \PHPUnit_Framework_TestCase
      * @dataProvider getFailNodes
      *
      * @param string $method
-     * @param int $current_page
+     * @param int    $current_page
      */
     public function testGetNodeFail($method, $current_page)
     {
@@ -121,7 +121,7 @@ class ViewTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @param string|callback $page_link
-     * @param int $number
+     * @param int             $number
      *
      * @return string
      */
@@ -134,7 +134,7 @@ class ViewTest extends \PHPUnit_Framework_TestCase
      * @dataProvider getFirstPageLinks
      *
      * @param string|callback $page_link
-     * @param string $first_page_link
+     * @param string          $first_page_link
      */
     public function testGetFirst($page_link, $first_page_link)
     {
@@ -191,7 +191,7 @@ class ViewTest extends \PHPUnit_Framework_TestCase
      * @dataProvider getFirstPageLinks
      *
      * @param string|callback $page_link
-     * @param string $first_page_link
+     * @param string          $first_page_link
      */
     public function testGetCurrent($page_link, $first_page_link)
     {
@@ -357,9 +357,9 @@ class ViewTest extends \PHPUnit_Framework_TestCase
     /**
      * @dataProvider getNodes
      *
-     * @param int $total_pages
+     * @param int             $total_pages
      * @param string|\Closure $page_link
-     * @param string $first_page_link
+     * @param string          $first_page_link
      * @param ArrayCollection $list
      */
     public function testGetIterator($total_pages, $page_link, $first_page_link, $list)

@@ -27,9 +27,9 @@ class Node
     protected $is_current = false;
 
     /**
-     * @param int $page
+     * @param int    $page
      * @param string $link
-     * @param bool $is_current
+     * @param bool   $is_current
      */
     public function __construct($page = 1, $link = '', $is_current = false)
     {
