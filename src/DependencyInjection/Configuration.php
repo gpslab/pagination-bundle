@@ -14,6 +14,9 @@ use Symfony\Component\Config\Definition\ConfigurationInterface;
 
 class Configuration implements ConfigurationInterface
 {
+    /**
+     * @return TreeBuilder
+     */
     public function getConfigTreeBuilder()
     {
         $builder = new TreeBuilder();
@@ -22,6 +25,9 @@ class Configuration implements ConfigurationInterface
             ->children()
                 ->scalarNode('max_navigate')
                     ->defaultValue(5)
+                ->end()
+                ->scalarNode('parameter_name')
+                    ->defaultValue('page')
                 ->end()
                 ->scalarNode('template')
                     ->defaultValue('GpsLabPaginationBundle::pagination.html.twig')

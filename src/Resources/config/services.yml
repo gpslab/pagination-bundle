@@ -1,7 +1,7 @@
 services:
     pagination:
         class: GpsLab\Bundle\PaginationBundle\Service\Builder
-        arguments: [ '@router', '%pagination.max_navigate%' ]
+        arguments: [ '@router', '%pagination.max_navigate%', '%pagination.parameter_name%' ]
 
     pagination.twig_extension:
         class: GpsLab\Bundle\PaginationBundle\Twig\Extension\PaginationExtension

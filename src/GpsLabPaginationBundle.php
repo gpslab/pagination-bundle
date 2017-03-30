@@ -30,7 +30,6 @@ class GpsLabPaginationBundle extends Bundle
                     $this->extension = $extension;
                 }
             }
-
         }
 
         return $this->extension ?: null;

@@ -47,7 +47,7 @@ class BuilderTest extends TestCase
      */
     public function testPaginate($max_navigate, $total_pages, $current_page)
     {
-        $builder = new Builder($this->router, $max_navigate);
+        $builder = new Builder($this->router, $max_navigate, 'page');
         $config = $builder->paginate($total_pages, $current_page);
 
         $this->assertEquals($max_navigate, $config->getMaxNavigate());
@@ -109,7 +109,7 @@ class BuilderTest extends TestCase
             ->method('getQuery')
             ->will($this->returnValue($query));
 
-        $builder = new Builder($this->router, $max_navigate);
+        $builder = new Builder($this->router, $max_navigate, 'page');
         $config = $builder->paginateQuery($query_builder, $per_page, $current_page);
 
         $this->assertEquals($max_navigate, $config->getMaxNavigate());

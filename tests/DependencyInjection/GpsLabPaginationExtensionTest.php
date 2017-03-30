@@ -22,11 +22,18 @@ class GpsLabPaginationExtensionTest extends TestCase
         $container
             ->expects($this->at(0))
             ->method('setParameter')
-            ->with('pagination.max_navigate', 5);
+            ->with('pagination.max_navigate', 5)
+        ;
         $container
             ->expects($this->at(1))
             ->method('setParameter')
-            ->with('pagination.template', 'GpsLabPaginationBundle::pagination.html.twig');
+            ->with('pagination.parameter_name', 'page')
+        ;
+        $container
+            ->expects($this->at(2))
+            ->method('setParameter')
+            ->with('pagination.template', 'GpsLabPaginationBundle::pagination.html.twig')
+        ;
 
         $extension = new GpsLabPaginationExtension();
         $extension->load([], $container);

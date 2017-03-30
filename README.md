@@ -37,8 +37,14 @@ You can configure default templates
 
 ```yaml
 gpslab_pagination:
-    max_navigate: 5 # default page range used in pagination control
-    template: 'GpsLabPaginationBundle::pagination.html.twig' # sliding pagination controls template
+    # default page range used in pagination control
+    max_navigate: 5
+
+    # default name of URL parameter for page number
+    parameter_name: 'page'
+
+    # sliding pagination controls template
+    template: 'GpsLabPaginationBundle::pagination.html.twig'
 ```
 
 ## Usage
