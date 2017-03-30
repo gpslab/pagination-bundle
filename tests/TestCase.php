@@ -1,9 +1,10 @@
 <?php
 /**
- * Pkvs package
+ * GpsLab component.
  *
- * @package Pkvs
- * @author  Peter Gribanov <pgribanov@1tv.com>
+ * @author    Peter Gribanov <info@peter-gribanov.ru>
+ * @copyright Copyright (c) 2011, Peter Gribanov
+ * @license   http://opensource.org/licenses/MIT
  */
 
 namespace GpsLab\Bundle\PaginationBundle\Tests;
@@ -27,7 +28,7 @@ class TestCase extends \PHPUnit_Framework_TestCase
 
     /**
      * @param string $class_name
-     * @param array $methods
+     * @param array  $methods
      *
      * @return \PHPUnit_Framework_MockObject_MockObject
      */
