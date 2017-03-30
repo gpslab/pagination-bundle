@@ -20,7 +20,13 @@ class GpsLabPaginationExtensionTest extends TestCase
         /* @var $container \PHPUnit_Framework_MockObject_MockObject|ContainerBuilder */
         $container = $this->getMock('Symfony\Component\DependencyInjection\ContainerBuilder');
 
-        $di = new GpsLabPaginationExtension();
-        $di->load([], $container);
+        $extension = new GpsLabPaginationExtension();
+        $extension->load([], $container);
+    }
+
+    public function testGetAlias()
+    {
+        $extension = new GpsLabPaginationExtension();
+        $this->assertEquals('gpslab_pagination', $extension->getAlias());
     }
 }
