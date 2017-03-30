@@ -8,10 +8,11 @@
  */
 namespace AnimeDb\Bundle\PaginationBundle\Service;
 
+use AnimeDb\Bundle\PaginationBundle\Exception\IncorrectPageNumberException;
+use AnimeDb\Bundle\PaginationBundle\Exception\OutOfRangeException;
 use Doctrine\ORM\QueryBuilder;
 use Symfony\Bundle\FrameworkBundle\Routing\Router;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class Builder
@@ -71,9 +72,12 @@ class Builder
             ->setMaxResults($per_page)
         ;
 
-        return (new Configuration(ceil($total / $per_page), $current_page))
-            ->setMaxNavigate($this->max_navigate)
-        ;
+        $total_pages = ceil($total / $per_page);
+        if ($current_page > $total_pages) {
+            throw OutOfRangeException::out($current_page, $total_pages);
+        }
+
+        return (new Configuration($total_pages, $current_page))->setMaxNavigate($this->max_navigate);
     }
 
     /**
@@ -95,9 +99,64 @@ class Builder
         if (is_null($current_page)) {
             $current_page = 1;
         } elseif (!is_numeric($current_page) || $current_page < 1 || $current_page > $total_pages) {
-            throw new NotFoundHttpException(sprintf('Incorrect "%s" page number.', $current_page));
+            throw IncorrectPageNumberException::incorrect($current_page);
         } else {
             $current_page = (int)$current_page;
+        }
+
+        return $this
+            ->paginate($total_pages, $current_page)
+            ->setPageLink(function ($number) use ($request, $reference_type) {
+                return $this->router->generate(
+                    $request->get('_route'),
+                    array_merge($request->get('_route_params'), ['page' => $number]),
+                    $reference_type
+                );
+            })
+            ->setFirstPageLink($this->router->generate(
+                $request->get('_route'),
+                $request->get('_route_params'),
+                $reference_type
+            ))
+        ;
+    }
+
+    /**
+     * @param Request      $request        Current HTTP request
+     * @param QueryBuilder $query          Query for select entities
+     * @param int          $per_page       Entities per page
+     * @param string       $parameter_name Name of URL parameter for page number
+     * @param int          $reference_type The type of reference (one of the constants in UrlGeneratorInterface)
+     *
+     * @return Configuration
+     */
+    public function paginateRequestQuery(
+        Request $request,
+        QueryBuilder $query,
+        $per_page,
+        $parameter_name = 'page',
+        $reference_type = UrlGeneratorInterface::ABSOLUTE_PATH
+    ) {
+        $current_page = $request->get($parameter_name);
+
+        if (is_null($current_page)) {
+            $current_page = 1;
+        } elseif (!is_numeric($current_page) || $current_page < 1) {
+            throw IncorrectPageNumberException::incorrect($current_page);
+        } else {
+            $current_page = (int)$current_page;
+        }
+
+        $counter = clone $query;
+        $total = $counter
+            ->select(sprintf('COUNT(%s)', current($query->getRootAliases())))
+            ->getQuery()
+            ->getSingleScalarResult()
+        ;
+
+        $total_pages = ceil($total / $per_page);
+        if ($current_page > $total_pages) {
+            throw OutOfRangeException::out($current_page, $total_pages);
         }
 
         return $this
