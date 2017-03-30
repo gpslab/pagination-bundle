@@ -17,7 +17,7 @@ class Configuration implements ConfigurationInterface
     public function getConfigTreeBuilder()
     {
         $builder = new TreeBuilder();
-        $builder->root('gps_lab_pagination')
+        $builder->root('gpslab_pagination')
             ->addDefaultsIfNotSet()
             ->children()
                 ->scalarNode('max_navigate')

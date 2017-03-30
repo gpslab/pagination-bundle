@@ -38,7 +38,7 @@ public function registerBundles()
 You can configure default templates
 
 ```yaml
-gps_lab_pagination:
+gpslab_pagination:
     max_navigate: 5 # default page range used in pagination control
     template: 'GpsLabPaginationBundle::pagination.html.twig' # sliding pagination controls template
 ```

@@ -9,8 +9,26 @@
 
 namespace GpsLab\Bundle\PaginationBundle;
 
+use Symfony\Component\DependencyInjection\Extension\ExtensionInterface;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 class GpsLabPaginationBundle extends Bundle
 {
+    /**
+     * @return ExtensionInterface|bool
+     */
+    public function getContainerExtension()
+    {
+        if (null === $this->extension) {
+            $extension = $this->createContainerExtension();
+
+            if ($extension instanceof ExtensionInterface) {
+                $this->extension = $extension;
+            } else {
+                $this->extension = false;
+            }
+        }
+
+        return $this->extension;
+    }
 }
