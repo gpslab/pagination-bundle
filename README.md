@@ -1,13 +1,13 @@
-[![Latest Stable Version](https://poser.pugx.org/anime-db/pagination-bundle/v/stable.png)](https://packagist.org/packages/anime-db/pagination-bundle)
-[![Latest Unstable Version](https://poser.pugx.org/anime-db/pagination-bundle/v/unstable.png)](https://packagist.org/packages/anime-db/pagination-bundle)
-[![Total Downloads](https://poser.pugx.org/anime-db/pagination-bundle/downloads)](https://packagist.org/packages/anime-db/pagination-bundle)
-[![Build Status](https://travis-ci.org/anime-db/pagination-bundle.svg?branch=master)](https://travis-ci.org/anime-db/pagination-bundle)
-[![Coverage Status](https://coveralls.io/repos/github/anime-db/pagination-bundle/badge.svg?branch=master)](https://coveralls.io/github/anime-db/pagination-bundle?branch=master)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/anime-db/pagination-bundle/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/anime-db/pagination-bundle/?branch=master)
+[![Latest Stable Version](https://poser.pugx.org/gpslab/pagination-bundle/v/stable.png)](https://packagist.org/packages/gpslab/pagination-bundle)
+[![Latest Unstable Version](https://poser.pugx.org/gpslab/pagination-bundle/v/unstable.png)](https://packagist.org/packages/gpslab/pagination-bundle)
+[![Total Downloads](https://poser.pugx.org/gpslab/pagination-bundle/downloads)](https://packagist.org/packages/gpslab/pagination-bundle)
+[![Build Status](https://travis-ci.org/gpslab/pagination-bundle.svg?branch=master)](https://travis-ci.org/gpslab/pagination-bundle)
+[![Coverage Status](https://coveralls.io/repos/github/gpslab/pagination-bundle/badge.svg?branch=master)](https://coveralls.io/github/gpslab/pagination-bundle?branch=master)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/gpslab/pagination-bundle/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/gpslab/pagination-bundle/?branch=master)
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/47d29f1b-830d-4c11-aaa4-01031f23a8ea/mini.png)](https://insight.sensiolabs.com/projects/47d29f1b-830d-4c11-aaa4-01031f23a8ea)
 [![StyleCI](https://styleci.io/repos/55138370/shield)](https://styleci.io/repos/55138370)
 [![Dependency Status](https://www.versioneye.com/user/projects/5746f684ce8d0e004505f4db/badge.svg?style=flat)](https://www.versioneye.com/user/projects/5746f684ce8d0e004505f4db)
-[![License](https://poser.pugx.org/anime-db/pagination-bundle/license.png)](https://packagist.org/packages/anime-db/pagination-bundle)
+[![License](https://poser.pugx.org/gpslab/pagination-bundle/license.png)](https://packagist.org/packages/gpslab/pagination-bundle)
 
 # PaginationBundle
 
@@ -16,7 +16,7 @@
 Pretty simple with [Composer](http://packagist.org), run:
 
 ```sh
-composer require anime-db/pagination-bundle
+composer require gpslab/pagination-bundle
 ```
 
 Add PaginatorBundle to your application kernel
@@ -27,7 +27,7 @@ public function registerBundles()
 {
     return array(
         // ...
-        new AnimeDb\Bundle\PaginationBundle\AnimeDbPaginationBundle(),
+        new GpsLab\Bundle\PaginationBundle\GpsLabPaginationBundle(),
         // ...
     );
 }
@@ -38,9 +38,9 @@ public function registerBundles()
 You can configure default templates
 
 ```yaml
-anime_db_pagination:
+gps_lab_pagination:
     max_navigate: 5 # default page range used in pagination control
-    template: 'AnimeDbPaginationBundle::pagination.html.twig' # sliding pagination controls template
+    template: 'GpsLabPaginationBundle::pagination.html.twig' # sliding pagination controls template
 ```
 
 ## Usage

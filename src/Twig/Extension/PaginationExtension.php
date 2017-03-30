@@ -1,14 +1,15 @@
 <?php
 /**
- * AnimeDb package.
+ * GpsLab component.
  *
  * @author    Peter Gribanov <info@peter-gribanov.ru>
  * @copyright Copyright (c) 2011, Peter Gribanov
  * @license   http://opensource.org/licenses/MIT
  */
-namespace AnimeDb\Bundle\PaginationBundle\Twig\Extension;
 
-use AnimeDb\Bundle\PaginationBundle\Service\Configuration;
+namespace GpsLab\Bundle\PaginationBundle\Twig\Extension;
+
+use GpsLab\Bundle\PaginationBundle\Service\Configuration;
 
 class PaginationExtension extends \Twig_Extension
 {
@@ -67,6 +68,6 @@ class PaginationExtension extends \Twig_Extension
      */
     public function getName()
     {
-        return 'anime_db_pagination_extension';
+        return 'gpslab_pagination_extension';
     }
 }

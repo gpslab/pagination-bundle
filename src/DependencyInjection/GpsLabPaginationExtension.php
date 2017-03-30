@@ -1,19 +1,20 @@
 <?php
 /**
- * AnimeDb package.
+ * GpsLab component.
  *
  * @author    Peter Gribanov <info@peter-gribanov.ru>
  * @copyright Copyright (c) 2011, Peter Gribanov
  * @license   http://opensource.org/licenses/MIT
  */
-namespace AnimeDb\Bundle\PaginationBundle\DependencyInjection;
+
+namespace GpsLab\Bundle\PaginationBundle\DependencyInjection;
 
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 
-class AnimeDbPaginationExtension extends Extension
+class GpsLabPaginationExtension extends Extension
 {
     /**
      * @param array $configs

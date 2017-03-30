@@ -1,14 +1,15 @@
 <?php
 /**
- * AnimeDb package.
+ * GpsLab component.
  *
  * @author    Peter Gribanov <info@peter-gribanov.ru>
  * @copyright Copyright (c) 2011, Peter Gribanov
  * @license   http://opensource.org/licenses/MIT
  */
-namespace AnimeDb\Bundle\PaginationBundle\Tests\Entity;
 
-use AnimeDb\Bundle\PaginationBundle\Entity\Node;
+namespace GpsLab\Bundle\PaginationBundle\Tests\Entity;
+
+use GpsLab\Bundle\PaginationBundle\Entity\Node;
 
 class NodeTest extends \PHPUnit_Framework_TestCase
 {

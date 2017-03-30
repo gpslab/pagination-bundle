@@ -1,18 +1,18 @@
 {
-  "name": "anime-db/pagination-bundle",
+  "name": "gpslab/pagination-bundle",
   "license": "MIT",
   "type": "library",
   "description": "Pagination bundle",
   "keywords": ["php", "pagination", "symfony", "doctrine"],
-  "homepage": "http://github.com/anime-db/pagination-bundle",
+  "homepage": "http://github.com/gpslab/pagination-bundle",
   "autoload": {
     "psr-4": {
-      "AnimeDb\\Bundle\\PaginationBundle\\": "src/"
+      "GpsLab\\Bundle\\PaginationBundle\\": "src/"
     }
   },
   "autoload-dev": {
     "psr-4": {
-      "AnimeDb\\Bundle\\PaginationBundle\\Tests\\": "tests/"
+      "GpsLab\\Bundle\\PaginationBundle\\Tests\\": "tests/"
     }
   },
   "require": {

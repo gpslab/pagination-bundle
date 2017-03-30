@@ -1,14 +1,15 @@
 <?php
 /**
- * AnimeDb package.
+ * GpsLab component.
  *
  * @author    Peter Gribanov <info@peter-gribanov.ru>
  * @copyright Copyright (c) 2011, Peter Gribanov
  * @license   http://opensource.org/licenses/MIT
  */
-namespace AnimeDb\Bundle\PaginationBundle\Tests\Service;
 
-use AnimeDb\Bundle\PaginationBundle\Service\Builder;
+namespace GpsLab\Bundle\PaginationBundle\Tests\Service;
+
+use GpsLab\Bundle\PaginationBundle\Service\Builder;
 use Doctrine\ORM\AbstractQuery;
 use Doctrine\ORM\QueryBuilder;
 

@@ -1,15 +1,16 @@
 <?php
 /**
- * AnimeDb package.
+ * GpsLab component.
  *
  * @author    Peter Gribanov <info@peter-gribanov.ru>
  * @copyright Copyright (c) 2011, Peter Gribanov
  * @license   http://opensource.org/licenses/MIT
  */
-namespace AnimeDb\Bundle\PaginationBundle\Service;
 
-use AnimeDb\Bundle\PaginationBundle\Exception\IncorrectPageNumberException;
-use AnimeDb\Bundle\PaginationBundle\Exception\OutOfRangeException;
+namespace GpsLab\Bundle\PaginationBundle\Service;
+
+use GpsLab\Bundle\PaginationBundle\Exception\IncorrectPageNumberException;
+use GpsLab\Bundle\PaginationBundle\Exception\OutOfRangeException;
 use Doctrine\ORM\QueryBuilder;
 use Symfony\Bundle\FrameworkBundle\Routing\Router;
 use Symfony\Component\HttpFoundation\Request;

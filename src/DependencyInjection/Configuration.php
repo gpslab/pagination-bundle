@@ -1,12 +1,13 @@
 <?php
 /**
- * AnimeDb package.
+ * GpsLab component.
  *
  * @author    Peter Gribanov <info@peter-gribanov.ru>
  * @copyright Copyright (c) 2011, Peter Gribanov
  * @license   http://opensource.org/licenses/MIT
  */
-namespace AnimeDb\Bundle\PaginationBundle\DependencyInjection;
+
+namespace GpsLab\Bundle\PaginationBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
@@ -16,14 +17,14 @@ class Configuration implements ConfigurationInterface
     public function getConfigTreeBuilder()
     {
         $builder = new TreeBuilder();
-        $builder->root('anime_db_pagination')
+        $builder->root('gps_lab_pagination')
             ->addDefaultsIfNotSet()
             ->children()
                 ->scalarNode('max_navigate')
                     ->defaultValue(5)
                 ->end()
                 ->scalarNode('template')
-                    ->defaultValue('AnimeDbPaginationBundle::pagination.html.twig')
+                    ->defaultValue('GpsLabPaginationBundle::pagination.html.twig')
                 ->end()
             ->end();
 

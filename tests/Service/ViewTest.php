@@ -1,17 +1,18 @@
 <?php
 /**
- * AnimeDb package.
+ * GpsLab component.
  *
  * @author    Peter Gribanov <info@peter-gribanov.ru>
  * @copyright Copyright (c) 2011, Peter Gribanov
  * @license   http://opensource.org/licenses/MIT
  */
-namespace AnimeDb\Bundle\PaginationBundle\Tests\Service;
 
-use AnimeDb\Bundle\PaginationBundle\Entity\Node;
-use AnimeDb\Bundle\PaginationBundle\Service\Configuration;
-use AnimeDb\Bundle\PaginationBundle\Service\NavigateRange;
-use AnimeDb\Bundle\PaginationBundle\Service\View;
+namespace GpsLab\Bundle\PaginationBundle\Tests\Service;
+
+use GpsLab\Bundle\PaginationBundle\Entity\Node;
+use GpsLab\Bundle\PaginationBundle\Service\Configuration;
+use GpsLab\Bundle\PaginationBundle\Service\NavigateRange;
+use GpsLab\Bundle\PaginationBundle\Service\View;
 use Doctrine\Common\Collections\ArrayCollection;
 
 class ViewTest extends \PHPUnit_Framework_TestCase

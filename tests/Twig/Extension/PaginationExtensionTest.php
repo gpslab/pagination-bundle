@@ -1,15 +1,16 @@
 <?php
 /**
- * AnimeDb package.
+ * GpsLab component.
  *
  * @author    Peter Gribanov <info@peter-gribanov.ru>
  * @copyright Copyright (c) 2011, Peter Gribanov
  * @license   http://opensource.org/licenses/MIT
  */
-namespace AnimeDb\Bundle\PaginationBundle\Tests\Twig\Extension;
 
-use AnimeDb\Bundle\PaginationBundle\Service\Configuration;
-use AnimeDb\Bundle\PaginationBundle\Twig\Extension\PaginationExtension;
+namespace GpsLab\Bundle\PaginationBundle\Tests\Twig\Extension;
+
+use GpsLab\Bundle\PaginationBundle\Service\Configuration;
+use GpsLab\Bundle\PaginationBundle\Twig\Extension\PaginationExtension;
 
 class PaginationExtensionTest extends \PHPUnit_Framework_TestCase
 {
@@ -137,6 +138,6 @@ class PaginationExtensionTest extends \PHPUnit_Framework_TestCase
 
     public function testGetName()
     {
-        $this->assertEquals('anime_db_pagination_extension', $this->extension->getName());
+        $this->assertEquals('gpslab_pagination_extension', $this->extension->getName());
     }
 }
