@@ -19,6 +19,14 @@ class GpsLabPaginationExtensionTest extends TestCase
     {
         /* @var $container \PHPUnit_Framework_MockObject_MockObject|ContainerBuilder */
         $container = $this->getMock('Symfony\Component\DependencyInjection\ContainerBuilder');
+        $container
+            ->expects($this->at(0))
+            ->method('setParameter')
+            ->with('pagination.max_navigate', 5);
+        $container
+            ->expects($this->at(1))
+            ->method('setParameter')
+            ->with('pagination.template', 'GpsLabPaginationBundle::pagination.html.twig');
 
         $extension = new GpsLabPaginationExtension();
         $extension->load([], $container);
