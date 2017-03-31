@@ -1,0 +1,7 @@
+pagination:
+    first_page: 'Go to the first page'
+    previous_page: 'Go to the previous page'
+    page_number: 'Go to page number: %page%'
+    next_page: 'Go to the next page'
+    last_page: 'Go to the last page'
+    current_page: 'Current page'
