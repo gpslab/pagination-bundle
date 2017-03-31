@@ -31,7 +31,7 @@ class Builder
     private $max_navigate = Configuration::DEFAULT_LIST_LENGTH;
 
     /**
-     * Name of URL parameter for page number
+     * Name of URL parameter for page number.
      *
      * @var int
      */
