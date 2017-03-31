@@ -1,13 +1,19 @@
 pagination:
     first_page:
+        word: '&laquo;'
         title: 'Перейти на первую страницу'
     previous_page:
+        word: '&larr;'
         title: 'Перейти на предыдущую страницу'
     page_number:
+        word: '%page%'
         title: 'Перейти на страницу номер: %page%'
     next_page:
+        word: '&rarr;'
         title: 'Перейти на следующую страницу'
     last_page:
+        word: '&raquo;'
         title: 'Перейти на последнюю страницу'
     current_page:
+        word: '%page%'
         title: 'Текущая страница'

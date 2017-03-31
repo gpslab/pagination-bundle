@@ -3,23 +3,35 @@
     <div class="pagination">
         <nav>
             {% if pagination.first %}
-                <a href="{{ pagination.first.link }}" title="{{ 'pagination.first_page.title'|trans }}">&laquo;</a>
+                <a href="{{ pagination.first.link }}" title="{{ 'pagination.first_page.title'|trans }}">
+                    {{ 'pagination.first_page.word'|trans }}
+                </a>
             {% endif %}
             {% if pagination.prev %}
-                <a href="{{ pagination.prev.link }}" title="{{ 'pagination.previous_page.title'|trans }}">&larr;</a>
+                <a href="{{ pagination.prev.link }}" title="{{ 'pagination.previous_page.title'|trans }}">
+                    {{ 'pagination.previous_page.word'|trans }}
+                </a>
             {% endif %}
             {% for item in pagination %}
                 {% if item.current %}
-                    <span title="{{ 'pagination.current_page.title'|trans }}">{{ item.page }}</span>
+                    <span title="{{ 'pagination.current_page.title'|trans }}">
+                        {{ 'pagination.current_page.word'|trans({'%page%': item.page}) }}
+                    </span>
                 {% else %}
-                    <a href="{{ item.link }}" title="{{ 'pagination.page_number.title'|trans({'%page%': item.page}) }}">{{ item.page }}</a>
+                    <a href="{{ item.link }}" title="{{ 'pagination.page_number.title'|trans({'%page%': item.page}) }}">
+                        {{ 'pagination.page_number.word'|trans({'%page%': item.page}) }}
+                    </a>
                 {% endif %}
             {% endfor %}
             {% if pagination.next %}
-                <a href="{{ pagination.next.link }}" title="{{ 'pagination.next_page.title'|trans }}">&rarr;</a>
+                <a href="{{ pagination.next.link }}" title="{{ 'pagination.next_page.title'|trans }}">
+                    {{ 'pagination.next_page.word'|trans }}
+                </a>
             {% endif %}
             {% if pagination.last %}
-                <a href="{{ pagination.last.link }}" title="{{ 'pagination.last_page.title'|trans }}">&raquo;</a>
+                <a href="{{ pagination.last.link }}" title="{{ 'pagination.last_page.title'|trans }}">
+                    {{ 'pagination.next_page.word'|trans }}
+                </a>
             {% endif %}
         </nav>
     </div>
