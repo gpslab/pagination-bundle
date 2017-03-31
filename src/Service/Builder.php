@@ -59,6 +59,7 @@ class Builder
     {
         return (new Configuration($total_pages, $current_page))
             ->setMaxNavigate($this->max_navigate)
+            ->setPageLink(sprintf('?%s=%%d', $this->parameter_name))
         ;
     }
 

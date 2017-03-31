@@ -47,6 +47,13 @@ class BuilderTest extends TestCase
         $this->query_builder = $this->getMockNoConstructor('Doctrine\ORM\QueryBuilder');
     }
 
+    public function testDefaultPageLink()
+    {
+        $builder = new Builder($this->router, 5, 'p');
+
+        $this->assertEquals('?p=%d', $builder->paginate(10, 3)->getPageLink());
+    }
+
     /**
      * @return array
      */

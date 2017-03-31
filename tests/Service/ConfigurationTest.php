@@ -24,6 +24,11 @@ class ConfigurationTest extends TestCase
         $this->config = new Configuration(150, 33);
     }
 
+    public function testDefaultPageLink()
+    {
+        $this->assertEquals('?page=%d', $this->config->getPageLink());
+    }
+
     /**
      * @return array
      */
