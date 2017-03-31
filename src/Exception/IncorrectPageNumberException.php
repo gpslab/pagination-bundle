@@ -9,7 +9,9 @@
 
 namespace GpsLab\Bundle\PaginationBundle\Exception;
 
-class IncorrectPageNumberException extends \InvalidArgumentException
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+
+class IncorrectPageNumberException extends NotFoundHttpException
 {
     /**
      * @param mixed $current_page

@@ -22,6 +22,7 @@ class IncorrectPageNumberExceptionTest extends TestCase
         $exception = IncorrectPageNumberException::incorrect($current_page);
 
         $this->assertInstanceOf('GpsLab\Bundle\PaginationBundle\Exception\IncorrectPageNumberException', $exception);
+        $this->assertInstanceOf('Symfony\Component\HttpKernel\Exception\NotFoundHttpException', $exception);
         $this->assertEquals($message, $exception->getMessage());
     }
 }

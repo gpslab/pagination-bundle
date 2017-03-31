@@ -9,7 +9,9 @@
 
 namespace GpsLab\Bundle\PaginationBundle\Exception;
 
-class OutOfRangeException extends \OutOfRangeException
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+
+class OutOfRangeException extends NotFoundHttpException
 {
     /**
      * @param int $current_page
