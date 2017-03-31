@@ -21,7 +21,7 @@ class Configuration
     /**
      * @var int
      */
-    const DEFAULT_PAGE_LINK = '%d';
+    const DEFAULT_PAGE_LINK = '?page=%d';
 
     /**
      * @var int
