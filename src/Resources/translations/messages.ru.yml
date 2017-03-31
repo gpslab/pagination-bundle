@@ -1,7 +1,13 @@
 pagination:
-    first_page: 'Перейти на первую страницу'
-    previous_page: 'Перейти на предыдущую страницу'
-    page_number: 'Перейти на страницу номер: %page%'
-    next_page: 'Перейти на следующую страницу'
-    last_page: 'Перейти на последнюю страницу'
-    current_page: 'Текущая страница'
+    first_page:
+        title: 'Перейти на первую страницу'
+    previous_page:
+        title: 'Перейти на предыдущую страницу'
+    page_number:
+        title: 'Перейти на страницу номер: %page%'
+    next_page:
+        title: 'Перейти на следующую страницу'
+    last_page:
+        title: 'Перейти на последнюю страницу'
+    current_page:
+        title: 'Текущая страница'
