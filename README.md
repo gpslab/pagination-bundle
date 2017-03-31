@@ -37,7 +37,7 @@ public function registerBundles()
 }
 ```
 
-## Simplae usage
+## Simple usage
 
 ```php
 class ArticleController extends Controller

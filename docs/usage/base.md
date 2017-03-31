@@ -47,12 +47,10 @@ class ArticleController extends Controller
                 ceil($total / self::PER_PAGE), // total pages
                 $request->query->get('page') // correct page
             )
-            // build page link
-            ->setPageLink(function($page) use ($router) {
-                return $router->generate('article_index', ['page' => $page]);
-            })
-            // build link for first page
-            ->setFirstPageLink($router->generate('article_index'))
+            // page link template
+            ->setPageLink('/article/?page=%d')
+            // link for first page
+            ->setFirstPageLink('/article/')
         ;
 
         // get articles chunk
@@ -63,7 +61,8 @@ class ArticleController extends Controller
             ->setFirstResult(($pagination->getCurrentPage() - 1) * self::PER_PAGE)
             ->setMaxResults(self::PER_PAGE)
             ->getQuery()
-            ->getResult();
+            ->getResult()
+        ;
 
         return $this->render('AcmeDemoBundle:Article:index.html.twig', [
             'total' => $total,

@@ -47,7 +47,7 @@ class ArticleController extends Controller
                 self::PER_PAGE,
                 $request->query->get('page') // correct page
             )
-            // build page link
+            // register callback function as the page link builder
             ->setPageLink(function($page) {
                 return $this->generateUrl('article_index', ['page' => $page]);
             })
