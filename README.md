@@ -218,7 +218,7 @@ Example Material Design template for pagination
     <ul class="pagination">
         {% if pagination.prev %}
             <li>
-                <a href="{{ pagination.prev.link }}" title="{{ 'previous.page'|trans }}">
+                <a href="{{ pagination.prev.link }}" title="{{ 'pagination.previous_page.title'|trans }}">
                     <i class="material-icons">chevron_left</i>
                 </a>
             </li>
@@ -232,17 +232,21 @@ Example Material Design template for pagination
         {% for item in pagination %}
             {% if item.current %}
                 <li class="active">
-                    <a href="#" title="{{ 'current.page'|trans }}">{{ item.page }}</a>
+                    <a href="#" title="{{ 'pagination.current_page.title'|trans }}">
+                        {{ item.page }}
+                    </a>
                 </li>
             {% else %}
                 <li>
-                    <a href="{{ item.link }}" title="{{ 'page.number'|trans({'%page%': item.page}) }}">{{ item.page }}</a>
+                    <a href="{{ item.link }}" title="{{ 'pagination.page_number.title'|trans({'%page%': item.page}) }}">
+                        {{ item.page }}
+                    </a>
                 </li>
             {% endif %}
         {% endfor %}
         {% if pagination.next %}
             <li>
-                <a href="{{ pagination.next.link }}" title="{{ 'next.page'|trans }}">
+                <a href="{{ pagination.next.link }}" title="{{ 'pagination.next_page.title'|trans }}">
                     <i class="material-icons">chevron_right</i>
                 </a>
             </li>
