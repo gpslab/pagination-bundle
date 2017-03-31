@@ -56,11 +56,10 @@ class NavigateRange
     private function buildOffset()
     {
         if ($this->left_offset < 0) {
-            $this
-                ->definitionOffset()
-                ->adjustmentLargeLeftOffset()
-                ->adjustmentLargeRightOffset()
-                ->adjustmentLowerLeftOffset();
+            $this->definitionOffset();
+            $this->adjustmentLargeLeftOffset();
+            $this->adjustmentLargeRightOffset();
+            $this->adjustmentLowerLeftOffset();
         }
 
         return $this;
@@ -68,21 +67,15 @@ class NavigateRange
 
     /**
      * Definition of offset to the left and to the right of the selected page.
-     *
-     * @return self
      */
     private function definitionOffset()
     {
         $this->left_offset = (int) floor(($this->config->getMaxNavigate() - 1) / 2);
         $this->right_offset = (int) ceil(($this->config->getMaxNavigate() - 1) / 2);
-
-        return $this;
     }
 
     /**
      * Adjustment, if the offset is too large left.
-     *
-     * @return self
      */
     private function adjustmentLargeLeftOffset()
     {
@@ -91,14 +84,10 @@ class NavigateRange
             $this->left_offset = $this->left_offset - $offset;
             $this->right_offset = $this->right_offset + $offset;
         }
-
-        return $this;
     }
 
     /**
      * Adjustment, if the offset is too large right.
-     *
-     * @return self
      */
     private function adjustmentLargeRightOffset()
     {
@@ -111,21 +100,15 @@ class NavigateRange
             $this->left_offset = $this->left_offset + $offset;
             $this->right_offset = $this->right_offset - $offset;
         }
-
-        return $this;
     }
 
     /**
      * Left offset should point not lower of the first page.
-     *
-     * @return self
      */
     private function adjustmentLowerLeftOffset()
     {
         if ($this->left_offset >= $this->config->getCurrentPage()) {
             $this->left_offset = $this->config->getCurrentPage() - 1;
         }
-
-        return $this;
     }
 }
