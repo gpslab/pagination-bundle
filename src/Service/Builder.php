@@ -33,7 +33,7 @@ class Builder
     /**
      * Name of URL parameter for page number.
      *
-     * @var int
+     * @var string
      */
     private $parameter_name = 'page';
 
@@ -150,13 +150,17 @@ class Builder
     {
         if (is_null($current_page)) {
             return 1;
-        } elseif (!is_numeric($current_page)) {
-            throw IncorrectPageNumberException::incorrect($current_page);
-        } elseif ($current_page < 1 || $current_page > $total_pages) {
-            throw OutOfRangeException::out($current_page, $total_pages);
-        } else {
-            return (int) $current_page;
         }
+
+        if (!is_numeric($current_page)) {
+            throw IncorrectPageNumberException::incorrect($current_page);
+        }
+
+        if ($current_page < 1 || $current_page > $total_pages) {
+            throw OutOfRangeException::out($current_page, $total_pages);
+        }
+
+        return (int) $current_page;
     }
 
     /**
