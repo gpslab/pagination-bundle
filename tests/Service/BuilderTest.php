@@ -15,6 +15,7 @@ use Doctrine\ORM\QueryBuilder;
 use GpsLab\Bundle\PaginationBundle\Tests\TestCase;
 use Symfony\Bundle\FrameworkBundle\Routing\Router;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class BuilderTest extends TestCase
 {
@@ -23,9 +24,27 @@ class BuilderTest extends TestCase
      */
     private $router;
 
+    /**
+     * @var \PHPUnit_Framework_MockObject_MockObject|Request
+     */
+    private $request;
+
+    /**
+     * @var \PHPUnit_Framework_MockObject_MockObject|AbstractQuery
+     */
+    private $query;
+
+    /**
+     * @var \PHPUnit_Framework_MockObject_MockObject|QueryBuilder
+     */
+    private $query_builder;
+
     protected function setUp()
     {
         $this->router = $this->getMockNoConstructor('Symfony\Bundle\FrameworkBundle\Routing\Router');
+        $this->request = $this->getMockNoConstructor('Symfony\Component\HttpFoundation\Request');
+        $this->query = $this->getMockAbstract('Doctrine\ORM\AbstractQuery', ['getSingleScalarResult']);
+        $this->query_builder = $this->getMockNoConstructor('Doctrine\ORM\QueryBuilder');
     }
 
     /**
@@ -77,41 +96,23 @@ class BuilderTest extends TestCase
      */
     public function testPaginateQuery($max_navigate, $per_page, $total, $current_page)
     {
-        /** @var $query \PHPUnit_Framework_MockObject_MockObject|AbstractQuery */
-        $query = $this->getMockAbstract('Doctrine\ORM\AbstractQuery', ['getSingleScalarResult']);
-        $query
-            ->expects($this->once())
-            ->method('getSingleScalarResult')
-            ->will($this->returnValue($total));
+        $this->countQuery($total);
 
-        /** @var $query_builder \PHPUnit_Framework_MockObject_MockObject|QueryBuilder */
-        $query_builder = $this->getMockNoConstructor('Doctrine\ORM\QueryBuilder');
-        $query_builder
-            ->expects($this->once())
-            ->method('getRootAliases')
-            ->will($this->returnValue(['a', 'b']));
-        $query_builder
-            ->expects($this->once())
-            ->method('select')
-            ->with('COUNT(a)')
-            ->will($this->returnSelf());
-        $query_builder
+        $this->query_builder
             ->expects($this->once())
             ->method('setFirstResult')
             ->with(($current_page - 1) * $per_page)
-            ->will($this->returnSelf());
-        $query_builder
+            ->will($this->returnSelf())
+        ;
+        $this->query_builder
             ->expects($this->once())
             ->method('setMaxResults')
             ->with($per_page)
-            ->will($this->returnSelf());
-        $query_builder
-            ->expects($this->once())
-            ->method('getQuery')
-            ->will($this->returnValue($query));
+            ->will($this->returnSelf())
+        ;
 
         $builder = new Builder($this->router, $max_navigate, 'page');
-        $config = $builder->paginateQuery($query_builder, $per_page, $current_page);
+        $config = $builder->paginateQuery($this->query_builder, $per_page, $current_page);
 
         $this->assertEquals($max_navigate, $config->getMaxNavigate());
         $this->assertEquals(ceil($total / $per_page), $config->getTotalPages());
@@ -127,31 +128,10 @@ class BuilderTest extends TestCase
         $per_page = 5;
         $current_page = 150;
 
-        /** @var $query \PHPUnit_Framework_MockObject_MockObject|AbstractQuery */
-        $query = $this->getMockAbstract('Doctrine\ORM\AbstractQuery', ['getSingleScalarResult']);
-        $query
-            ->expects($this->once())
-            ->method('getSingleScalarResult')
-            ->will($this->returnValue($total));
-
-        /** @var $query_builder \PHPUnit_Framework_MockObject_MockObject|QueryBuilder */
-        $query_builder = $this->getMockNoConstructor('Doctrine\ORM\QueryBuilder');
-        $query_builder
-            ->expects($this->once())
-            ->method('getRootAliases')
-            ->will($this->returnValue(['a', 'b']));
-        $query_builder
-            ->expects($this->once())
-            ->method('select')
-            ->with('COUNT(a)')
-            ->will($this->returnSelf());
-        $query_builder
-            ->expects($this->once())
-            ->method('getQuery')
-            ->will($this->returnValue($query));
+        $this->countQuery($total);
 
         $builder = new Builder($this->router, 5, 'page');
-        $builder->paginateQuery($query_builder, $per_page, $current_page);
+        $builder->paginateQuery($this->query_builder, $per_page, $current_page);
     }
 
     /**
@@ -159,17 +139,10 @@ class BuilderTest extends TestCase
      */
     public function testPaginateRequestIncorrectPage()
     {
-        /* @var $request \PHPUnit_Framework_MockObject_MockObject|Request */
-        $request = $this->getMockNoConstructor('Symfony\Component\HttpFoundation\Request');
-        $request
-            ->expects($this->once())
-            ->method('get')
-            ->with('page')
-            ->will($this->returnValue('foo'))
-        ;
+        $this->currentPage('foo', 'page');
 
         $builder = new Builder($this->router, 5, 'page');
-        $builder->paginateRequest($request, 10);
+        $builder->paginateRequest($this->request, 10);
     }
 
     /**
@@ -177,17 +150,10 @@ class BuilderTest extends TestCase
      */
     public function testPaginateRequestLowPageNumber()
     {
-        /* @var $request \PHPUnit_Framework_MockObject_MockObject|Request */
-        $request = $this->getMockNoConstructor('Symfony\Component\HttpFoundation\Request');
-        $request
-            ->expects($this->once())
-            ->method('get')
-            ->with('p')
-            ->will($this->returnValue(0))
-        ;
+        $this->currentPage(0, 'p');
 
         $builder = new Builder($this->router, 5, 'page');
-        $builder->paginateRequest($request, 10, 'p');
+        $builder->paginateRequest($this->request, 10, 'p');
     }
 
     /**
@@ -195,16 +161,218 @@ class BuilderTest extends TestCase
      */
     public function testPaginateRequestOutOfRange()
     {
-        /* @var $request \PHPUnit_Framework_MockObject_MockObject|Request */
-        $request = $this->getMockNoConstructor('Symfony\Component\HttpFoundation\Request');
-        $request
-            ->expects($this->once())
-            ->method('get')
-            ->with('p')
-            ->will($this->returnValue(150))
-        ;
+        $this->currentPage(150, 'p');
 
         $builder = new Builder($this->router, 5, 'page');
-        $builder->paginateRequest($request, 10, 'p');
+        $builder->paginateRequest($this->request, 10, 'p');
+    }
+
+    public function testPaginateRequest()
+    {
+        $max_navigate = 6;
+        $total_pages = 10;
+        $parameter_name = 'p';
+        $route = '_route';
+        $route_params = ['_route_params'];
+        $reference_type = UrlGeneratorInterface::ABSOLUTE_URL;
+
+        $this->currentPage(null, 'p');
+        $this->request
+            ->expects($this->at(1))
+            ->method('get')
+            ->with('_route')
+            ->will($this->returnValue($route))
+        ;
+        $this->request
+            ->expects($this->at(2))
+            ->method('get')
+            ->with('_route_params')
+            ->will($this->returnValue($route_params))
+        ;
+
+        $that = $this;
+        $this->router
+            ->expects($this->atLeastOnce())
+            ->method('generate')
+            ->will($this->returnCallback(function ($_route, $_route_params, $_reference_type) use (
+                $that,
+                $route,
+                $route_params,
+                $reference_type
+            ) {
+                $that->assertEquals($reference_type, $_reference_type);
+                $that->assertEquals($route, $_route);
+                $that->assertEquals($route_params, array_intersect($_route_params, $route_params));
+
+                return $_route.http_build_query($_route_params);
+            }))
+        ;
+
+        $builder = new Builder($this->router, $max_navigate, 'page');
+        $config = $builder->paginateRequest($this->request, $total_pages, $parameter_name, $reference_type);
+
+        $this->assertEquals($max_navigate, $config->getMaxNavigate());
+        $this->assertEquals($total_pages, $config->getTotalPages());
+        $this->assertEquals(1, $config->getCurrentPage());
+        $this->assertEquals($route.http_build_query($route_params), $config->getFirstPageLink());
+        $this->assertInstanceOf('Closure', $config->getPageLink());
+        $page_number = 3;
+        $this->assertEquals(
+            $route.http_build_query($route_params + [$parameter_name => $page_number]),
+            call_user_func($config->getPageLink(), $page_number)
+        );
+    }
+
+    /**
+     * @expectedException \GpsLab\Bundle\PaginationBundle\Exception\IncorrectPageNumberException
+     */
+    public function testPaginateRequesQuerytIncorrectPage()
+    {
+        $this->currentPage('foo', 'page');
+        $this->countQuery(10);
+
+        $builder = new Builder($this->router, 5, 'page');
+        $builder->paginateRequestQuery($this->request, $this->query_builder, 5);
+    }
+
+    /**
+     * @expectedException \GpsLab\Bundle\PaginationBundle\Exception\OutOfRangeException
+     */
+    public function testPaginateRequestQueryLowPageNumber()
+    {
+        $this->currentPage(0, 'p');
+        $this->countQuery(10);
+
+        $builder = new Builder($this->router, 5, 'page');
+        $builder->paginateRequestQuery($this->request, $this->query_builder, 5, 'p');
+    }
+
+    /**
+     * @expectedException \GpsLab\Bundle\PaginationBundle\Exception\OutOfRangeException
+     */
+    public function testPaginateRequestQueryOutOfRange()
+    {
+        $this->currentPage(150, 'p');
+        $this->countQuery(10);
+
+        $builder = new Builder($this->router, 5, 'page');
+        $builder->paginateRequestQuery($this->request, $this->query_builder, 5, 'p');
+    }
+
+    public function testPaginateRequestQuery()
+    {
+        $per_page = 10;
+        $current_page = 7;
+        $max_navigate = 6;
+        $total = 150;
+        $parameter_name = 'p';
+        $route = '_route';
+        $route_params = ['_route_params'];
+        $reference_type = UrlGeneratorInterface::ABSOLUTE_URL;
+
+        $this->currentPage($current_page, 'p');
+        $this->request
+            ->expects($this->at(1))
+            ->method('get')
+            ->with('_route')
+            ->will($this->returnValue($route))
+        ;
+        $this->request
+            ->expects($this->at(2))
+            ->method('get')
+            ->with('_route_params')
+            ->will($this->returnValue($route_params))
+        ;
+
+        $this->countQuery($total);
+        $this->query_builder
+            ->expects($this->once())
+            ->method('setFirstResult')
+            ->with(($current_page - 1) * $per_page)
+            ->will($this->returnSelf())
+        ;
+        $this->query_builder
+            ->expects($this->once())
+            ->method('setMaxResults')
+            ->with($per_page)
+            ->will($this->returnSelf())
+        ;
+
+        $that = $this;
+        $this->router
+            ->expects($this->atLeastOnce())
+            ->method('generate')
+            ->will($this->returnCallback(function ($_route, $_route_params, $_reference_type) use (
+                $that,
+                $route,
+                $route_params,
+                $reference_type
+            ) {
+                $that->assertEquals($reference_type, $_reference_type);
+                $that->assertEquals($route, $_route);
+                $that->assertEquals($route_params, array_intersect($_route_params, $route_params));
+
+                return $_route.http_build_query($_route_params);
+            }))
+        ;
+
+        $builder = new Builder($this->router, $max_navigate, 'page');
+        $config = $builder->paginateRequestQuery(
+            $this->request,
+            $this->query_builder,
+            $per_page,
+            $parameter_name,
+            $reference_type
+        );
+
+        $this->assertEquals($max_navigate, $config->getMaxNavigate());
+        $this->assertEquals(ceil($total / $per_page), $config->getTotalPages());
+        $this->assertEquals($current_page, $config->getCurrentPage());
+        $this->assertEquals($route.http_build_query($route_params), $config->getFirstPageLink());
+        $this->assertInstanceOf('Closure', $config->getPageLink());
+        $page_number = 3;
+        $this->assertEquals(
+            $route.http_build_query($route_params + [$parameter_name => $page_number]),
+            call_user_func($config->getPageLink(), $page_number)
+        );
+    }
+
+    /**
+     * @param int    $current_page
+     * @param string $parameter_name
+     */
+    private function currentPage($current_page, $parameter_name = 'page')
+    {
+        $this->request
+            ->expects($this->at(0))
+            ->method('get')
+            ->with($parameter_name)
+            ->will($this->returnValue($current_page))
+        ;
+    }
+
+    /**
+     * @param int $total
+     */
+    private function countQuery($total)
+    {
+        $this->query
+            ->expects($this->once())
+            ->method('getSingleScalarResult')
+            ->will($this->returnValue($total));
+
+        $this->query_builder
+            ->expects($this->once())
+            ->method('getRootAliases')
+            ->will($this->returnValue(['a', 'b']));
+        $this->query_builder
+            ->expects($this->once())
+            ->method('select')
+            ->with('COUNT(a)')
+            ->will($this->returnSelf());
+        $this->query_builder
+            ->expects($this->once())
+            ->method('getQuery')
+            ->will($this->returnValue($this->query));
     }
 }
