@@ -47,9 +47,12 @@ class ArticleController extends Controller
                 ceil($total / self::PER_PAGE), // total pages
                 $request->query->get('page') // correct page
             )
-            // page link template
+            // template of link to page
+            // character "%d" is replaced by the page number
+            // you don't need to customize the template, because default template is "?page=%d"
             ->setPageLink('/article/?page=%d')
             // link for first page
+            // as a default used the page link template
             ->setFirstPageLink('/article/')
         ;
 
