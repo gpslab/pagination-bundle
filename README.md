@@ -9,11 +9,11 @@
 
 # PaginationBundle
 
-![Pagination page 1](pagination_1.png)
+![Pagination page 1](docs/pagination_page_1.png)
 
-![Pagination page 4](pagination_5.png)
+![Pagination page 4](docs/pagination_page_5.png)
 
-![Pagination page 9](pagination_9.png)
+![Pagination page 9](docs/pagination_page_9.png)
 
 ## Installation
 
