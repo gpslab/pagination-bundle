@@ -14,6 +14,7 @@ use Doctrine\ORM\AbstractQuery;
 use Doctrine\ORM\QueryBuilder;
 use GpsLab\Bundle\PaginationBundle\Tests\TestCase;
 use Symfony\Bundle\FrameworkBundle\Routing\Router;
+use Symfony\Component\HttpFoundation\ParameterBag;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
@@ -39,12 +40,21 @@ class BuilderTest extends TestCase
      */
     private $query_builder;
 
+    /**
+     * @var array
+     */
+    private $query_params = [
+        'foo' => 'bar',
+    ];
+
     protected function setUp()
     {
         $this->router = $this->getMockNoConstructor('Symfony\Bundle\FrameworkBundle\Routing\Router');
         $this->request = $this->getMockNoConstructor('Symfony\Component\HttpFoundation\Request');
         $this->query = $this->getMockAbstract('Doctrine\ORM\AbstractQuery', ['getSingleScalarResult']);
         $this->query_builder = $this->getMockNoConstructor('Doctrine\ORM\QueryBuilder');
+
+        $this->request->query = new ParameterBag($this->query_params);
     }
 
     public function testDefaultPageLink()
@@ -180,7 +190,7 @@ class BuilderTest extends TestCase
         $total_pages = 10;
         $parameter_name = 'p';
         $route = '_route';
-        $route_params = ['_route_params'];
+        $route_params = array_merge($this->query_params, ['foo' => 'baz', '_route_params']);
         $reference_type = UrlGeneratorInterface::ABSOLUTE_URL;
 
         $this->currentPage(null, 'p');
@@ -274,7 +284,7 @@ class BuilderTest extends TestCase
         $total = 150;
         $parameter_name = 'p';
         $route = '_route';
-        $route_params = ['_route_params'];
+        $route_params = array_merge($this->query_params, ['foo' => 'baz', '_route_params']);
         $reference_type = UrlGeneratorInterface::ABSOLUTE_URL;
 
         $this->currentPage($current_page, 'p');
