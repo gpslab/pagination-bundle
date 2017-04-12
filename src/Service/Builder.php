@@ -180,6 +180,7 @@ class Builder
     ) {
         $route = $request->get('_route');
         $route_params = array_merge($request->query->all(), $request->get('_route_params'));
+        unset($route_params[$parameter_name]);
 
         return $configuration
             ->setPageLink(function ($number) use ($route, $route_params, $parameter_name, $reference_type) {

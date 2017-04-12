@@ -45,6 +45,7 @@ class BuilderTest extends TestCase
      */
     private $query_params = [
         'foo' => 'bar',
+        'p' => 2,
     ];
 
     protected function setUp()
@@ -190,7 +191,8 @@ class BuilderTest extends TestCase
         $total_pages = 10;
         $parameter_name = 'p';
         $route = '_route';
-        $route_params = array_merge($this->query_params, ['foo' => 'baz', '_route_params']);
+        $route_params = ['foo' => 'baz', '_route_params' => 123];
+        $all_params = array_merge($this->query_params, $route_params);
         $reference_type = UrlGeneratorInterface::ABSOLUTE_URL;
 
         $this->currentPage(null, 'p');
@@ -214,12 +216,10 @@ class BuilderTest extends TestCase
             ->will($this->returnCallback(function ($_route, $_route_params, $_reference_type) use (
                 $that,
                 $route,
-                $route_params,
                 $reference_type
             ) {
                 $that->assertEquals($reference_type, $_reference_type);
                 $that->assertEquals($route, $_route);
-                $that->assertEquals($route_params, array_intersect($_route_params, $route_params));
 
                 return $_route.http_build_query($_route_params);
             }))
@@ -231,11 +231,12 @@ class BuilderTest extends TestCase
         $this->assertEquals($max_navigate, $config->getMaxNavigate());
         $this->assertEquals($total_pages, $config->getTotalPages());
         $this->assertEquals(1, $config->getCurrentPage());
-        $this->assertEquals($route.http_build_query($route_params), $config->getFirstPageLink());
+        unset($all_params['p']);
+        $this->assertEquals($route.http_build_query($all_params), $config->getFirstPageLink());
         $this->assertInstanceOf('Closure', $config->getPageLink());
         $page_number = 3;
         $this->assertEquals(
-            $route.http_build_query($route_params + [$parameter_name => $page_number]),
+            $route.http_build_query($all_params + [$parameter_name => $page_number]),
             call_user_func($config->getPageLink(), $page_number)
         );
     }
@@ -284,7 +285,8 @@ class BuilderTest extends TestCase
         $total = 150;
         $parameter_name = 'p';
         $route = '_route';
-        $route_params = array_merge($this->query_params, ['foo' => 'baz', '_route_params']);
+        $route_params = ['foo' => 'baz', '_route_params'];
+        $all_params = array_merge($this->query_params, $route_params);
         $reference_type = UrlGeneratorInterface::ABSOLUTE_URL;
 
         $this->currentPage($current_page, 'p');
@@ -322,12 +324,10 @@ class BuilderTest extends TestCase
             ->will($this->returnCallback(function ($_route, $_route_params, $_reference_type) use (
                 $that,
                 $route,
-                $route_params,
                 $reference_type
             ) {
                 $that->assertEquals($reference_type, $_reference_type);
                 $that->assertEquals($route, $_route);
-                $that->assertEquals($route_params, array_intersect($_route_params, $route_params));
 
                 return $_route.http_build_query($_route_params);
             }))
@@ -345,11 +345,12 @@ class BuilderTest extends TestCase
         $this->assertEquals($max_navigate, $config->getMaxNavigate());
         $this->assertEquals(ceil($total / $per_page), $config->getTotalPages());
         $this->assertEquals($current_page, $config->getCurrentPage());
-        $this->assertEquals($route.http_build_query($route_params), $config->getFirstPageLink());
+        unset($all_params['p']);
+        $this->assertEquals($route.http_build_query($all_params), $config->getFirstPageLink());
         $this->assertInstanceOf('Closure', $config->getPageLink());
         $page_number = 3;
         $this->assertEquals(
-            $route.http_build_query($route_params + [$parameter_name => $page_number]),
+            $route.http_build_query($all_params + [$parameter_name => $page_number]),
             call_user_func($config->getPageLink(), $page_number)
         );
     }
