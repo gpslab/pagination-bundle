@@ -19,12 +19,14 @@ class Configuration implements ConfigurationInterface
      */
     public function getConfigTreeBuilder()
     {
-        if (method_exists('Symfony\Component\Config\Definition\Builder\TreeBuilder', 'getRootNode')) { // Symfony >4.2
-            $builder = new TreeBuilder('gpslab_pagination');
-            $root = $builder->getRootNode();
+        $tree_builder = new TreeBuilder('gpslab_pagination');
+
+        if (method_exists($tree_builder, 'getRootNode')) {
+            // Symfony 4.2 +
+            $root = $tree_builder->getRootNode();
         } else {
-            $builder = new TreeBuilder();
-            $root = $builder->root('gpslab_pagination');
+            // Symfony 4.1 and below
+            $root = $tree_builder->root('gpslab_pagination');
         }
 
         $root
@@ -41,6 +43,6 @@ class Configuration implements ConfigurationInterface
                 ->end()
             ->end();
 
-        return $builder;
+        return $tree_builder;
     }
 }
