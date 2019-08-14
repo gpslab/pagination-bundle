@@ -18,21 +18,23 @@
 Pretty simple with [Composer](http://packagist.org), run:
 
 ```sh
-composer require gpslab/pagination-bundle
+composer req gpslab/pagination-bundle
 ```
 
-Add PaginatorBundle to your application kernel
+## Configuration
 
-```php
-// app/AppKernel.php
-public function registerBundles()
-{
-    return array(
-        // ...
-        new GpsLab\Bundle\PaginationBundle\GpsLabPaginationBundle(),
-        // ...
-    );
-}
+Default configuration
+
+```yaml
+gpslab_pagination:
+    # Page range used in pagination control
+    max_navigate: 5
+
+    # Name of URL parameter for page number
+    parameter_name: 'page'
+
+    # Sliding pagination controls template
+    template: 'GpsLabPaginationBundle::pagination.html.twig'
 ```
 
 ## Simple usage
@@ -40,11 +42,11 @@ public function registerBundles()
 ```php
 class ArticleController extends Controller
 {
-    const PER_PAGE = 30; // articles per page
+    private const PER_PAGE = 30; // articles per page
 
-    public function indexAction(Request $request)
+    public function index(Request $request): Response
     {
-        $rep = $this->getDoctrine()->getRepository('AcmeDemoBundle:Article');
+        $rep = $this->getDoctrine()->getRepository(Article::class);
 
         $total = $rep->getTotalPublished();
         $total_pages = ceil($total / self::PER_PAGE);
@@ -71,20 +73,16 @@ Display pagination in template:
 
 ```twig
 <nav class="pagination">
-    {{ pagination_render(pagination) }}
+    {{- pagination_render(pagination) -}}
 </nav>
 ```
 
-
 ## Documentation
 
- * [Installation](docs/installation.md)
- * [Configuration](docs/configuration.md)
- * Usage
-    * [Base usage](docs/usage/base.md)
-    * [From QueryBuilder](docs/usage/query.md)
-    * [From HTTP request](docs/usage/request.md)
-    * [From HTTP request and QueryBuilder](docs/usage/request_query.md)
+ * [Base usage](docs/base_usage.md)
+ * [From QueryBuilder](docs/from_qb.md)
+ * [From HTTP request](docs/from_request.md)
+ * [From HTTP request and QueryBuilder](docs/from_request_and_qb.md)
  * [Custom view](docs/custom_view.md)
 
 ## License

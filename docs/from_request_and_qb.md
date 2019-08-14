@@ -1,9 +1,10 @@
-From HTTP request
-=================
+From HTTP request and QueryBuilder
+==================================
 
 ```php
 namespace Acme\DemoBundle\Controller;
 
+use Acme\DemoBundle\Entity\Article;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,43 +16,37 @@ class ArticleController extends Controller
 {
     /**
      * Articles per page.
-     *
-     * @var int
      */
-    const PER_PAGE = 100;
+    private const PER_PAGE = 100;
 
     /**
      * @Configuration\Route("/article/", name="article_index")
      * @Configuration\Method({"GET"})
-     *
-     * @param Request $request
-     *
-     * @return Response
      */
-    public function indexAction(Request $request)
+    public function index(Request $request): Response
     {
-        $rep = $this->getDoctrine()->getRepository('AcmeDemoBundle:Article');
-
-        $total = $rep->getTotalPublished();
-        $total_pages = ceil($total / self::PER_PAGE);
+        // create get articles query
+        // would be better move this query to repository class
+        $query = $this
+            ->getDoctrine()
+            ->getRepository(Article::calss)
+            ->createQueryBuilder('a')
+            ->where('a.enabled = :enabled')
+            ->setParameter('enabled', true)
+        ;
 
         // build pagination
-        $pagination = $this->get('pagination')->paginateRequest(
+        $pagination = $this->get('pagination')->paginateRequestQuery(
             $request,
-            $total_pages,
+            $query,
+            self::PER_PAGE, // articles per page
             'p', // request parameter for page number
             UrlGeneratorInterface::ABSOLUTE_URL // build absolute url in pagination
         );
 
-        // get articles chunk
-        $articles = $rep->getPublished(
-            self::PER_PAGE, // limit
-            ($pagination->getCurrentPage() - 1) * self::PER_PAGE // offset
-        );
-
         return $this->render('AcmeDemoBundle:Article:index.html.twig', [
-            'total' => $total,
-            'articles' => $articles,
+            'total' => $pagination->getTotalPages(), // total pages
+            'articles' => $query->getQuery()->getResult(), // get articles chunk
             'pagination' => $pagination
         ]);
     }

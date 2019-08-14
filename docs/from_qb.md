@@ -4,6 +4,7 @@ From QueryBuilder
 ```php
 namespace Acme\DemoBundle\Controller;
 
+use Acme\DemoBundle\Entity\Article;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -14,26 +15,20 @@ class ArticleController extends Controller
 {
     /**
      * Articles per page.
-     *
-     * @var int
      */
-    const PER_PAGE = 100;
+    private const PER_PAGE = 100;
 
     /**
      * @Configuration\Route("/article/", name="article_index")
      * @Configuration\Method({"GET"})
-     *
-     * @param Request $request
-     *
-     * @return Response
      */
-    public function indexAction(Request $request)
+    public function index(Request $request): Response
     {
         // create get articles query
         // would be better move this query to repository class
         $query = $this
             ->getDoctrine()
-            ->getRepository('AcmeDemoBundle:Article')
+            ->getRepository(Article::calss)
             ->createQueryBuilder('a')
             ->where('a.enabled = :enabled')
             ->setParameter('enabled', true)
