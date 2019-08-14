@@ -19,8 +19,17 @@ class Configuration implements ConfigurationInterface
      */
     public function getConfigTreeBuilder()
     {
-        $builder = new TreeBuilder();
-        $builder->root('gpslab_pagination')
+        $tree_builder = new TreeBuilder('gpslab_pagination');
+
+        if (method_exists($tree_builder, 'getRootNode')) {
+            // Symfony 4.2 +
+            $root = $tree_builder->getRootNode();
+        } else {
+            // Symfony 4.1 and below
+            $root = $tree_builder->root('gpslab_pagination');
+        }
+
+        $root
             ->addDefaultsIfNotSet()
             ->children()
                 ->scalarNode('max_navigate')
@@ -34,6 +43,6 @@ class Configuration implements ConfigurationInterface
                 ->end()
             ->end();
 
-        return $builder;
+        return $tree_builder;
     }
 }
