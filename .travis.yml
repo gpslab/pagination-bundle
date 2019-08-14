@@ -47,14 +47,13 @@ matrix:
           env: TWIG_VERSION=2.*
 
 before_install:
-    - echo "memory_limit=2G" >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
     - if [ -n "$GH_TOKEN" ]; then composer config github-oauth.github.com ${GH_TOKEN}; fi;
 
 before_script:
     - if [ "$SYMFONY_VERSION" != "" ]; then composer require "symfony/symfony:${SYMFONY_VERSION}" --dev --no-update; fi;
     - if [ "$DOCTRINE_VERSION" != "" ]; then composer require "doctrine/orm:${DOCTRINE_VERSION}" --dev --no-update; fi;
     - if [ "$TWIG_VERSION" != "" ]; then composer require "twig/twig:${TWIG_VERSION}" --dev --no-update; fi;
-    - composer install --prefer-dist --no-interaction --no-scripts --no-progress
+    - COMPOSER_MEMORY_LIMIT=-1 composer install --prefer-dist --no-interaction --no-scripts --no-progress
 
 script:
     - vendor/bin/phpunit --coverage-clover build/coverage-clover.xml
