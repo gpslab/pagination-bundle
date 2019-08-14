@@ -15,33 +15,31 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 class GpsLabPaginationExtensionTest extends TestCase
 {
+    /**
+     * @var GpsLabPaginationExtension
+     */
+    private $extension;
+
+    protected function setUp()
+    {
+        $this->extension = new GpsLabPaginationExtension();
+    }
+
     public function testLoad()
     {
-        /* @var $container \PHPUnit_Framework_MockObject_MockObject|ContainerBuilder */
-        $container = $this->getMock('Symfony\Component\DependencyInjection\ContainerBuilder');
-        $container
-            ->expects($this->at(0))
-            ->method('setParameter')
-            ->with('pagination.max_navigate', 5)
-        ;
-        $container
-            ->expects($this->at(1))
-            ->method('setParameter')
-            ->with('pagination.parameter_name', 'page')
-        ;
-        $container
-            ->expects($this->at(2))
-            ->method('setParameter')
-            ->with('pagination.template', 'GpsLabPaginationBundle::pagination.html.twig')
-        ;
+        $container = new ContainerBuilder();
+        $this->extension->load([], $container);
 
-        $extension = new GpsLabPaginationExtension();
-        $extension->load([], $container);
+        $this->assertEquals(5, $container->getParameter('pagination.max_navigate'));
+        $this->assertEquals('page', $container->getParameter('pagination.parameter_name'));
+        $this->assertEquals(
+            'GpsLabPaginationBundle::pagination.html.twig',
+            $container->getParameter('pagination.template')
+        );
     }
 
     public function testGetAlias()
     {
-        $extension = new GpsLabPaginationExtension();
-        $this->assertEquals('gpslab_pagination', $extension->getAlias());
+        $this->assertEquals('gpslab_pagination', $this->extension->getAlias());
     }
 }
