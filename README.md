@@ -5,7 +5,6 @@
 [![StyleCI](https://styleci.io/repos/86694387/shield?branch=master)](https://styleci.io/repos/86694387)
 [![License](https://img.shields.io/packagist/l/gpslab/pagination-bundle.svg?maxAge=3600)](https://github.com/gpslab/pagination-bundle)
 
-
 # PaginationBundle
 
 ![Pagination page 1](docs/pagination_page_1.png)
