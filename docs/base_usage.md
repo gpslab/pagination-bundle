@@ -4,6 +4,7 @@ Base usage
 ```php
 namespace Acme\DemoBundle\Controller;
 
+use Acme\DemoBundle\Entity\Article;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -13,29 +14,23 @@ class ArticleController extends Controller
 {
     /**
      * Articles per page.
-     *
-     * @var int
      */
-    const PER_PAGE = 100;
+    private const PER_PAGE = 100;
 
     /**
      * @Configuration\Route("/article/", name="article_index")
      * @Configuration\Method({"GET"})
-     *
-     * @param Request $request
-     *
-     * @return Response
      */
-    public function indexAction(Request $request)
+    public function index(Request $request): Response
     {
-        $em = $this->get('doctrine.orm.default_entity_manager');
         $router = $this->get('router');
 
         // get total articles
-        $total = (int)$em
+        $total = (int) $this->
+            ->getDoctrine()
             ->createQueryBuilder()
             ->select('COUNT(*)')
-            ->from('AcmeDemoBundle:Article', 'a')
+            ->from(Article::class, 'a')
             ->getQuery()
             ->getSingleScalarResult()
         ;
@@ -57,10 +52,11 @@ class ArticleController extends Controller
         ;
 
         // get articles chunk
-        $articles = $em
+        $articles = $this->
+            ->getDoctrine()
             ->createQueryBuilder()
             ->select('*')
-            ->from('AcmeDemoBundle:Article', 'a')
+            ->from(Article::class, 'a')
             ->setFirstResult(($pagination->getCurrentPage() - 1) * self::PER_PAGE)
             ->setMaxResults(self::PER_PAGE)
             ->getQuery()

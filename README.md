@@ -44,11 +44,11 @@ gpslab_pagination:
 ```php
 class ArticleController extends Controller
 {
-    const PER_PAGE = 30; // articles per page
+    private const PER_PAGE = 30; // articles per page
 
-    public function indexAction(Request $request)
+    public function index(Request $request): Response
     {
-        $rep = $this->getDoctrine()->getRepository('AcmeDemoBundle:Article');
+        $rep = $this->getDoctrine()->getRepository(Article::class);
 
         $total = $rep->getTotalPublished();
         $total_pages = ceil($total / self::PER_PAGE);
@@ -75,7 +75,7 @@ Display pagination in template:
 
 ```twig
 <nav class="pagination">
-    {{ pagination_render(pagination) }}
+    {{- pagination_render(pagination) -}}
 </nav>
 ```
 

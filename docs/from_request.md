@@ -4,6 +4,7 @@ From HTTP request
 ```php
 namespace Acme\DemoBundle\Controller;
 
+use Acme\DemoBundle\Entity\Article;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,22 +16,16 @@ class ArticleController extends Controller
 {
     /**
      * Articles per page.
-     *
-     * @var int
      */
-    const PER_PAGE = 100;
+    private const PER_PAGE = 100;
 
     /**
      * @Configuration\Route("/article/", name="article_index")
      * @Configuration\Method({"GET"})
-     *
-     * @param Request $request
-     *
-     * @return Response
      */
-    public function indexAction(Request $request)
+    public function index(Request $request): Response
     {
-        $rep = $this->getDoctrine()->getRepository('AcmeDemoBundle:Article');
+        $rep = $this->getDoctrine()->getRepository(Article::calss);
 
         $total = $rep->getTotalPublished();
         $total_pages = ceil($total / self::PER_PAGE);
