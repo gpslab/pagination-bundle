@@ -19,9 +19,7 @@ matrix:
         - php: 5.6
         - php: 5.5
           dist: trusty
-        - php: 5.4
-          dist: trusty
-        - php: 5.4
+        - php: 5.5
           dist: trusty
           env: SYMFONY_VERSION=2.8.*
         - php: 5.5
@@ -31,16 +29,16 @@ matrix:
           env: SYMFONY_VERSION=4.2.* PHPUNIT_VERSION=5.7.*
         - php: 7.1
           env: SYMFONY_VERSION=4.3.* PHPUNIT_VERSION=5.7.*
-        - php: 5.4
+        - php: 5.5
           dist: trusty
           env: DOCTRINE_VERSION=2.4.*
-        - php: 5.4
+        - php: 5.5
           dist: trusty
           env: DOCTRINE_VERSION=2.5.*
         - php: 7.1
           dist: trusty
           env: DOCTRINE_VERSION=2.6.*
-        - php: 5.4
+        - php: 5.5
           dist: trusty
           env: TWIG_VERSION=1.*
         - php: 7.0
@@ -54,7 +52,7 @@ before_script:
     - if [ "$DOCTRINE_VERSION" != "" ]; then composer require "doctrine/orm:${DOCTRINE_VERSION}" --dev --no-update; fi;
     - if [ "$TWIG_VERSION" != "" ]; then composer require "twig/twig:${TWIG_VERSION}" --dev --no-update; fi;
     - if [ "$PHPUNIT_VERSION" != "" ]; then composer require "phpunit/phpunit:${PHPUNIT_VERSION}" --dev --no-update; fi;
-    - COMPOSER_MEMORY_LIMIT=-1 travis_wait 20 composer install --prefer-dist --no-interaction --no-scripts --no-progress
+    - COMPOSER_MEMORY_LIMIT=-1 composer install --prefer-dist --no-interaction --no-scripts --no-progress
 
 script:
     - vendor/bin/phpunit --coverage-clover build/coverage-clover.xml
