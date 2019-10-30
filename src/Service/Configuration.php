@@ -35,7 +35,7 @@ class Configuration
     private $current_page = 1;
 
     /**
-     * @var View
+     * @var View|null
      */
     private $view;
 

@@ -36,7 +36,7 @@ class View implements \IteratorAggregate
     private $prev;
 
     /**
-     * @var Node
+     * @var Node|null
      */
     private $current;
 
@@ -144,7 +144,7 @@ class View implements \IteratorAggregate
     }
 
     /**
-     * @return ArrayCollection
+     * @return ArrayCollection|Node[]
      */
     public function getIterator()
     {
