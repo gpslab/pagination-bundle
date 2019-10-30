@@ -22,17 +22,17 @@ class ViewTest extends TestCase
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject|Configuration
      */
-    protected $config;
+    private $config;
 
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject|NavigateRange
      */
-    protected $range;
+    private $range;
 
     /**
      * @var View
      */
-    protected $view;
+    private $view;
 
     protected function setUp()
     {

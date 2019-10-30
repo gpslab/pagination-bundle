@@ -19,12 +19,12 @@ class NavigateRangeTest extends TestCase
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject|Configuration
      */
-    protected $config;
+    private $config;
 
     /**
      * @var NavigateRange
      */
-    protected $range;
+    private $range;
 
     protected function setUp()
     {
