@@ -118,7 +118,7 @@ class ViewTest extends TestCase
     }
 
     /**
-     * @param string|callback $page_link
+     * @param string|callable $page_link
      * @param int             $number
      *
      * @return string
@@ -131,7 +131,7 @@ class ViewTest extends TestCase
     /**
      * @dataProvider getFirstPageLinks
      *
-     * @param string|callback $page_link
+     * @param string|callable $page_link
      * @param string          $first_page_link
      */
     public function testGetFirst($page_link, $first_page_link)
@@ -162,7 +162,7 @@ class ViewTest extends TestCase
     /**
      * @dataProvider getPageLinks
      *
-     * @param string|callback $page_link
+     * @param string|callable $page_link
      */
     public function testGetPrev($page_link)
     {
@@ -188,7 +188,7 @@ class ViewTest extends TestCase
     /**
      * @dataProvider getFirstPageLinks
      *
-     * @param string|callback $page_link
+     * @param string|callable $page_link
      * @param string          $first_page_link
      */
     public function testGetCurrent($page_link, $first_page_link)
@@ -219,7 +219,7 @@ class ViewTest extends TestCase
     /**
      * @dataProvider getPageLinks
      *
-     * @param string|callback $page_link
+     * @param string|callable $page_link
      */
     public function testGetNext($page_link)
     {
@@ -249,7 +249,7 @@ class ViewTest extends TestCase
     /**
      * @dataProvider getPageLinks
      *
-     * @param string|callback $page_link
+     * @param string|callable $page_link
      */
     public function testGetLast($page_link)
     {
