@@ -1,8 +1,19 @@
 <?php
+$header = <<<EOF
+GpsLab component.
+
+@author    Peter Gribanov <info@peter-gribanov.ru>
+@copyright Copyright (c) 2011, Peter Gribanov
+@license   http://opensource.org/licenses/MIT
+EOF;
 
 return PhpCsFixer\Config::create()
     ->setRules([
         '@Symfony' => true,
+        'header_comment' => [
+            'comment_type' => 'PHPDoc',
+            'header' => $header,
+        ],
         'array_syntax' => ['syntax' => 'short'],
         'yoda_style' => false,
         'ordered_imports' => [
