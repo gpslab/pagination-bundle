@@ -154,7 +154,7 @@ class Builder
             return 1;
         }
 
-        if (!ctype_digit($current_page)) {
+        if (!is_int($current_page) && (!is_string($current_page) || !ctype_digit($current_page))) {
             throw IncorrectPageNumberException::incorrect($current_page);
         }
 
