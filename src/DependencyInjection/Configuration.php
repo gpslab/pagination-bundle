@@ -10,6 +10,7 @@
 
 namespace GpsLab\Bundle\PaginationBundle\DependencyInjection;
 
+use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 
@@ -30,19 +31,14 @@ class Configuration implements ConfigurationInterface
             $root = $tree_builder->root('gpslab_pagination');
         }
 
-        $root
-            ->addDefaultsIfNotSet()
-            ->children()
-                ->scalarNode('max_navigate')
-                    ->defaultValue(5)
-                ->end()
-                ->scalarNode('parameter_name')
-                    ->defaultValue('page')
-                ->end()
-                ->scalarNode('template')
-                    ->defaultValue('GpsLabPaginationBundle::pagination.html.twig')
-                ->end()
-            ->end();
+        if (!$root instanceof ArrayNodeDefinition) {
+            throw new \RuntimeException(sprintf('Config root node must be a "Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition", given "%s".', get_class($root)));
+        }
+
+        $root->addDefaultsIfNotSet();
+        $root->children()->scalarNode('max_navigate')->defaultValue(5);
+        $root->children()->scalarNode('parameter_name')->defaultValue('page');
+        $root->children()->scalarNode('template')->defaultValue('GpsLabPaginationBundle::pagination.html.twig');
 
         return $tree_builder;
     }
