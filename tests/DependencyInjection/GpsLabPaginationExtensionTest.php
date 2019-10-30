@@ -31,9 +31,9 @@ class GpsLabPaginationExtensionTest extends TestCase
         $container = new ContainerBuilder();
         $this->extension->load([], $container);
 
-        $this->assertEquals(5, $container->getParameter('pagination.max_navigate'));
-        $this->assertEquals('page', $container->getParameter('pagination.parameter_name'));
-        $this->assertEquals(
+        self::assertEquals(5, $container->getParameter('pagination.max_navigate'));
+        self::assertEquals('page', $container->getParameter('pagination.parameter_name'));
+        self::assertEquals(
             'GpsLabPaginationBundle::pagination.html.twig',
             $container->getParameter('pagination.template')
         );
@@ -41,6 +41,6 @@ class GpsLabPaginationExtensionTest extends TestCase
 
     public function testGetAlias()
     {
-        $this->assertEquals('gpslab_pagination', $this->extension->getAlias());
+        self::assertEquals('gpslab_pagination', $this->extension->getAlias());
     }
 }

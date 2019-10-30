@@ -35,9 +35,9 @@ class PaginationExtensionTest extends TestCase
     {
         $functions = $this->extension->getFunctions();
 
-        $this->assertInternalType('array', $functions);
-        $this->assertEquals(1, count($functions));
-        $this->assertInstanceOf('Twig_SimpleFunction', $functions[0]);
+        self::assertInternalType('array', $functions);
+        self::assertCount(1, $functions);
+        self::assertInstanceOf('Twig_SimpleFunction', $functions[0]);
     }
 
     public function testRender()
@@ -59,7 +59,7 @@ class PaginationExtensionTest extends TestCase
             ->method('getView')
             ->willReturn($view);
 
-        $this->assertEquals($expected, $this->extension->renderPagination(
+        self::assertEquals($expected, $this->extension->renderPagination(
             $env,
             $configuration
         ));
@@ -85,7 +85,7 @@ class PaginationExtensionTest extends TestCase
             ->method('getView')
             ->willReturn($view);
 
-        $this->assertEquals($expected, $this->extension->renderPagination(
+        self::assertEquals($expected, $this->extension->renderPagination(
             $env,
             $configuration,
             $template,
@@ -112,7 +112,7 @@ class PaginationExtensionTest extends TestCase
             ->method('getView')
             ->willReturn($view);
 
-        $this->assertEquals($expected, $this->extension->renderPagination(
+        self::assertEquals($expected, $this->extension->renderPagination(
             $env,
             $configuration,
             null,
@@ -122,6 +122,6 @@ class PaginationExtensionTest extends TestCase
 
     public function testGetName()
     {
-        $this->assertEquals('gpslab_pagination_extension', $this->extension->getName());
+        self::assertEquals('gpslab_pagination_extension', $this->extension->getName());
     }
 }

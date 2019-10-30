@@ -27,7 +27,7 @@ class ConfigurationTest extends TestCase
 
     public function testDefaultPageLink()
     {
-        $this->assertEquals('?page=%d', $this->config->getPageLink());
+        self::assertEquals('?page=%d', $this->config->getPageLink());
     }
 
     /**
@@ -50,8 +50,8 @@ class ConfigurationTest extends TestCase
     public function testConstruct($total_pages, $current_page)
     {
         $config = new Configuration($total_pages, $current_page);
-        $this->assertEquals($total_pages, $config->getTotalPages());
-        $this->assertEquals($current_page, $config->getCurrentPage());
+        self::assertEquals($total_pages, $config->getTotalPages());
+        self::assertEquals($current_page, $config->getCurrentPage());
     }
 
     /**
@@ -63,8 +63,8 @@ class ConfigurationTest extends TestCase
     public function testCreate($total_pages, $current_page)
     {
         $config = Configuration::create($total_pages, $current_page);
-        $this->assertEquals($total_pages, $config->getTotalPages());
-        $this->assertEquals($current_page, $config->getCurrentPage());
+        self::assertEquals($total_pages, $config->getTotalPages());
+        self::assertEquals($current_page, $config->getCurrentPage());
     }
 
     /**
@@ -124,18 +124,18 @@ class ConfigurationTest extends TestCase
      */
     public function testSetGet($default, $new, $getter, $setter)
     {
-        $this->assertEquals($default, call_user_func([$this->config, $getter]));
-        $this->assertEquals($this->config, call_user_func([$this->config, $setter], $new));
-        $this->assertEquals($new, call_user_func([$this->config, $getter]));
+        self::assertEquals($default, call_user_func([$this->config, $getter]));
+        self::assertEquals($this->config, call_user_func([$this->config, $setter], $new));
+        self::assertEquals($new, call_user_func([$this->config, $getter]));
     }
 
     public function testGetView()
     {
         $view = $this->config->getView();
-        $this->assertInstanceOf('GpsLab\Bundle\PaginationBundle\Service\View', $view);
+        self::assertInstanceOf('GpsLab\Bundle\PaginationBundle\Service\View', $view);
 
         // test lazy load
         $this->config->setPageLink('?p=%s');
-        $this->assertEquals($view, $this->config->getView());
+        self::assertEquals($view, $this->config->getView());
     }
 }

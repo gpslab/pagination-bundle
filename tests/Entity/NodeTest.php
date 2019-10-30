@@ -36,8 +36,8 @@ class NodeTest extends TestCase
     public function test($page, $link, $is_current)
     {
         $node = new Node($page, $link, $is_current);
-        $this->assertEquals($page, $node->getPage());
-        $this->assertEquals($link, $node->getLink());
-        $this->assertEquals($is_current, $node->isCurrent());
+        self::assertEquals($page, $node->getPage());
+        self::assertEquals($link, $node->getLink());
+        self::assertEquals($is_current, $node->isCurrent());
     }
 }

@@ -19,7 +19,7 @@ class GpsLabPaginationBundleTest extends TestCase
         $bundle = new GpsLabPaginationBundle();
         $extension = $bundle->getContainerExtension();
 
-        $this->assertInstanceOf(
+        self::assertInstanceOf(
             'GpsLab\Bundle\PaginationBundle\DependencyInjection\GpsLabPaginationExtension',
             $extension
         );

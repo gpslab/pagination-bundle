@@ -23,8 +23,8 @@ class OutOfRangeExceptionTest extends TestCase
 
         $exception = OutOfRangeException::out($current_page, $total_pages);
 
-        $this->assertInstanceOf('GpsLab\Bundle\PaginationBundle\Exception\OutOfRangeException', $exception);
-        $this->assertInstanceOf('Symfony\Component\HttpKernel\Exception\NotFoundHttpException', $exception);
-        $this->assertEquals($message, $exception->getMessage());
+        self::assertInstanceOf('GpsLab\Bundle\PaginationBundle\Exception\OutOfRangeException', $exception);
+        self::assertInstanceOf('Symfony\Component\HttpKernel\Exception\NotFoundHttpException', $exception);
+        self::assertEquals($message, $exception->getMessage());
     }
 }
