@@ -8,8 +8,8 @@
  * @license   http://opensource.org/licenses/MIT
  */
 
-// hook for support PHPUnit 5.7 and newer versions
-// NEXT_MAJOR: remove this hook #21
+// hook for support PHPUnit 5.7 and newer versions #21
+
 namespace {
     use PHPUnit\Framework\TestCase;
 
