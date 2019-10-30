@@ -46,7 +46,7 @@ class ViewTest extends TestCase
         $this->config
             ->expects($this->once())
             ->method('getTotalPages')
-            ->will($this->returnValue('110'))
+            ->willReturn('110')
         ;
 
         $this->assertEquals(110, $this->view->getTotal());
@@ -76,12 +76,12 @@ class ViewTest extends TestCase
         $this->config
             ->expects($this->any())
             ->method('getTotalPages')
-            ->will($this->returnValue(110))
+            ->willReturn(110)
         ;
         $this->config
             ->expects($this->any())
             ->method('getCurrentPage')
-            ->will($this->returnValue($current_page))
+            ->willReturn($current_page)
         ;
 
         $this->assertNull(call_user_func([$this->view, $method]));
@@ -139,15 +139,15 @@ class ViewTest extends TestCase
         $this->config
             ->expects($this->once())
             ->method('getCurrentPage')
-            ->will($this->returnValue(10));
+            ->willReturn(10);
         $this->config
             ->expects($first_page_link ? $this->atLeastOnce() : $this->once())
             ->method('getFirstPageLink')
-            ->will($this->returnValue($first_page_link));
+            ->willReturn($first_page_link);
         $this->config
             ->expects($first_page_link ? $this->never() : $this->atLeastOnce())
             ->method('getPageLink')
-            ->will($this->returnValue($page_link));
+            ->willReturn($page_link);
 
         $node = $this->view->getFirst();
         $this->assertInstanceOf('GpsLab\Bundle\PaginationBundle\Entity\Node', $node);
@@ -169,15 +169,15 @@ class ViewTest extends TestCase
         $this->config
             ->expects($this->atLeastOnce())
             ->method('getCurrentPage')
-            ->will($this->returnValue(5));
+            ->willReturn(5);
         $this->config
             ->expects($this->never())
             ->method('getFirstPageLink')
-            ->will($this->returnValue(''));
+            ->willReturn('');
         $this->config
             ->expects($this->atLeastOnce())
             ->method('getPageLink')
-            ->will($this->returnValue($page_link));
+            ->willReturn($page_link);
 
         $node = $this->view->getPrev();
         $this->assertInstanceOf('GpsLab\Bundle\PaginationBundle\Entity\Node', $node);
@@ -196,15 +196,15 @@ class ViewTest extends TestCase
         $this->config
             ->expects($this->atLeastOnce())
             ->method('getCurrentPage')
-            ->will($this->returnValue(1));
+            ->willReturn(1);
         $this->config
             ->expects($first_page_link ? $this->atLeastOnce() : $this->once())
             ->method('getFirstPageLink')
-            ->will($this->returnValue($first_page_link));
+            ->willReturn($first_page_link);
         $this->config
             ->expects($first_page_link ? $this->never() : $this->atLeastOnce())
             ->method('getPageLink')
-            ->will($this->returnValue($page_link));
+            ->willReturn($page_link);
 
         $node = $this->view->getCurrent();
         $this->assertInstanceOf('GpsLab\Bundle\PaginationBundle\Entity\Node', $node);
@@ -226,19 +226,19 @@ class ViewTest extends TestCase
         $this->config
             ->expects($this->atLeastOnce())
             ->method('getCurrentPage')
-            ->will($this->returnValue(5));
+            ->willReturn(5);
         $this->config
             ->expects($this->atLeastOnce())
             ->method('getTotalPages')
-            ->will($this->returnValue(10));
+            ->willReturn(10);
         $this->config
             ->expects($this->never())
             ->method('getFirstPageLink')
-            ->will($this->returnValue(''));
+            ->willReturn('');
         $this->config
             ->expects($this->atLeastOnce())
             ->method('getPageLink')
-            ->will($this->returnValue($page_link));
+            ->willReturn($page_link);
 
         $node = $this->view->getNext();
         $this->assertInstanceOf('GpsLab\Bundle\PaginationBundle\Entity\Node', $node);
@@ -256,19 +256,19 @@ class ViewTest extends TestCase
         $this->config
             ->expects($this->atLeastOnce())
             ->method('getCurrentPage')
-            ->will($this->returnValue(5));
+            ->willReturn(5);
         $this->config
             ->expects($this->atLeastOnce())
             ->method('getTotalPages')
-            ->will($this->returnValue(10));
+            ->willReturn(10);
         $this->config
             ->expects($this->never())
             ->method('getFirstPageLink')
-            ->will($this->returnValue(''));
+            ->willReturn('');
         $this->config
             ->expects($this->atLeastOnce())
             ->method('getPageLink')
-            ->will($this->returnValue($page_link));
+            ->willReturn($page_link);
 
         $node = $this->view->getLast();
         $this->assertInstanceOf('GpsLab\Bundle\PaginationBundle\Entity\Node', $node);
@@ -377,7 +377,7 @@ class ViewTest extends TestCase
             $this->config
                 ->expects($this->once())
                 ->method('getFirstPageLink')
-                ->will($this->returnValue($first_page_link));
+                ->willReturn($first_page_link);
         } else {
             $this->config
                 ->expects($this->never())
@@ -387,24 +387,24 @@ class ViewTest extends TestCase
         $this->config
             ->expects($this->once())
             ->method('getTotalPages')
-            ->will($this->returnValue($total_pages));
+            ->willReturn($total_pages);
         $this->config
             ->expects($this->atLeastOnce())
             ->method('getCurrentPage')
-            ->will($this->returnValue($current_page));
+            ->willReturn($current_page);
         $this->config
             ->expects($this->atLeastOnce())
             ->method('getPageLink')
-            ->will($this->returnValue($page_link));
+            ->willReturn($page_link);
 
         $this->range
             ->expects($this->once())
             ->method('getLeftOffset')
-            ->will($this->returnValue($left_offset));
+            ->willReturn($left_offset);
         $this->range
             ->expects($this->once())
             ->method('getRightOffset')
-            ->will($this->returnValue($right_offset));
+            ->willReturn($right_offset);
 
         $this->assertEquals($list, $this->view->getIterator());
     }
@@ -414,7 +414,7 @@ class ViewTest extends TestCase
         $this->config
             ->expects($this->once())
             ->method('getTotalPages')
-            ->will($this->returnValue(1));
+            ->willReturn(1);
         $this->config
             ->expects($this->never())
             ->method('getCurrentPage');
