@@ -80,7 +80,7 @@ class Builder
             ->getSingleScalarResult()
         ;
 
-        $total_pages = ceil($total / $per_page);
+        $total_pages = (int) ceil($total / $per_page);
         $current_page = $this->validateCurrentPage($current_page, $total_pages);
 
         $query
@@ -154,12 +154,12 @@ class Builder
             return 1;
         }
 
-        if (!is_numeric($current_page)) {
+        if (!ctype_digit($current_page)) {
             throw IncorrectPageNumberException::incorrect($current_page);
         }
 
         if ($current_page < 1 || $current_page > $total_pages) {
-            throw OutOfRangeException::out($current_page, $total_pages);
+            throw OutOfRangeException::out((int) $current_page, $total_pages);
         }
 
         return (int) $current_page;

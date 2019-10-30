@@ -1,5 +1,5 @@
 parameters:
-    level: 4
+    level: 7
     paths:
         - src
         # require phpstan/phpstan-phpunit and PHP >= 7.0
