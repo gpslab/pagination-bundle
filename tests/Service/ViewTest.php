@@ -373,7 +373,7 @@ class ViewTest extends TestCase
         $left_offset = $current_page - $list->first()->getPage();
         $right_offset = $list->last()->getPage() - $current_page;
 
-        if ($list->first()->getPage() == 1) {
+        if ($list->first()->getPage() === 1) {
             $this->config
                 ->expects($this->once())
                 ->method('getFirstPageLink')

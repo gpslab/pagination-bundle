@@ -9,6 +9,7 @@
 
 namespace GpsLab\Bundle\PaginationBundle\Service;
 
+use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\QueryBuilder;
 use GpsLab\Bundle\PaginationBundle\Exception\IncorrectPageNumberException;
 use GpsLab\Bundle\PaginationBundle\Exception\OutOfRangeException;
@@ -28,14 +29,14 @@ class Builder
      *
      * @var int
      */
-    private $max_navigate = Configuration::DEFAULT_LIST_LENGTH;
+    private $max_navigate;
 
     /**
      * Name of URL parameter for page number.
      *
      * @var string
      */
-    private $parameter_name = 'page';
+    private $parameter_name;
 
     /**
      * @param Router $router         Router service
@@ -67,6 +68,8 @@ class Builder
      * @param QueryBuilder $query        Query for select entities
      * @param int          $per_page     Entities per page
      * @param int          $current_page The current page number
+     *
+     * @throws NonUniqueResultException
      *
      * @return Configuration
      */
@@ -122,6 +125,8 @@ class Builder
      * @param string       $parameter_name Name of URL parameter for page number
      * @param int          $reference_type The type of reference (one of the constants in UrlGeneratorInterface)
      *
+     * @throws NonUniqueResultException
+     *
      * @return Configuration
      */
     public function paginateRequestQuery(
@@ -149,7 +154,7 @@ class Builder
      */
     private function validateCurrentPage($current_page, $total_pages)
     {
-        if (is_null($current_page)) {
+        if ($current_page === null) {
             return 1;
         }
 
