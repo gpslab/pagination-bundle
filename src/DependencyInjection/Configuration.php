@@ -31,9 +31,15 @@ class Configuration implements ConfigurationInterface
             $root = $tree_builder->root('gpslab_pagination');
         }
 
+        // @codeCoverageIgnoreStart
         if (!$root instanceof ArrayNodeDefinition) {
-            throw new \RuntimeException(sprintf('Config root node must be a "Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition", given "%s".', get_class($root)));
+            throw new \RuntimeException(sprintf(
+                'Config root node must be a "%s", given "%s".',
+                'Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition',
+                get_class($root)
+            ));
         }
+        // @codeCoverageIgnoreEnd
 
         $root->addDefaultsIfNotSet();
         $root->children()->scalarNode('max_navigate')->defaultValue(5);
