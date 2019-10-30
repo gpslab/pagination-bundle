@@ -5,6 +5,9 @@ return PhpCsFixer\Config::create()
         '@Symfony' => true,
         'array_syntax' => ['syntax' => 'short'],
         'yoda_style' => false,
+        'ordered_imports' => [
+            'sort_algorithm' => 'alpha',
+        ],
     ])
     ->setFinder(
         PhpCsFixer\Finder::create()

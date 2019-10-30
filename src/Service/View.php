@@ -9,8 +9,8 @@
 
 namespace GpsLab\Bundle\PaginationBundle\Service;
 
-use GpsLab\Bundle\PaginationBundle\Entity\Node;
 use Doctrine\Common\Collections\ArrayCollection;
+use GpsLab\Bundle\PaginationBundle\Entity\Node;
 
 class View implements \IteratorAggregate
 {

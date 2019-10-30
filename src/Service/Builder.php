@@ -9,9 +9,9 @@
 
 namespace GpsLab\Bundle\PaginationBundle\Service;
 
+use Doctrine\ORM\QueryBuilder;
 use GpsLab\Bundle\PaginationBundle\Exception\IncorrectPageNumberException;
 use GpsLab\Bundle\PaginationBundle\Exception\OutOfRangeException;
-use Doctrine\ORM\QueryBuilder;
 use Symfony\Bundle\FrameworkBundle\Routing\Router;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;

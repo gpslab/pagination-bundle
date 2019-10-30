@@ -9,11 +9,11 @@
 
 namespace GpsLab\Bundle\PaginationBundle\Tests\Service;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use GpsLab\Bundle\PaginationBundle\Entity\Node;
 use GpsLab\Bundle\PaginationBundle\Service\Configuration;
 use GpsLab\Bundle\PaginationBundle\Service\NavigateRange;
 use GpsLab\Bundle\PaginationBundle\Service\View;
-use Doctrine\Common\Collections\ArrayCollection;
 use GpsLab\Bundle\PaginationBundle\Tests\TestCase;
 
 class ViewTest extends TestCase
