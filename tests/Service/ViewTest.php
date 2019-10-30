@@ -1,4 +1,5 @@
 <?php
+
 /**
  * GpsLab component.
  *
@@ -9,11 +10,11 @@
 
 namespace GpsLab\Bundle\PaginationBundle\Tests\Service;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use GpsLab\Bundle\PaginationBundle\Entity\Node;
 use GpsLab\Bundle\PaginationBundle\Service\Configuration;
 use GpsLab\Bundle\PaginationBundle\Service\NavigateRange;
 use GpsLab\Bundle\PaginationBundle\Service\View;
-use Doctrine\Common\Collections\ArrayCollection;
 use GpsLab\Bundle\PaginationBundle\Tests\TestCase;
 
 class ViewTest extends TestCase
@@ -373,7 +374,7 @@ class ViewTest extends TestCase
         $left_offset = $current_page - $list->first()->getPage();
         $right_offset = $list->last()->getPage() - $current_page;
 
-        if ($list->first()->getPage() == 1) {
+        if ($list->first()->getPage() === 1) {
             $this->config
                 ->expects($this->once())
                 ->method('getFirstPageLink')

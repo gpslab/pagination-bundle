@@ -1,4 +1,5 @@
 <?php
+
 /**
  * GpsLab component.
  *
@@ -9,9 +10,9 @@
 
 namespace GpsLab\Bundle\PaginationBundle\Tests\Service;
 
-use GpsLab\Bundle\PaginationBundle\Service\Builder;
 use Doctrine\ORM\AbstractQuery;
 use Doctrine\ORM\QueryBuilder;
+use GpsLab\Bundle\PaginationBundle\Service\Builder;
 use GpsLab\Bundle\PaginationBundle\Tests\TestCase;
 use Symfony\Bundle\FrameworkBundle\Routing\Router;
 use Symfony\Component\HttpFoundation\ParameterBag;

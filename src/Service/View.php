@@ -1,4 +1,5 @@
 <?php
+
 /**
  * GpsLab component.
  *
@@ -9,8 +10,8 @@
 
 namespace GpsLab\Bundle\PaginationBundle\Service;
 
-use GpsLab\Bundle\PaginationBundle\Entity\Node;
 use Doctrine\Common\Collections\ArrayCollection;
+use GpsLab\Bundle\PaginationBundle\Entity\Node;
 
 class View implements \IteratorAggregate
 {
@@ -159,7 +160,7 @@ class View implements \IteratorAggregate
                     $this->list->add(new Node(
                         $page,
                         $this->buildLink($page),
-                        $page == $this->config->getCurrentPage()
+                        $page === $this->config->getCurrentPage()
                     ));
                     ++$page;
                 }
@@ -176,14 +177,14 @@ class View implements \IteratorAggregate
      */
     private function buildLink($page)
     {
-        if ($page == 1 && $this->config->getFirstPageLink()) {
+        if ($page === 1 && $this->config->getFirstPageLink()) {
             return $this->config->getFirstPageLink();
         }
 
         if (is_callable($this->config->getPageLink())) {
             return call_user_func($this->config->getPageLink(), $page);
-        } else {
-            return sprintf($this->config->getPageLink(), $page);
         }
+
+        return sprintf($this->config->getPageLink(), $page);
     }
 }
