@@ -55,6 +55,7 @@ before_script:
     - COMPOSER_MEMORY_LIMIT=-1 composer install --prefer-dist --no-interaction --no-scripts --no-progress
 
 script:
+    - vendor/bin/phpstan analyse
     - vendor/bin/phpunit --coverage-clover build/coverage-clover.xml
 
 after_script:
