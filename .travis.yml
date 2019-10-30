@@ -43,7 +43,7 @@ matrix:
           env: TWIG_VERSION=1.*
         - php: 7.0
           env: TWIG_VERSION=2.*
-        - php: 7.0
+        - php: 7.1
           env: PHPSTAN_VERSION=0.11.* PHPSTAN_PHPUNIT_VERSION=0.9.* PHPUNIT_VERSION=6.3.*
 
 before_install:
