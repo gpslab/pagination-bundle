@@ -49,14 +49,14 @@ class PaginationExtensionTest extends TestCase
             ->expects($this->once())
             ->method('render')
             ->with($this->template, ['pagination' => $view])
-            ->will($this->returnValue($expected));
+            ->willReturn($expected);
 
         /* @var $configuration \PHPUnit_Framework_MockObject_MockObject|Configuration */
         $configuration = $this->getMockNoConstructor('GpsLab\Bundle\PaginationBundle\Service\Configuration');
         $configuration
             ->expects($this->once())
             ->method('getView')
-            ->will($this->returnValue($view));
+            ->willReturn($view);
 
         $this->assertEquals($expected, $this->extension->renderPagination(
             $env,
@@ -75,14 +75,14 @@ class PaginationExtensionTest extends TestCase
             ->expects($this->once())
             ->method('render')
             ->with($template, ['pagination' => $view, 'my_params' => 12345])
-            ->will($this->returnValue($expected));
+            ->willReturn($expected);
 
         /* @var $configuration \PHPUnit_Framework_MockObject_MockObject|Configuration */
         $configuration = $this->getMockNoConstructor('GpsLab\Bundle\PaginationBundle\Service\Configuration');
         $configuration
             ->expects($this->once())
             ->method('getView')
-            ->will($this->returnValue($view));
+            ->willReturn($view);
 
         $this->assertEquals($expected, $this->extension->renderPagination(
             $env,
@@ -102,14 +102,14 @@ class PaginationExtensionTest extends TestCase
             ->expects($this->once())
             ->method('render')
             ->with($this->template, ['pagination' => $view])
-            ->will($this->returnValue($expected));
+            ->willReturn($expected);
 
         /* @var $configuration \PHPUnit_Framework_MockObject_MockObject|Configuration */
         $configuration = $this->getMockNoConstructor('GpsLab\Bundle\PaginationBundle\Service\Configuration');
         $configuration
             ->expects($this->once())
             ->method('getView')
-            ->will($this->returnValue($view));
+            ->willReturn($view);
 
         $this->assertEquals($expected, $this->extension->renderPagination(
             $env,

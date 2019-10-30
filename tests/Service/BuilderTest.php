@@ -200,13 +200,13 @@ class BuilderTest extends TestCase
             ->expects($this->at(1))
             ->method('get')
             ->with('_route')
-            ->will($this->returnValue($route))
+            ->willReturn($route)
         ;
         $this->request
             ->expects($this->at(2))
             ->method('get')
             ->with('_route_params')
-            ->will($this->returnValue($route_params))
+            ->willReturn($route_params)
         ;
 
         $that = $this;
@@ -294,13 +294,13 @@ class BuilderTest extends TestCase
             ->expects($this->at(1))
             ->method('get')
             ->with('_route')
-            ->will($this->returnValue($route))
+            ->willReturn($route)
         ;
         $this->request
             ->expects($this->at(2))
             ->method('get')
             ->with('_route_params')
-            ->will($this->returnValue($route_params))
+            ->willReturn($route_params)
         ;
 
         $this->countQuery($total);
@@ -365,7 +365,7 @@ class BuilderTest extends TestCase
             ->expects($this->at(0))
             ->method('get')
             ->with($parameter_name)
-            ->will($this->returnValue($current_page))
+            ->willReturn($current_page)
         ;
     }
 
@@ -377,12 +377,12 @@ class BuilderTest extends TestCase
         $this->query
             ->expects($this->once())
             ->method('getSingleScalarResult')
-            ->will($this->returnValue($total));
+            ->willReturn($total);
 
         $this->query_builder
             ->expects($this->once())
             ->method('getRootAliases')
-            ->will($this->returnValue(['a', 'b']));
+            ->willReturn(['a', 'b']);
         $this->query_builder
             ->expects($this->once())
             ->method('select')
@@ -391,6 +391,6 @@ class BuilderTest extends TestCase
         $this->query_builder
             ->expects($this->once())
             ->method('getQuery')
-            ->will($this->returnValue($this->query));
+            ->willReturn($this->query);
     }
 }
