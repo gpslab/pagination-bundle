@@ -1,4 +1,5 @@
 <?php
+
 /**
  * GpsLab component.
  *
@@ -65,15 +66,15 @@ class NavigateRangeTest extends TestCase
         $this->config
             ->expects($this->exactly(2)) // test cache build result
             ->method('getMaxNavigate')
-            ->will($this->returnValue($max_navigate));
+            ->willReturn($max_navigate);
         $this->config
             ->expects($this->atLeastOnce())
             ->method('getCurrentPage')
-            ->will($this->returnValue($current_page));
+            ->willReturn($current_page);
         $this->config
             ->expects($this->atLeastOnce())
             ->method('getTotalPages')
-            ->will($this->returnValue($total_pages));
+            ->willReturn($total_pages);
 
         $this->assertEquals($left_offset, $this->range->getLeftOffset());
         $this->assertEquals($right_offset, $this->range->getRightOffset());
