@@ -62,7 +62,7 @@ class BuilderTest extends TestCase
     {
         $builder = new Builder($this->router, 5, 'p');
 
-        $this->assertEquals('?p=%d', $builder->paginate(10, 3)->getPageLink());
+        self::assertEquals('?p=%d', $builder->paginate(10, 3)->getPageLink());
     }
 
     /**
@@ -88,9 +88,9 @@ class BuilderTest extends TestCase
         $builder = new Builder($this->router, $max_navigate, 'page');
         $config = $builder->paginate($total_pages, $current_page);
 
-        $this->assertEquals($max_navigate, $config->getMaxNavigate());
-        $this->assertEquals($total_pages, $config->getTotalPages());
-        $this->assertEquals($current_page, $config->getCurrentPage());
+        self::assertEquals($max_navigate, $config->getMaxNavigate());
+        self::assertEquals($total_pages, $config->getTotalPages());
+        self::assertEquals($current_page, $config->getCurrentPage());
     }
 
     /**
@@ -132,9 +132,9 @@ class BuilderTest extends TestCase
         $builder = new Builder($this->router, $max_navigate, 'page');
         $config = $builder->paginateQuery($this->query_builder, $per_page, $current_page);
 
-        $this->assertEquals($max_navigate, $config->getMaxNavigate());
-        $this->assertEquals(ceil($total / $per_page), $config->getTotalPages());
-        $this->assertEquals($current_page, $config->getCurrentPage());
+        self::assertEquals($max_navigate, $config->getMaxNavigate());
+        self::assertEquals(ceil($total / $per_page), $config->getTotalPages());
+        self::assertEquals($current_page, $config->getCurrentPage());
     }
 
     /**
@@ -228,14 +228,14 @@ class BuilderTest extends TestCase
         $builder = new Builder($this->router, $max_navigate, 'page');
         $config = $builder->paginateRequest($this->request, $total_pages, $parameter_name, $reference_type);
 
-        $this->assertEquals($max_navigate, $config->getMaxNavigate());
-        $this->assertEquals($total_pages, $config->getTotalPages());
-        $this->assertEquals(1, $config->getCurrentPage());
+        self::assertEquals($max_navigate, $config->getMaxNavigate());
+        self::assertEquals($total_pages, $config->getTotalPages());
+        self::assertEquals(1, $config->getCurrentPage());
         unset($all_params['p']);
-        $this->assertEquals($route.http_build_query($all_params), $config->getFirstPageLink());
-        $this->assertInstanceOf('Closure', $config->getPageLink());
+        self::assertEquals($route.http_build_query($all_params), $config->getFirstPageLink());
+        self::assertInstanceOf('Closure', $config->getPageLink());
         $page_number = 3;
-        $this->assertEquals(
+        self::assertEquals(
             $route.http_build_query($all_params + [$parameter_name => $page_number]),
             call_user_func($config->getPageLink(), $page_number)
         );
@@ -342,14 +342,14 @@ class BuilderTest extends TestCase
             $reference_type
         );
 
-        $this->assertEquals($max_navigate, $config->getMaxNavigate());
-        $this->assertEquals(ceil($total / $per_page), $config->getTotalPages());
-        $this->assertEquals($current_page, $config->getCurrentPage());
+        self::assertEquals($max_navigate, $config->getMaxNavigate());
+        self::assertEquals(ceil($total / $per_page), $config->getTotalPages());
+        self::assertEquals($current_page, $config->getCurrentPage());
         unset($all_params['p']);
-        $this->assertEquals($route.http_build_query($all_params), $config->getFirstPageLink());
-        $this->assertInstanceOf('Closure', $config->getPageLink());
+        self::assertEquals($route.http_build_query($all_params), $config->getFirstPageLink());
+        self::assertInstanceOf('Closure', $config->getPageLink());
         $page_number = 3;
-        $this->assertEquals(
+        self::assertEquals(
             $route.http_build_query($all_params + [$parameter_name => $page_number]),
             call_user_func($config->getPageLink(), $page_number)
         );

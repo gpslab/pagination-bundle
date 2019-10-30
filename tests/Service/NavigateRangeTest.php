@@ -75,7 +75,7 @@ class NavigateRangeTest extends TestCase
             ->method('getTotalPages')
             ->will($this->returnValue($total_pages));
 
-        $this->assertEquals($left_offset, $this->range->getLeftOffset());
-        $this->assertEquals($right_offset, $this->range->getRightOffset());
+        self::assertEquals($left_offset, $this->range->getLeftOffset());
+        self::assertEquals($right_offset, $this->range->getRightOffset());
     }
 }

@@ -49,7 +49,7 @@ class ViewTest extends TestCase
             ->will($this->returnValue('110'))
         ;
 
-        $this->assertEquals(110, $this->view->getTotal());
+        self::assertEquals(110, $this->view->getTotal());
     }
 
     /**
@@ -84,7 +84,7 @@ class ViewTest extends TestCase
             ->will($this->returnValue($current_page))
         ;
 
-        $this->assertNull(call_user_func([$this->view, $method]));
+        self::assertNull(call_user_func([$this->view, $method]));
     }
 
     /**
@@ -150,12 +150,12 @@ class ViewTest extends TestCase
             ->will($this->returnValue($page_link));
 
         $node = $this->view->getFirst();
-        $this->assertInstanceOf('GpsLab\Bundle\PaginationBundle\Entity\Node', $node);
-        $this->assertEquals(1, $node->getPage());
+        self::assertInstanceOf('GpsLab\Bundle\PaginationBundle\Entity\Node', $node);
+        self::assertEquals(1, $node->getPage());
         if ($first_page_link) {
-            $this->assertEquals($first_page_link, $node->getLink());
+            self::assertEquals($first_page_link, $node->getLink());
         } else {
-            $this->assertEquals($this->getLink($page_link, 1), $node->getLink());
+            self::assertEquals($this->getLink($page_link, 1), $node->getLink());
         }
     }
 
@@ -180,9 +180,9 @@ class ViewTest extends TestCase
             ->will($this->returnValue($page_link));
 
         $node = $this->view->getPrev();
-        $this->assertInstanceOf('GpsLab\Bundle\PaginationBundle\Entity\Node', $node);
-        $this->assertEquals(4, $node->getPage());
-        $this->assertEquals($this->getLink($page_link, 4), $node->getLink());
+        self::assertInstanceOf('GpsLab\Bundle\PaginationBundle\Entity\Node', $node);
+        self::assertEquals(4, $node->getPage());
+        self::assertEquals($this->getLink($page_link, 4), $node->getLink());
     }
 
     /**
@@ -207,12 +207,12 @@ class ViewTest extends TestCase
             ->will($this->returnValue($page_link));
 
         $node = $this->view->getCurrent();
-        $this->assertInstanceOf('GpsLab\Bundle\PaginationBundle\Entity\Node', $node);
-        $this->assertEquals(1, $node->getPage());
+        self::assertInstanceOf('GpsLab\Bundle\PaginationBundle\Entity\Node', $node);
+        self::assertEquals(1, $node->getPage());
         if ($first_page_link) {
-            $this->assertEquals($first_page_link, $node->getLink());
+            self::assertEquals($first_page_link, $node->getLink());
         } else {
-            $this->assertEquals($this->getLink($page_link, 1), $node->getLink());
+            self::assertEquals($this->getLink($page_link, 1), $node->getLink());
         }
     }
 
@@ -241,9 +241,9 @@ class ViewTest extends TestCase
             ->will($this->returnValue($page_link));
 
         $node = $this->view->getNext();
-        $this->assertInstanceOf('GpsLab\Bundle\PaginationBundle\Entity\Node', $node);
-        $this->assertEquals(6, $node->getPage());
-        $this->assertEquals($this->getLink($page_link, 6), $node->getLink());
+        self::assertInstanceOf('GpsLab\Bundle\PaginationBundle\Entity\Node', $node);
+        self::assertEquals(6, $node->getPage());
+        self::assertEquals($this->getLink($page_link, 6), $node->getLink());
     }
 
     /**
@@ -271,9 +271,9 @@ class ViewTest extends TestCase
             ->will($this->returnValue($page_link));
 
         $node = $this->view->getLast();
-        $this->assertInstanceOf('GpsLab\Bundle\PaginationBundle\Entity\Node', $node);
-        $this->assertEquals(10, $node->getPage());
-        $this->assertEquals($this->getLink($page_link, 10), $node->getLink());
+        self::assertInstanceOf('GpsLab\Bundle\PaginationBundle\Entity\Node', $node);
+        self::assertEquals(10, $node->getPage());
+        self::assertEquals($this->getLink($page_link, 10), $node->getLink());
     }
 
     /**
@@ -406,7 +406,7 @@ class ViewTest extends TestCase
             ->method('getRightOffset')
             ->will($this->returnValue($right_offset));
 
-        $this->assertEquals($list, $this->view->getIterator());
+        self::assertEquals($list, $this->view->getIterator());
     }
 
     public function testGetIteratorEmpty()
@@ -432,6 +432,6 @@ class ViewTest extends TestCase
             ->expects($this->never())
             ->method('getRightOffset');
 
-        $this->assertEquals(new ArrayCollection(), $this->view->getIterator());
+        self::assertEquals(new ArrayCollection(), $this->view->getIterator());
     }
 }
