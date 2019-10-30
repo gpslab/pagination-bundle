@@ -43,6 +43,8 @@ matrix:
           env: TWIG_VERSION=1.*
         - php: 7.0
           env: TWIG_VERSION=2.*
+        - php: 7.0
+          env: PHPSTAN_VERSION=0.11.* PHPSTAN_PHPUNIT_VERSION=0.9.* PHPUNIT_VERSION=6.3.*
 
 before_install:
     - if [ -n "$GH_TOKEN" ]; then composer config github-oauth.github.com ${GH_TOKEN}; fi;
@@ -52,10 +54,12 @@ before_script:
     - if [ "$DOCTRINE_VERSION" != "" ]; then composer require "doctrine/orm:${DOCTRINE_VERSION}" --dev --no-update; fi;
     - if [ "$TWIG_VERSION" != "" ]; then composer require "twig/twig:${TWIG_VERSION}" --dev --no-update; fi;
     - if [ "$PHPUNIT_VERSION" != "" ]; then composer require "phpunit/phpunit:${PHPUNIT_VERSION}" --dev --no-update; fi;
+    - if [ "$PHPSTAN_VERSION" != "" ]; then composer require "phpstan/phpstan:${PHPSTAN_VERSION}" --dev --no-update; fi;
+    - if [ "$PHPSTAN_PHPUNIT_VERSION" != "" ]; then composer require "phpstan/phpstan-phpunit:${PHPSTAN_PHPUNIT_VERSION}" --dev --no-update; fi;
     - COMPOSER_MEMORY_LIMIT=-1 composer install --prefer-dist --no-interaction --no-scripts --no-progress
 
 script:
-    - vendor/bin/phpstan analyse
+    - if [ "$PHPSTAN_VERSION" != "" ]; then ./vendor/bin/phpstan analyse; fi;
     - vendor/bin/phpunit --coverage-clover build/coverage-clover.xml
 
 after_script:
