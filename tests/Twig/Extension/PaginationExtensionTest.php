@@ -35,7 +35,7 @@ class PaginationExtensionTest extends TestCase
         $functions = $this->extension->getFunctions();
 
         $this->assertInternalType('array', $functions);
-        $this->assertEquals(1, count($functions));
+        $this->assertCount(1, $functions);
         $this->assertInstanceOf('Twig_SimpleFunction', $functions[0]);
     }
 
