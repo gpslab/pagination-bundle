@@ -213,7 +213,7 @@ class BuilderTest extends TestCase
         $this->router
             ->expects($this->atLeastOnce())
             ->method('generate')
-            ->will($this->returnCallback(function ($_route, $_route_params, $_reference_type) use (
+            ->willReturnCallback(function ($_route, $_route_params, $_reference_type) use (
                 $that,
                 $route,
                 $reference_type
@@ -222,7 +222,7 @@ class BuilderTest extends TestCase
                 $that->assertEquals($route, $_route);
 
                 return $_route.http_build_query($_route_params);
-            }))
+            })
         ;
 
         $builder = new Builder($this->router, $max_navigate, 'page');
@@ -321,7 +321,7 @@ class BuilderTest extends TestCase
         $this->router
             ->expects($this->atLeastOnce())
             ->method('generate')
-            ->will($this->returnCallback(function ($_route, $_route_params, $_reference_type) use (
+            ->willReturnCallback(function ($_route, $_route_params, $_reference_type) use (
                 $that,
                 $route,
                 $reference_type
@@ -330,7 +330,7 @@ class BuilderTest extends TestCase
                 $that->assertEquals($route, $_route);
 
                 return $_route.http_build_query($_route_params);
-            }))
+            })
         ;
 
         $builder = new Builder($this->router, $max_navigate, 'page');
