@@ -120,13 +120,13 @@ class BuilderTest extends TestCase
             ->expects($this->once())
             ->method('setFirstResult')
             ->with(($current_page - 1) * $per_page)
-            ->will($this->returnSelf())
+            ->willReturnSelf()
         ;
         $this->query_builder
             ->expects($this->once())
             ->method('setMaxResults')
             ->with($per_page)
-            ->will($this->returnSelf())
+            ->willReturnSelf()
         ;
 
         $builder = new Builder($this->router, $max_navigate, 'page');
@@ -308,13 +308,13 @@ class BuilderTest extends TestCase
             ->expects($this->once())
             ->method('setFirstResult')
             ->with(($current_page - 1) * $per_page)
-            ->will($this->returnSelf())
+            ->willReturnSelf()
         ;
         $this->query_builder
             ->expects($this->once())
             ->method('setMaxResults')
             ->with($per_page)
-            ->will($this->returnSelf())
+            ->willReturnSelf()
         ;
 
         $that = $this;
@@ -387,7 +387,7 @@ class BuilderTest extends TestCase
             ->expects($this->once())
             ->method('select')
             ->with('COUNT(a)')
-            ->will($this->returnSelf());
+            ->willReturnSelf();
         $this->query_builder
             ->expects($this->once())
             ->method('getQuery')
