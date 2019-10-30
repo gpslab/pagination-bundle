@@ -1,4 +1,5 @@
 <?php
+
 /**
  * GpsLab component.
  *
@@ -9,9 +10,9 @@
 
 namespace GpsLab\Bundle\PaginationBundle\Tests\Service;
 
-use GpsLab\Bundle\PaginationBundle\Service\Builder;
 use Doctrine\ORM\AbstractQuery;
 use Doctrine\ORM\QueryBuilder;
+use GpsLab\Bundle\PaginationBundle\Service\Builder;
 use GpsLab\Bundle\PaginationBundle\Tests\TestCase;
 use Symfony\Bundle\FrameworkBundle\Routing\Router;
 use Symfony\Component\HttpFoundation\ParameterBag;
@@ -120,13 +121,13 @@ class BuilderTest extends TestCase
             ->expects($this->once())
             ->method('setFirstResult')
             ->with(($current_page - 1) * $per_page)
-            ->will($this->returnSelf())
+            ->willReturnSelf()
         ;
         $this->query_builder
             ->expects($this->once())
             ->method('setMaxResults')
             ->with($per_page)
-            ->will($this->returnSelf())
+            ->willReturnSelf()
         ;
 
         $builder = new Builder($this->router, $max_navigate, 'page');
@@ -200,20 +201,20 @@ class BuilderTest extends TestCase
             ->expects($this->at(1))
             ->method('get')
             ->with('_route')
-            ->will($this->returnValue($route))
+            ->willReturn($route)
         ;
         $this->request
             ->expects($this->at(2))
             ->method('get')
             ->with('_route_params')
-            ->will($this->returnValue($route_params))
+            ->willReturn($route_params)
         ;
 
         $that = $this;
         $this->router
             ->expects($this->atLeastOnce())
             ->method('generate')
-            ->will($this->returnCallback(function ($_route, $_route_params, $_reference_type) use (
+            ->willReturnCallback(function ($_route, $_route_params, $_reference_type) use (
                 $that,
                 $route,
                 $reference_type
@@ -222,7 +223,7 @@ class BuilderTest extends TestCase
                 $that->assertEquals($route, $_route);
 
                 return $_route.http_build_query($_route_params);
-            }))
+            })
         ;
 
         $builder = new Builder($this->router, $max_navigate, 'page');
@@ -294,13 +295,13 @@ class BuilderTest extends TestCase
             ->expects($this->at(1))
             ->method('get')
             ->with('_route')
-            ->will($this->returnValue($route))
+            ->willReturn($route)
         ;
         $this->request
             ->expects($this->at(2))
             ->method('get')
             ->with('_route_params')
-            ->will($this->returnValue($route_params))
+            ->willReturn($route_params)
         ;
 
         $this->countQuery($total);
@@ -308,20 +309,20 @@ class BuilderTest extends TestCase
             ->expects($this->once())
             ->method('setFirstResult')
             ->with(($current_page - 1) * $per_page)
-            ->will($this->returnSelf())
+            ->willReturnSelf()
         ;
         $this->query_builder
             ->expects($this->once())
             ->method('setMaxResults')
             ->with($per_page)
-            ->will($this->returnSelf())
+            ->willReturnSelf()
         ;
 
         $that = $this;
         $this->router
             ->expects($this->atLeastOnce())
             ->method('generate')
-            ->will($this->returnCallback(function ($_route, $_route_params, $_reference_type) use (
+            ->willReturnCallback(function ($_route, $_route_params, $_reference_type) use (
                 $that,
                 $route,
                 $reference_type
@@ -330,7 +331,7 @@ class BuilderTest extends TestCase
                 $that->assertEquals($route, $_route);
 
                 return $_route.http_build_query($_route_params);
-            }))
+            })
         ;
 
         $builder = new Builder($this->router, $max_navigate, 'page');
@@ -365,7 +366,7 @@ class BuilderTest extends TestCase
             ->expects($this->at(0))
             ->method('get')
             ->with($parameter_name)
-            ->will($this->returnValue($current_page))
+            ->willReturn($current_page)
         ;
     }
 
@@ -377,20 +378,20 @@ class BuilderTest extends TestCase
         $this->query
             ->expects($this->once())
             ->method('getSingleScalarResult')
-            ->will($this->returnValue($total));
+            ->willReturn($total);
 
         $this->query_builder
             ->expects($this->once())
             ->method('getRootAliases')
-            ->will($this->returnValue(['a', 'b']));
+            ->willReturn(['a', 'b']);
         $this->query_builder
             ->expects($this->once())
             ->method('select')
             ->with('COUNT(a)')
-            ->will($this->returnSelf());
+            ->willReturnSelf();
         $this->query_builder
             ->expects($this->once())
             ->method('getQuery')
-            ->will($this->returnValue($this->query));
+            ->willReturn($this->query);
     }
 }

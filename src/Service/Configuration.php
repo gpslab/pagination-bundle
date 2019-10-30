@@ -1,4 +1,5 @@
 <?php
+
 /**
  * GpsLab component.
  *
@@ -46,7 +47,7 @@ class Configuration
     private $max_navigate = self::DEFAULT_LIST_LENGTH;
 
     /**
-     * @var string|callback
+     * @var string|callable
      */
     private $page_link = self::DEFAULT_PAGE_LINK;
 
@@ -137,7 +138,7 @@ class Configuration
     }
 
     /**
-     * @return string|callback
+     * @return string|callable
      */
     public function getPageLink()
     {
@@ -156,7 +157,7 @@ class Configuration
      * }
      * </code>
      *
-     * @param string|callback $page_link
+     * @param string|callable $page_link
      *
      * @return self
      */
