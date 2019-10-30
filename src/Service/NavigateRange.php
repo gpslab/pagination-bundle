@@ -81,9 +81,9 @@ class NavigateRange
     private function adjustmentLargeLeftOffset()
     {
         if ($this->config->getCurrentPage() - $this->left_offset < 1) {
-            $offset = (int) abs($this->config->getCurrentPage() - 1 - $this->left_offset);
-            $this->left_offset = $this->left_offset - $offset;
-            $this->right_offset = $this->right_offset + $offset;
+            $offset = abs($this->config->getCurrentPage() - 1 - $this->left_offset);
+            $this->left_offset -= $offset;
+            $this->right_offset += $offset;
         }
     }
 
@@ -93,13 +93,13 @@ class NavigateRange
     private function adjustmentLargeRightOffset()
     {
         if ($this->config->getCurrentPage() + $this->right_offset > $this->config->getTotalPages()) {
-            $offset = (int) abs(
+            $offset = abs(
                 $this->config->getTotalPages() -
                 $this->config->getCurrentPage() -
                 $this->right_offset
             );
-            $this->left_offset = $this->left_offset + $offset;
-            $this->right_offset = $this->right_offset - $offset;
+            $this->left_offset += $offset;
+            $this->right_offset -= $offset;
         }
     }
 

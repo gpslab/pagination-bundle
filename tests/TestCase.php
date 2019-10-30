@@ -23,8 +23,7 @@ class TestCase extends \PHPUnit_Framework_TestCase
             ->getMockBuilder($class_name)
             ->disableOriginalConstructor()
             ->disableOriginalClone()
-            ->getMock()
-        ;
+            ->getMock();
     }
 
     /**
@@ -39,7 +38,6 @@ class TestCase extends \PHPUnit_Framework_TestCase
             ->getMockBuilder($class_name)
             ->disableOriginalConstructor()
             ->setMethods($methods)
-            ->getMockForAbstractClass()
-        ;
+            ->getMockForAbstractClass();
     }
 }

@@ -15,7 +15,6 @@ use Doctrine\ORM\QueryBuilder;
 use GpsLab\Bundle\PaginationBundle\Service\Builder;
 use GpsLab\Bundle\PaginationBundle\Tests\TestCase;
 use Symfony\Bundle\FrameworkBundle\Routing\Router;
-use Symfony\Component\HttpFoundation\ParameterBag;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
@@ -25,11 +24,6 @@ class BuilderTest extends TestCase
      * @var \PHPUnit_Framework_MockObject_MockObject|Router
      */
     private $router;
-
-    /**
-     * @var \PHPUnit_Framework_MockObject_MockObject|Request
-     */
-    private $request;
 
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject|AbstractQuery
@@ -42,6 +36,11 @@ class BuilderTest extends TestCase
     private $query_builder;
 
     /**
+     * @var Request
+     */
+    private $request;
+
+    /**
      * @var array
      */
     private $query_params = [
@@ -52,11 +51,10 @@ class BuilderTest extends TestCase
     protected function setUp()
     {
         $this->router = $this->getMockNoConstructor('Symfony\Bundle\FrameworkBundle\Routing\Router');
-        $this->request = $this->getMockNoConstructor('Symfony\Component\HttpFoundation\Request');
         $this->query = $this->getMockAbstract('Doctrine\ORM\AbstractQuery', ['getSingleScalarResult']);
         $this->query_builder = $this->getMockNoConstructor('Doctrine\ORM\QueryBuilder');
 
-        $this->request->query = new ParameterBag($this->query_params);
+        $this->request = new Request($this->query_params);
     }
 
     public function testDefaultPageLink()
@@ -158,7 +156,9 @@ class BuilderTest extends TestCase
      */
     public function testPaginateRequestIncorrectPage()
     {
-        $this->currentPage('foo', 'page');
+        $this->request = new Request(array_merge($this->query_params, [
+            'page' => 'foo',
+        ]));
 
         $builder = new Builder($this->router, 5, 'page');
         $builder->paginateRequest($this->request, 10);
@@ -169,7 +169,9 @@ class BuilderTest extends TestCase
      */
     public function testPaginateRequestLowPageNumber()
     {
-        $this->currentPage(0, 'p');
+        $this->request = new Request(array_merge($this->query_params, [
+            'p' => 0,
+        ]));
 
         $builder = new Builder($this->router, 5, 'page');
         $builder->paginateRequest($this->request, 10, 'p');
@@ -180,7 +182,9 @@ class BuilderTest extends TestCase
      */
     public function testPaginateRequestOutOfRange()
     {
-        $this->currentPage(150, 'p');
+        $this->request = new Request(array_merge($this->query_params, [
+            'p' => 150,
+        ]));
 
         $builder = new Builder($this->router, 5, 'page');
         $builder->paginateRequest($this->request, 10, 'p');
@@ -195,20 +199,12 @@ class BuilderTest extends TestCase
         $route_params = ['foo' => 'baz', '_route_params' => 123];
         $all_params = array_merge($this->query_params, $route_params);
         $reference_type = UrlGeneratorInterface::ABSOLUTE_URL;
-
-        $this->currentPage(null, 'p');
-        $this->request
-            ->expects($this->at(1))
-            ->method('get')
-            ->with('_route')
-            ->willReturn($route)
-        ;
-        $this->request
-            ->expects($this->at(2))
-            ->method('get')
-            ->with('_route_params')
-            ->willReturn($route_params)
-        ;
+        $this->request = new Request(array_merge($this->query_params, [
+            'p' => null,
+        ]), [], [
+            '_route' => $route,
+            '_route_params' => $route_params,
+        ]);
 
         $that = $this;
         $this->router
@@ -247,7 +243,9 @@ class BuilderTest extends TestCase
      */
     public function testPaginateRequesQuerytIncorrectPage()
     {
-        $this->currentPage('foo', 'page');
+        $this->request = new Request(array_merge($this->query_params, [
+            'page' => 'foo',
+        ]));
         $this->countQuery(10);
 
         $builder = new Builder($this->router, 5, 'page');
@@ -259,7 +257,9 @@ class BuilderTest extends TestCase
      */
     public function testPaginateRequestQueryLowPageNumber()
     {
-        $this->currentPage(0, 'p');
+        $this->request = new Request(array_merge($this->query_params, [
+            'p' => 0,
+        ]));
         $this->countQuery(10);
 
         $builder = new Builder($this->router, 5, 'page');
@@ -271,7 +271,9 @@ class BuilderTest extends TestCase
      */
     public function testPaginateRequestQueryOutOfRange()
     {
-        $this->currentPage(150, 'p');
+        $this->request = new Request(array_merge($this->query_params, [
+            'p' => 150,
+        ]));
         $this->countQuery(10);
 
         $builder = new Builder($this->router, 5, 'page');
@@ -289,20 +291,12 @@ class BuilderTest extends TestCase
         $route_params = ['foo' => 'baz', '_route_params'];
         $all_params = array_merge($this->query_params, $route_params);
         $reference_type = UrlGeneratorInterface::ABSOLUTE_URL;
-
-        $this->currentPage($current_page, 'p');
-        $this->request
-            ->expects($this->at(1))
-            ->method('get')
-            ->with('_route')
-            ->willReturn($route)
-        ;
-        $this->request
-            ->expects($this->at(2))
-            ->method('get')
-            ->with('_route_params')
-            ->willReturn($route_params)
-        ;
+        $this->request = new Request(array_merge($this->query_params, [
+            'p' => $current_page,
+        ]), [], [
+            '_route' => $route,
+            '_route_params' => $route_params,
+        ]);
 
         $this->countQuery($total);
         $this->query_builder
@@ -354,20 +348,6 @@ class BuilderTest extends TestCase
             $route.http_build_query($all_params + [$parameter_name => $page_number]),
             call_user_func($config->getPageLink(), $page_number)
         );
-    }
-
-    /**
-     * @param int    $current_page
-     * @param string $parameter_name
-     */
-    private function currentPage($current_page, $parameter_name = 'page')
-    {
-        $this->request
-            ->expects($this->at(0))
-            ->method('get')
-            ->with($parameter_name)
-            ->willReturn($current_page)
-        ;
     }
 
     /**

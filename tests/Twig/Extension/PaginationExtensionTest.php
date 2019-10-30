@@ -19,12 +19,12 @@ class PaginationExtensionTest extends TestCase
     /**
      * @var PaginationExtension
      */
-    protected $extension;
+    private $extension;
 
     /**
      * @var string
      */
-    protected $template = 'foo';
+    private $template = 'foo';
 
     protected function setUp()
     {

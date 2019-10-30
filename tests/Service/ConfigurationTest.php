@@ -18,7 +18,7 @@ class ConfigurationTest extends TestCase
     /**
      * @var Configuration
      */
-    protected $config;
+    private $config;
 
     protected function setUp()
     {
