@@ -20,7 +20,7 @@ class GpsLabPaginationBundle extends Bundle
      */
     public function getContainerExtension()
     {
-        if ($this->extension === null) {
+        if (!($this->extension instanceof GpsLabPaginationExtension)) {
             $this->extension = new GpsLabPaginationExtension();
         }
 
