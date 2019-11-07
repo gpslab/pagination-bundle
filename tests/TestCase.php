@@ -10,12 +10,15 @@
 
 namespace GpsLab\Bundle\PaginationBundle\Tests;
 
-class TestCase extends \PHPUnit_Framework_TestCase
+use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\TestCase as BaseTestCase;
+
+class TestCase extends BaseTestCase
 {
     /**
      * @param string $class_name
      *
-     * @return \PHPUnit_Framework_MockObject_MockObject
+     * @return \PHPUnit_Framework_MockObject_MockObject|MockObject
      */
     protected function getMockNoConstructor($class_name)
     {
@@ -28,9 +31,8 @@ class TestCase extends \PHPUnit_Framework_TestCase
 
     /**
      * @param string $class_name
-     * @param array  $methods
      *
-     * @return \PHPUnit_Framework_MockObject_MockObject
+     * @return \PHPUnit_Framework_MockObject_MockObject|MockObject
      */
     protected function getMockAbstract($class_name, array $methods)
     {
