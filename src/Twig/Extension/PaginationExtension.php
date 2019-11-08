@@ -8,85 +8,71 @@
  * @license   http://opensource.org/licenses/MIT
  */
 
-// hook for support Twig > 2.7
+namespace GpsLab\Bundle\PaginationBundle\Twig\Extension;
 
-namespace
+use GpsLab\Bundle\PaginationBundle\Service\Configuration;
+use Twig\Environment;
+use Twig\Extension\AbstractExtension;
+use Twig\TwigFunction;
+
+class PaginationExtension extends AbstractExtension
 {
-    use Twig\Extension\AbstractExtension;
-    use Twig\TwigFunction;
+    /**
+     * @var string
+     */
+    private $template;
 
-    if (!class_exists('Twig_Extension') && class_exists('Twig\Extension\AbstractExtension')) {
-        class Twig_Extension extends AbstractExtension
-        {
-        }
-    }
-
-    if (!class_exists('Twig_SimpleFunction') && class_exists('Twig\TwigFunction')) {
-        class Twig_SimpleFunction extends TwigFunction
-        {
-        }
-    }
-}
-
-namespace GpsLab\Bundle\PaginationBundle\Twig\Extension
-{
-    use GpsLab\Bundle\PaginationBundle\Service\Configuration;
-
-    class PaginationExtension extends \Twig_Extension
+    /**
+     * @param string $template
+     */
+    public function __construct($template)
     {
-        /**
-         * @var string
-         */
-        private $template;
+        $this->template = $template;
+    }
 
-        /**
-         * @param string $template
-         */
-        public function __construct($template)
-        {
-            $this->template = $template;
-        }
+    /**
+     * @return array
+     */
+    public function getFunctions()
+    {
+        return [
+            new TwigFunction(
+                'pagination_render',
+                [$this, 'renderPagination'],
+                ['is_safe' => ['html'], 'needs_environment' => true]
+            ),
+        ];
+    }
 
-        /**
-         * @return array
-         */
-        public function getFunctions()
-        {
-            return [
-                new \Twig_SimpleFunction(
-                    'pagination_render',
-                    [$this, 'renderPagination'],
-                    ['is_safe' => ['html'], 'needs_environment' => true]
-                ),
-            ];
-        }
+    /**
+     * @param \Twig\Environment $env
+     * @param Configuration     $pagination
+     * @param string            $template
+     * @param array             $view_params
+     *
+     * @throws \Twig\Error\LoaderError
+     * @throws \Twig\Error\RuntimeError
+     * @throws \Twig\Error\SyntaxError
+     *
+     * @return string
+     */
+    public function renderPagination(
+        Environment $env,
+        Configuration $pagination,
+        $template = null,
+        array $view_params = []
+    ) {
+        return $env->render(
+            $template ?: $this->template,
+            array_merge($view_params, ['pagination' => $pagination->getView()])
+        );
+    }
 
-        /**
-         * @param \Twig_Environment $env
-         * @param Configuration     $pagination
-         * @param string            $template
-         * @param array             $view_params
-         *
-         * @return string
-         */
-        public function renderPagination(
-            \Twig_Environment $env,
-            Configuration $pagination,
-            $template = null,
-            array $view_params = []
-        ) {
-            return $env->render(
-                $template ?: $this->template,
-                array_merge($view_params, ['pagination' => $pagination->getView()])
-            );
-        }
-
-        /**
-         * @return string
-         */
-        public function getName()
-        {
-            return 'gpslab_pagination_extension';
-        }
+    /**
+     * @return string
+     */
+    public function getName()
+    {
+        return 'gpslab_pagination_extension';
     }
 }

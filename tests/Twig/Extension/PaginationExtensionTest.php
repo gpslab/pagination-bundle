@@ -37,15 +37,15 @@ class PaginationExtensionTest extends TestCase
 
         self::assertInternalType('array', $functions);
         self::assertCount(1, $functions);
-        self::assertInstanceOf('Twig_SimpleFunction', $functions[0]);
+        self::assertInstanceOf('Twig\TwigFunction', $functions[0]);
     }
 
     public function testRender()
     {
         $expected = 'bar';
         $view = 'baz';
-        /* @var $env \PHPUnit_Framework_MockObject_MockObject|\Twig_Environment */
-        $env = $this->getMockNoConstructor('Twig_Environment');
+        /* @var $env \PHPUnit_Framework_MockObject_MockObject|\Twig\Environment */
+        $env = $this->getMockNoConstructor('Twig\Environment');
         $env
             ->expects($this->once())
             ->method('render')
@@ -70,8 +70,8 @@ class PaginationExtensionTest extends TestCase
         $expected = 'bar';
         $view = 'baz';
         $template = 'my_template';
-        /* @var $env \PHPUnit_Framework_MockObject_MockObject|\Twig_Environment */
-        $env = $this->getMockNoConstructor('Twig_Environment');
+        /* @var $env \PHPUnit_Framework_MockObject_MockObject|\Twig\Environment */
+        $env = $this->getMockNoConstructor('Twig\Environment');
         $env
             ->expects($this->once())
             ->method('render')
@@ -97,8 +97,8 @@ class PaginationExtensionTest extends TestCase
     {
         $expected = 'bar';
         $view = 'baz';
-        /* @var $env \PHPUnit_Framework_MockObject_MockObject|\Twig_Environment */
-        $env = $this->getMockNoConstructor('Twig_Environment');
+        /* @var $env \PHPUnit_Framework_MockObject_MockObject|\Twig\Environment */
+        $env = $this->getMockNoConstructor('Twig\Environment');
         $env
             ->expects($this->once())
             ->method('render')
