@@ -41,28 +41,21 @@ gpslab_pagination:
 ## Simple usage
 
 ```php
+use GpsLab\Bundle\PaginationBundle\Service\Configuration;
+
 class ArticleController extends Controller
 {
-    private const PER_PAGE = 30; // articles per page
+    private const ARTICLES_PER_PAGE = 30;
 
-    public function index(Request $request): Response
+    public function index(ArticleRepository $rep, Configuration $pagination): Response
     {
-        $rep = $this->getDoctrine()->getRepository(Article::class);
-
-        $total = $rep->getTotalPublished();
-        $total_pages = ceil($total / self::PER_PAGE);
-
-        // build pagination
-        $pagination = $this->get('pagination')->paginateRequest($request, $total_pages);
+        $pagination->setTotalPages(ceil($rep->getTotalPublished() / self::ARTICLES_PER_PAGE));
 
         // get articles chunk
-        $articles = $rep->getPublished(
-            self::PER_PAGE, // limit
-            ($pagination->getCurrentPage() - 1) * self::PER_PAGE // offset
-        );
+        $offset = ($pagination->getCurrentPage() - 1) * self::ARTICLES_PER_PAGE;
+        $articles = $rep->getPublished(self::ARTICLES_PER_PAGE, $offset);
 
         return $this->render('AcmeDemoBundle:Article:index.html.twig', [
-            'total' => $total,
             'articles' => $articles,
             'pagination' => $pagination
         ]);

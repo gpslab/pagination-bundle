@@ -3,6 +3,9 @@ services:
         class: GpsLab\Bundle\PaginationBundle\Service\Builder
         arguments: [ '@router', '%pagination.max_navigate%', '%pagination.parameter_name%' ]
 
+    GpsLab\Bundle\PaginationBundle\ParamConverter\PaginationParamConverter:
+        arguments: [ '@router', '%pagination.max_navigate%', '%pagination.parameter_name%' ]
+
     pagination.twig_extension:
         class: GpsLab\Bundle\PaginationBundle\Twig\Extension\PaginationExtension
         arguments: [ '%pagination.template%' ]
