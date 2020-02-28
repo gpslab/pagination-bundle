@@ -43,6 +43,26 @@ matrix:
           env: TWIG_VERSION=1.*
         - php: 7.0
           env: TWIG_VERSION=2.*
+        - php: 5.5
+          dist: trusty
+          env: SENSIO_FRAMEWORK=2.*
+        - php: 5.5
+          dist: trusty
+          env: SENSIO_FRAMEWORK=3.*
+        - php: 5.5
+          dist: trusty
+          env: SENSIO_FRAMEWORK=4.*
+        - php: 5.5
+          dist: trusty
+          env: SENSIO_FRAMEWORK=5.0.*
+        - php: 5.5
+          dist: trusty
+          env: SENSIO_FRAMEWORK=5.1.*
+        - php: 5.5
+          dist: trusty
+          env: SENSIO_FRAMEWORK=5.2.*
+        - php: 7.1
+          env: SENSIO_FRAMEWORK=5.3.*
         - php: 7.1
           env: PHPSTAN_VERSION=0.11.*
 
@@ -50,11 +70,12 @@ before_install:
     - if [ -n "$GH_TOKEN" ]; then composer config github-oauth.github.com ${GH_TOKEN}; fi;
 
 before_script:
-    - if [ "$SYMFONY_VERSION" != "" ]; then composer require "symfony/symfony:${SYMFONY_VERSION}" --dev --no-update; fi;
-    - if [ "$DOCTRINE_VERSION" != "" ]; then composer require "doctrine/orm:${DOCTRINE_VERSION}" --dev --no-update; fi;
-    - if [ "$TWIG_VERSION" != "" ]; then composer require "twig/twig:${TWIG_VERSION}" --dev --no-update; fi;
-    - if [ "$PHPUNIT_VERSION" != "" ]; then composer require "phpunit/phpunit:${PHPUNIT_VERSION}" --dev --no-update; fi;
-    - if [ "$PHPSTAN_VERSION" != "" ]; then composer require "phpstan/phpstan:${PHPSTAN_VERSION}" --dev --no-update; fi;
+    - if [ -n "$SYMFONY_VERSION" ]; then composer require "symfony/symfony:${SYMFONY_VERSION}" --dev --no-update; fi;
+    - if [ -n "$DOCTRINE_VERSION" ]; then composer require "doctrine/orm:${DOCTRINE_VERSION}" --dev --no-update; fi;
+    - if [ -n "$TWIG_VERSION" ]; then composer require "twig/twig:${TWIG_VERSION}" --dev --no-update; fi;
+    - if [ -n "$SENSIO_FRAMEWORK" ]; then composer require "sensio/framework-extra-bundle:${SENSIO_FRAMEWORK}" --dev --no-update; fi;
+    - if [ -n "$PHPUNIT_VERSION" ]; then composer require "phpunit/phpunit:${PHPUNIT_VERSION}" --dev --no-update; fi;
+    - if [ -n "$PHPSTAN_VERSION" ]; then composer require "phpstan/phpstan:${PHPSTAN_VERSION}" --dev --no-update; fi;
     - COMPOSER_MEMORY_LIMIT=-1 composer install --prefer-dist --no-interaction --no-scripts --no-progress
 
 script:
