@@ -84,6 +84,7 @@ Display pagination in template:
  * [From QueryBuilder](docs/from_qb.md)
  * [From HTTP request](docs/from_request.md)
  * [From HTTP request and QueryBuilder](docs/from_request_and_qb.md)
+ * [Page range](docs/page_range.md)
  * [Custom view](docs/custom_view.md)
 
 ## License

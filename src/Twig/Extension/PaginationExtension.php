@@ -49,6 +49,7 @@ class PaginationExtension extends AbstractExtension
      * @param Configuration     $pagination
      * @param string            $template
      * @param array             $view_params
+     * @param int               $max_navigate
      *
      * @throws \Twig\Error\LoaderError
      * @throws \Twig\Error\RuntimeError
@@ -60,11 +61,22 @@ class PaginationExtension extends AbstractExtension
         Environment $env,
         Configuration $pagination,
         $template = null,
-        array $view_params = []
+        array $view_params = [],
+        $max_navigate = 0
     ) {
+        if ($max_navigate > 0) {
+            // not change original object
+            $new_pagination = clone $pagination;
+            $new_pagination->setMaxNavigate($max_navigate);
+
+            $pagination_view = $new_pagination->getView();
+        } else {
+            $pagination_view = $pagination->getView();
+        }
+
         return $env->render(
             $template ?: $this->template,
-            array_merge($view_params, ['pagination' => $pagination->getView()])
+            array_merge($view_params, ['pagination' => $pagination_view])
         );
     }
 
