@@ -120,6 +120,43 @@ class PaginationExtensionTest extends TestCase
         ));
     }
 
+    public function testRenderWithCustomMaxNavigate()
+    {
+        $old_max_navigate = 5;
+        $new_max_navigate = 10;
+        $expected = 'bar';
+
+        $configuration = new Configuration();
+        $configuration->setTotalPages(100);
+        $configuration->setMaxNavigate($old_max_navigate);
+
+        /* @var $env \PHPUnit_Framework_MockObject_MockObject|\Twig\Environment */
+        $env = $this->getMockNoConstructor('Twig\Environment');
+        $env
+            ->expects($this->once())
+            ->method('render')
+            ->willReturnCallback(function ($template, array $context) use ($expected, $configuration, $new_max_navigate) {
+                self::assertSame($this->template, $template);
+                self::assertArrayHasKey('pagination', $context);
+                self::assertSame(['pagination'], array_keys($context), 'Context has only "pagination" key.');
+                $view = $context['pagination'];
+                self::assertInstanceOf('GpsLab\Bundle\PaginationBundle\Service\View', $view);
+                self::assertNotEquals($configuration->getView(), $view);
+                self::assertCount($new_max_navigate, iterator_to_array($view));
+
+                return $expected;
+            });
+
+        self::assertSame($expected, $this->extension->renderPagination(
+            $env,
+            $configuration,
+            null,
+            [],
+            $new_max_navigate
+        ));
+        self::assertSame($old_max_navigate, $configuration->getMaxNavigate(), 'The max navigate is not changed in original object.');
+    }
+
     public function testGetName()
     {
         self::assertEquals('gpslab_pagination_extension', $this->extension->getName());
