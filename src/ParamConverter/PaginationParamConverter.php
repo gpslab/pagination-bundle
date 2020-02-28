@@ -93,8 +93,8 @@ final class PaginationParamConverter implements ParamConverterInterface
         $current_page = $current_page > 1 ? $current_page : 1;
 
         // get routing params
-        $route = $request->get('_route');
-        $route_params = array_merge($request->query->all(), $request->get('_route_params', []));
+        $route = $request->attributes->get('_route');
+        $route_params = array_merge($request->query->all(), $request->attributes->get('_route_params', []));
         unset($route_params[$param_name]);
 
         // impossible resolve total pages here
