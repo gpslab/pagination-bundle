@@ -45,9 +45,6 @@ matrix:
           env: TWIG_VERSION=2.*
         - php: 5.5
           dist: trusty
-          env: SENSIO_FRAMEWORK=2.*
-        - php: 5.5
-          dist: trusty
           env: SENSIO_FRAMEWORK=3.*
         - php: 5.5
           dist: trusty
