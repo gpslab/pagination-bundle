@@ -80,5 +80,7 @@ script:
     - vendor/bin/phpunit --coverage-clover build/coverage-clover.xml
 
 after_script:
-    - vendor/bin/ocular code-coverage:upload --format=php-clover build/coverage-clover.xml
-    - vendor/bin/coveralls -v -c .coveralls.yml
+    - wget https://scrutinizer-ci.com/ocular.phar
+    - wget https://github.com/php-coveralls/php-coveralls/releases/download/v2.2.0/php-coveralls.phar
+    - php ocular.phar code-coverage:upload --format=php-clover build/coverage-clover.xml
+    - php php-coveralls.phar -v -c .coveralls.yml
