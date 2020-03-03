@@ -1,86 +1,132 @@
 language: php
 
-sudo: false
-
-notifications:
-    email: deploy@peter-gribanov.ru
+os: linux
 
 branches:
   except:
     - /^analysis-.*$/
 
-matrix:
-    fast_finish: true
-    include:
-        - php: 7.3
-        - php: 7.2
-        - php: 7.1
-        - php: 7.0
-        - php: 5.6
-        - php: 5.5
-          dist: trusty
-        - php: 5.5
-          dist: trusty
-          env: SYMFONY_VERSION=2.8.*
-        - php: 5.5
-          dist: trusty
-          env: SYMFONY_VERSION=3.4.*
-        - php: 7.1
-          env: SYMFONY_VERSION=4.4.* PHPUNIT_VERSION=6.5.*
-        - php: 7.2
-          env: SYMFONY_VERSION=5.0.* PHPUNIT_VERSION=6.5.*
-        - php: 5.5
-          dist: trusty
-          env: DOCTRINE_VERSION=2.4.*
-        - php: 5.5
-          dist: trusty
-          env: DOCTRINE_VERSION=2.5.*
-        - php: 7.1
-          dist: trusty
-          env: DOCTRINE_VERSION=2.6.*
-        - php: 5.5
-          dist: trusty
-          env: TWIG_VERSION=1.*
-        - php: 7.0
-          env: TWIG_VERSION=2.*
-        - php: 5.5
-          dist: trusty
-          env: SENSIO_FRAMEWORK=3.*
-        - php: 5.5
-          dist: trusty
-          env: SENSIO_FRAMEWORK=4.*
-        - php: 5.5
-          dist: trusty
-          env: SENSIO_FRAMEWORK=5.0.*
-        - php: 5.5
-          dist: trusty
-          env: SENSIO_FRAMEWORK=5.1.*
-        - php: 5.5
-          dist: trusty
-          env: SENSIO_FRAMEWORK=5.2.*
-        - php: 7.1
-          env: SENSIO_FRAMEWORK=5.3.*
-        - php: 7.1
-          env: PHPSTAN_VERSION=0.11.*
+cache:
+    directories:
+        - $HOME/.composer/cache
 
 before_install:
     - if [ -n "$GH_TOKEN" ]; then composer config github-oauth.github.com ${GH_TOKEN}; fi;
-
-before_script:
     - if [ -n "$SYMFONY_VERSION" ]; then composer require "symfony/symfony:${SYMFONY_VERSION}" --dev --no-update; fi;
     - if [ -n "$DOCTRINE_VERSION" ]; then composer require "doctrine/orm:${DOCTRINE_VERSION}" --dev --no-update; fi;
     - if [ -n "$TWIG_VERSION" ]; then composer require "twig/twig:${TWIG_VERSION}" --dev --no-update; fi;
     - if [ -n "$SENSIO_FRAMEWORK" ]; then composer require "sensio/framework-extra-bundle:${SENSIO_FRAMEWORK}" --dev --no-update; fi;
     - if [ -n "$PHPUNIT_VERSION" ]; then composer require "phpunit/phpunit:${PHPUNIT_VERSION}" --dev --no-update; fi;
     - if [ -n "$PHPSTAN_VERSION" ]; then composer require "phpstan/phpstan:${PHPSTAN_VERSION}" --dev --no-update; fi;
-    - COMPOSER_MEMORY_LIMIT=-1 composer install --prefer-dist --no-interaction --no-scripts --no-progress
+
+install: COMPOSER_MEMORY_LIMIT=-1 composer install --prefer-dist --no-interaction --no-scripts --no-progress
 
 script:
-    - if [ "$PHPSTAN_VERSION" != "" ]; then ./vendor/bin/phpstan analyse; fi;
-    - vendor/bin/phpunit --coverage-clover build/coverage-clover.xml
+  - vendor/bin/phpunit --coverage-clover build/coverage-clover.xml
+  - wget https://scrutinizer-ci.com/ocular.phar
+  - wget https://github.com/php-coveralls/php-coveralls/releases/download/v2.2.0/php-coveralls.phar
+  - php ocular.phar code-coverage:upload --format=php-clover build/coverage-clover.xml
+  - php php-coveralls.phar -v -c .coveralls.yml
 
-after_script:
-    - wget https://scrutinizer-ci.com/ocular.phar
-    - wget https://github.com/php-coveralls/php-coveralls/releases/download/v2.2.0/php-coveralls.phar
-    - php ocular.phar code-coverage:upload --format=php-clover build/coverage-clover.xml
-    - php php-coveralls.phar -v -c .coveralls.yml
+jobs:
+    include:
+        - stage: Test
+          php: 5.5
+          dist: trusty
+
+        - stage: Test
+          php: 5.6
+
+        - stage: Test
+          php: 7.0
+
+        - stage: Test
+          php: 7.1
+
+        - stage: Test
+          php: 7.2
+
+        - stage: Test
+          php: 7.3
+
+        - stage: Test Symfony
+          env: SYMFONY_VERSION=2.8.*
+          php: 5.5
+          dist: trusty
+
+        - stage: Test Symfony
+          env: SYMFONY_VERSION=3.4.*
+          php: 5.5
+          dist: trusty
+
+        - stage: Test Symfony
+          env: SYMFONY_VERSION=4.4.* PHPUNIT_VERSION=6.5.*
+          php: 7.1
+
+        - stage: Test Symfony
+          env: SYMFONY_VERSION=5.0.* PHPUNIT_VERSION=6.5.*
+          php: 7.1
+
+        - stage: Test Doctrine
+          env: DOCTRINE_VERSION=2.4.*
+          php: 5.5
+          dist: trusty
+
+        - stage: Test Doctrine
+          env: DOCTRINE_VERSION=2.5.*
+          php: 5.5
+          dist: trusty
+
+        - stage: Test Doctrine
+          env: DOCTRINE_VERSION=2.6.*
+          php: 7.1
+
+        - stage: Test Twig
+          env: TWIG_VERSION=1.*
+          php: 5.5
+          dist: trusty
+
+        - stage: Test Twig
+          env: TWIG_VERSION=2.*
+          php: 7.0
+
+        - stage: Test SensioFrameworkExtraBundle
+          env: SENSIO_FRAMEWORK=3.*
+          php: 5.5
+          dist: trusty
+
+        - stage: Test SensioFrameworkExtraBundle
+          env: SENSIO_FRAMEWORK=4.*
+          php: 5.5
+          dist: trusty
+
+        - stage: Test SensioFrameworkExtraBundle
+          env: SENSIO_FRAMEWORK=5.0.*
+          php: 5.5
+          dist: trusty
+
+        - stage: Test SensioFrameworkExtraBundle
+          env: SENSIO_FRAMEWORK=5.1.*
+          php: 5.5
+          dist: trusty
+
+        - stage: Test SensioFrameworkExtraBundle
+          env: SENSIO_FRAMEWORK=5.2.*
+          php: 5.5
+          dist: trusty
+
+        - stage: Test SensioFrameworkExtraBundle
+          env: SENSIO_FRAMEWORK=5.3.*
+          php: 7.1
+          dist: trusty
+
+        - stage: Code Quality
+          name: PHP CS Fixer
+          before_script: wget https://cs.symfony.com/download/php-cs-fixer-v2.phar -O php-cs-fixer
+          script: php php-cs-fixer fix --diff --dry-run -v
+
+        - stage: Code Quality
+          name: PHPStan
+          php: 7.2
+          env: PHPSTAN_VERSION=0.11.*
+          script: vendor/bin/phpstan analyse

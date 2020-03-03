@@ -1,16 +1,18 @@
-Page range
-==========
+Navigation pages range
+======================
 
 You can customize maximum pages in navigation menu.
 
-## Configuration
+Configuration
+-------------
 
 ```yaml
 gpslab_pagination:
     max_navigate: 10
 ```
 
-## Templates
+Templates
+---------
 
 ```twig
 <nav class="pagination">
@@ -18,13 +20,15 @@ gpslab_pagination:
 </nav>
 ```
 
-## Controller
+Controller
+----------
 
 ```php
 $pagination->setMaxNavigate(10);
 ```
 
-## Annotations
+Annotations
+-----------
 
 ```php
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;

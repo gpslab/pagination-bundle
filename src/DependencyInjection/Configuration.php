@@ -33,11 +33,7 @@ class Configuration implements ConfigurationInterface
 
         // @codeCoverageIgnoreStart
         if (!$root instanceof ArrayNodeDefinition) {
-            throw new \RuntimeException(sprintf(
-                'Config root node must be a "%s", given "%s".',
-                'Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition',
-                get_class($root)
-            ));
+            throw new \RuntimeException(sprintf('Config root node must be a "%s", given "%s".', 'Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition', get_class($root)));
         }
         // @codeCoverageIgnoreEnd
 
