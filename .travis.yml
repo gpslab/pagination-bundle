@@ -65,7 +65,7 @@ jobs:
 
         - stage: Test Symfony
           env: SYMFONY_VERSION=5.0.* PHPUNIT_VERSION=6.5.*
-          php: 7.1
+          php: 7.2
 
         - stage: Test Doctrine
           env: DOCTRINE_VERSION=2.4.*
