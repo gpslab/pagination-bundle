@@ -19,7 +19,7 @@ before_install:
     - if [ -n "$PHPUNIT_VERSION" ]; then composer require "phpunit/phpunit:${PHPUNIT_VERSION}" --dev --no-update; fi;
     - if [ -n "$PHPSTAN_VERSION" ]; then composer require "phpstan/phpstan:${PHPSTAN_VERSION}" --dev --no-update; fi;
 
-install: COMPOSER_MEMORY_LIMIT=-1 travis_wait 30 composer install --prefer-dist --no-interaction --no-scripts --no-progress
+install: COMPOSER_MEMORY_LIMIT=-1 composer install --prefer-dist --no-interaction --no-scripts --no-progress
 
 script:
   - vendor/bin/phpunit --coverage-clover build/coverage-clover.xml
@@ -67,10 +67,11 @@ jobs:
           env: SYMFONY_VERSION=5.0.* PHPUNIT_VERSION=6.5.*
           php: 7.2
 
-        - stage: Test Doctrine
-          env: DOCTRINE_VERSION=2.4.*
-          php: 5.5
-          dist: trusty
+# Temporary not test Doctrine 2.4 because composer time out of execution
+#        - stage: Test Doctrine
+#          env: DOCTRINE_VERSION=2.4.*
+#          php: 5.5
+#          dist: trusty
 
         - stage: Test Doctrine
           env: DOCTRINE_VERSION=2.5.*
