@@ -67,11 +67,10 @@ jobs:
           env: SYMFONY_VERSION=5.0.* PHPUNIT_VERSION=6.5.*
           php: 7.2
 
-# Temporary not test Doctrine 2.4 because composer time out of execution
-#        - stage: Test Doctrine
-#          env: DOCTRINE_VERSION=2.4.*
-#          php: 5.5
-#          dist: trusty
+        - stage: Test Doctrine
+          env: DOCTRINE_VERSION=2.4.*
+          php: 5.5
+          dist: trusty
 
         - stage: Test Doctrine
           env: DOCTRINE_VERSION=2.5.*
