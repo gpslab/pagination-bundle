@@ -44,9 +44,11 @@ jobs:
           php: 7.1
 
         - stage: Test
+          env: PHPUNIT_VERSION=6.5.*
           php: 7.2
 
         - stage: Test
+          env: PHPUNIT_VERSION=6.5.*
           php: 7.3
 
         - stage: Test Symfony
@@ -90,6 +92,10 @@ jobs:
         - stage: Test Twig
           env: TWIG_VERSION=2.*
           php: 7.0
+
+        - stage: Test Twig
+          env: TWIG_VERSION=3.* PHPUNIT_VERSION=6.5.*
+          php: 7.2
 
         - stage: Test SensioFrameworkExtraBundle
           env: SENSIO_FRAMEWORK=3.*
