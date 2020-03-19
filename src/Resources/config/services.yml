@@ -5,6 +5,8 @@ services:
 
     GpsLab\Bundle\PaginationBundle\ParamConverter\PaginationParamConverter:
         arguments: [ '@router', '%pagination.max_navigate%', '%pagination.parameter_name%' ]
+        tags:
+            - { name: request.param_converter, priority: -2, converter: pagination_converter }
 
     pagination.twig_extension:
         class: GpsLab\Bundle\PaginationBundle\Twig\Extension\PaginationExtension
